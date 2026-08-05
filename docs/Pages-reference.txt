@@ -1,0 +1,690 @@
+══════════════════════════════════════════════════════════════════════
+                    VOID GAMES PAGES REFERENCE
+══════════════════════════════════════════════════════════════════════
+
+Total Pages (v1)
+
+Public Pages : 14
+
+User Pages : 5
+
+Admin Pages : 12
+
+Error Pages : 3
+
+Total : 34 Pages
+
+══════════════════════════════════════════════════════════════════════
+PUBLIC PAGES
+══════════════════════════════════════════════════════════════════════
+
+1. HOME
+
+Route
+
+/
+
+Sections
+
+✓ Navbar
+
+✓ Hero Banner
+
+✓ Featured Games
+
+✓ Trending Games
+
+✓ Recently Added
+
+✓ New Releases
+
+✓ Popular Collections
+
+✓ Categories
+
+✓ Latest Fix Articles
+
+✓ Latest Guides
+
+✓ Most Downloaded
+
+✓ Community Section
+
+✓ Newsletter
+
+✓ Footer
+
+--------------------------------------------------------
+
+2. BROWSE GAMES
+
+Route
+
+/games
+
+Sections
+
+✓ Search Bar
+
+✓ Filter Sidebar
+
+✓ Sort Dropdown
+
+✓ Game Grid
+
+✓ Pagination
+
+✓ Inline Advertisement
+
+--------------------------------------------------------
+
+3. GAME DETAILS
+
+Route
+
+/game/:slug
+
+Sections
+
+✓ Game Banner
+
+✓ Cover Image
+
+✓ Game Information
+
+✓ Download Buttons
+
+✓ Download Mirrors
+
+✓ Screenshots Gallery
+
+✓ Trailer
+
+✓ Description
+
+✓ Features
+
+✓ System Requirements
+
+✓ Installation Guide
+
+✓ Version History
+
+✓ Related Games
+
+✓ Comments
+
+✓ Ratings
+
+✓ Report Broken Link
+
+--------------------------------------------------------
+
+4. SEARCH
+
+/search
+
+Sections
+
+✓ Search Results
+
+✓ Filters
+
+✓ Sorting
+
+✓ Pagination
+
+--------------------------------------------------------
+
+5. CATEGORIES
+
+/categories
+
+Sections
+
+✓ Category Cards
+
+✓ Number Of Games
+
+✓ Icons
+
+--------------------------------------------------------
+
+6. SINGLE CATEGORY
+
+/category/:slug
+
+Sections
+
+✓ Category Banner
+
+✓ Game Grid
+
+✓ Pagination
+
+--------------------------------------------------------
+
+7. COLLECTIONS
+
+/collections
+
+Sections
+
+✓ Collection Cards
+
+✓ Featured Collection
+
+--------------------------------------------------------
+
+8. SINGLE COLLECTION
+
+/collection/:slug
+
+Sections
+
+✓ Banner
+
+✓ Description
+
+✓ Games
+
+--------------------------------------------------------
+
+9. FIX CENTER
+
+/fixes
+
+Sections
+
+✓ Search
+
+✓ Latest Fixes
+
+✓ Categories
+
+✓ Popular Fixes
+
+--------------------------------------------------------
+
+10. SINGLE FIX
+
+/fix/:slug
+
+Sections
+
+✓ Problem
+
+✓ Symptoms
+
+✓ Solution
+
+✓ Images
+
+✓ Related Fixes
+
+--------------------------------------------------------
+
+11. GUIDES
+
+/guides
+
+Sections
+
+✓ Featured Guide
+
+✓ Latest Guides
+
+✓ Categories
+
+--------------------------------------------------------
+
+12. SINGLE GUIDE
+
+/guide/:slug
+
+Sections
+
+✓ Thumbnail
+
+✓ Content
+
+✓ Related Guides
+
+--------------------------------------------------------
+
+13. ABOUT
+
+/about
+
+Sections
+
+✓ About Project
+
+✓ Features
+
+✓ Mission
+
+--------------------------------------------------------
+
+14. CONTACT
+
+/contact
+
+Sections
+
+✓ Contact Form
+
+✓ Social Links
+
+--------------------------------------------------------
+
+15. FAQ
+
+/faq
+
+--------------------------------------------------------
+
+16. PRIVACY POLICY
+
+/privacy
+
+--------------------------------------------------------
+
+17. TERMS
+
+/terms
+
+══════════════════════════════════════════════════════════════════════
+USER PAGES
+══════════════════════════════════════════════════════════════════════
+
+18. LOGIN
+
+/login
+
+Google Login
+
+--------------------------------------------------------
+
+19. PROFILE
+
+/profile
+
+Sections
+
+✓ Avatar
+
+✓ User Info
+
+✓ Stats
+
+✓ Favorites
+
+--------------------------------------------------------
+
+20. FAVORITES
+
+/favorites
+
+Sections
+
+✓ Favorite Games
+
+--------------------------------------------------------
+
+21. DOWNLOAD HISTORY
+
+/history
+
+Sections
+
+✓ Download List
+
+--------------------------------------------------------
+
+22. SETTINGS
+
+/settings
+
+Sections
+
+✓ Profile
+
+✓ Password
+
+✓ Notifications
+
+══════════════════════════════════════════════════════════════════════
+ADMIN PANEL
+══════════════════════════════════════════════════════════════════════
+
+Route
+
+/admin
+
+--------------------------------------------------------
+
+Dashboard
+
+--------------------------------------------------------
+
+Games
+
+--------------------------------------------------------
+
+Create Game
+
+--------------------------------------------------------
+
+Edit Game
+
+--------------------------------------------------------
+
+Categories
+
+--------------------------------------------------------
+
+Collections
+
+--------------------------------------------------------
+
+Fix Articles
+
+--------------------------------------------------------
+
+Guides
+
+--------------------------------------------------------
+
+Users
+
+--------------------------------------------------------
+
+Comments
+
+--------------------------------------------------------
+
+Reports
+
+--------------------------------------------------------
+
+Website Settings
+
+══════════════════════════════════════════════════════════════════════
+ERROR PAGES
+══════════════════════════════════════════════════════════════════════
+
+404
+
+500
+
+Maintenance
+
+══════════════════════════════════════════════════════════════════════
+HOME PAGE FLOW
+══════════════════════════════════════════════════════════════════════
+
+Navbar
+
+↓
+
+Hero Slider
+
+↓
+
+Featured Games
+
+↓
+
+Trending Games
+
+↓
+
+Recently Added
+
+↓
+
+Popular Collections
+
+↓
+
+Categories
+
+↓
+
+Latest Fixes
+
+↓
+
+Latest Guides
+
+↓
+
+Most Downloaded
+
+↓
+
+Newsletter
+
+↓
+
+Footer
+
+══════════════════════════════════════════════════════════════════════
+GAME DETAILS FLOW
+══════════════════════════════════════════════════════════════════════
+
+Banner
+
+↓
+
+Cover Image
+
+↓
+
+Game Information
+
+↓
+
+Download Section
+
+↓
+
+Screenshots
+
+↓
+
+Trailer
+
+↓
+
+Requirements
+
+↓
+
+Installation Guide
+
+↓
+
+Version Information
+
+↓
+
+Comments
+
+↓
+
+Related Games
+
+══════════════════════════════════════════════════════════════════════
+USER FLOW
+══════════════════════════════════════════════════════════════════════
+
+Visitor
+
+↓
+
+Browse Website
+
+↓
+
+Open Game
+
+↓
+
+Download
+
+↓
+
+(Optional Login)
+
+↓
+
+Favorite
+
+↓
+
+Comment
+
+↓
+
+Download History
+
+══════════════════════════════════════════════════════════════════════
+ADMIN FLOW
+══════════════════════════════════════════════════════════════════════
+
+Login
+
+↓
+
+Dashboard
+
+↓
+
+Manage Games
+
+↓
+
+Manage Categories
+
+↓
+
+Manage Guides
+
+↓
+
+Manage Users
+
+↓
+
+View Reports
+
+══════════════════════════════════════════════════════════════════════
+RESPONSIVE BREAKPOINTS
+══════════════════════════════════════════════════════════════════════
+
+Desktop
+
+1440px
+
+Laptop
+
+1280px
+
+Tablet
+
+768px
+
+Mobile
+
+480px
+
+══════════════════════════════════════════════════════════════════════
+PAGE PRIORITY
+══════════════════════════════════════════════════════════════════════
+
+PHASE 1
+
+✓ Home
+
+✓ Browse Games
+
+✓ Game Details
+
+✓ Login
+
+✓ Categories
+
+✓ Search
+
+----------------------------------------
+
+PHASE 2
+
+✓ Guides
+
+✓ Fix Center
+
+✓ Favorites
+
+✓ Download History
+
+----------------------------------------
+
+PHASE 3
+
+✓ Admin Dashboard
+
+✓ Collections
+
+✓ Reports
+
+✓ Website Settings
+
+══════════════════════════════════════════════════════════════════════
+
+🔥 One major feature I'd add (better than most gaming sites)
+
+I want Void Games to have a page that very few game download websites implement properly:
+
+🎮 Game Status Page
+
+Route:
+
+/status
+
+Users can instantly see:
+
+🟢 Working Download
+
+🟢 Installation Tested
+
+🟢 All Mirrors Online
+
+🟡 Mirror 2 Slow
+
+🔴 Broken Link
+
+🟢 Windows 11 Tested
+
+🟢 Steam Deck Compatible
+
+🟢 Controller Support
+
+🟢 Multiplayer Working
+
+🟢 Last Checked: 2 hours ago
+
+Each game page would also display this status panel.
+
+Why it's valuable
+
+Many users visit download sites only to discover:
+
+The link is dead.
+The installer is outdated.
+The crack/fix doesn't work.
+No one knows if it works on Windows 11.
+
+A clear status panel lets users know the current state before downloading and makes the site feel much more trustworthy.

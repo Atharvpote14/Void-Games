@@ -1,0 +1,455 @@
+══════════════════════════════════════════════════════════════════════
+                     VOID GAMES PROJECT STRUCTURE
+══════════════════════════════════════════════════════════════════════
+
+Project Name:
+Void Games
+
+Project Type:
+Full Stack Gaming Platform
+
+Frontend:
+React + Vite
+Tailwind CSS
+React Router DOM
+Framer Motion
+Axios
+React Hot Toast
+Lucide React
+
+Backend:
+Node.js
+Express.js
+
+Database:
+Supabase PostgreSQL
+
+Authentication:
+Google OAuth (Supabase Auth)
+
+Image Storage:
+Cloudinary
+
+Game Files:
+TeraBox Share Links
+
+Deployment:
+Frontend -> Vercel
+Backend -> Render
+Database -> Supabase
+
+══════════════════════════════════════════════════════════════════════
+                    COMPLETE FOLDER STRUCTURE
+══════════════════════════════════════════════════════════════════════
+
+void-games/
+
+│
+├── client/
+│
+│   ├── public/
+│   │
+│   ├── src/
+│   │
+│   ├── assets/
+│   │   ├── logos/
+│   │   ├── icons/
+│   │   ├── images/
+│   │   ├── banners/
+│   │   ├── placeholders/
+│   │   └── backgrounds/
+│   │
+│   ├── components/
+│   │
+│   │   ├── common/
+│   │   ├── navbar/
+│   │   ├── footer/
+│   │   ├── buttons/
+│   │   ├── cards/
+│   │   ├── search/
+│   │   ├── hero/
+│   │   ├── category/
+│   │   ├── carousel/
+│   │   ├── download/
+│   │   ├── comments/
+│   │   ├── rating/
+│   │   ├── loading/
+│   │   ├── modal/
+│   │   └── ads/
+│   │
+│   ├── layouts/
+│   │
+│   ├── pages/
+│   │
+│   │   ├── Home/
+│   │   ├── BrowseGames/
+│   │   ├── GameDetails/
+│   │   ├── Categories/
+│   │   ├── Collections/
+│   │   ├── Search/
+│   │   ├── Guides/
+│   │   ├── FixCenter/
+│   │   ├── About/
+│   │   ├── Contact/
+│   │   ├── FAQ/
+│   │   ├── PrivacyPolicy/
+│   │   ├── Terms/
+│   │   ├── Login/
+│   │   ├── Register/
+│   │   ├── Profile/
+│   │   ├── Favorites/
+│   │   ├── DownloadHistory/
+│   │   ├── Settings/
+│   │   ├── NotFound/
+│   │   └── Admin/
+│   │
+│   ├── routes/
+│   │
+│   ├── context/
+│   │
+│   ├── hooks/
+│   │
+│   ├── services/
+│   │
+│   ├── utils/
+│   │
+│   ├── constants/
+│   │
+│   ├── styles/
+│   │
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+│
+│
+├── server/
+│
+│   ├── config/
+│   │
+│   ├── controllers/
+│   │
+│   ├── middleware/
+│   │
+│   ├── routes/
+│   │
+│   ├── services/
+│   │
+│   ├── helpers/
+│   │
+│   ├── utils/
+│   │
+│   ├── validations/
+│   │
+│   ├── uploads/
+│   │
+│   ├── logs/
+│   │
+│   ├── server.js
+│   └── app.js
+│
+│
+├── docs/
+│
+│   ├── UI-reference.txt
+│   ├── Project-structure.txt
+│   ├── Database-schema.txt
+│   ├── API-routes.txt
+│   ├── Components-list.txt
+│   ├── Pages-reference.txt
+│   ├── Admin-reference.txt
+│   ├── SEO-reference.txt
+│   ├── Deployment-guide.txt
+│   └── Roadmap.txt
+│
+│
+├── .env
+├── .gitignore
+├── README.md
+├── package.json
+└── LICENSE
+
+══════════════════════════════════════════════════════════════════════
+                      WEBSITE MODULES
+══════════════════════════════════════════════════════════════════════
+
+PUBLIC
+
+✓ Home
+✓ Browse Games
+✓ Trending
+✓ Latest Games
+✓ Collections
+✓ Categories
+✓ Search
+✓ Game Details
+✓ Guides
+✓ Fix Center
+✓ Contact
+✓ FAQ
+✓ About
+
+══════════════════════════════════════════════════════════════════════
+
+USER
+
+✓ Google Login
+✓ Profile
+✓ Favorites
+✓ Download History
+✓ Settings
+✓ Comments
+✓ Ratings
+✓ Notifications
+
+══════════════════════════════════════════════════════════════════════
+
+ADMIN
+
+✓ Dashboard
+
+✓ Add Game
+
+✓ Edit Game
+
+✓ Delete Game
+
+✓ Add Screenshots
+
+✓ Add Trailer
+
+✓ Add Download Links
+
+✓ Add TeraBox Links
+
+✓ Add Categories
+
+✓ Add Guides
+
+✓ Add Fix Articles
+
+✓ Manage Users
+
+✓ Manage Comments
+
+✓ Analytics
+
+══════════════════════════════════════════════════════════════════════
+
+DOWNLOAD FLOW
+
+User
+
+↓
+
+Game Details
+
+↓
+
+Download Button
+
+↓
+
+(Optional Monetag Page)
+
+↓
+
+Backend logs download
+
+↓
+
+Redirect
+
+↓
+
+TeraBox Download
+
+══════════════════════════════════════════════════════════════════════
+
+SEARCH FLOW
+
+Search Bar
+
+↓
+
+Backend API
+
+↓
+
+Supabase
+
+↓
+
+Results
+
+↓
+
+Game Details
+
+══════════════════════════════════════════════════════════════════════
+
+GAME PAGE
+
+Banner
+
+Cover Image
+
+Gallery
+
+Description
+
+Screenshots
+
+Trailer
+
+System Requirements
+
+Installation Guide
+
+Download Mirrors
+
+Related Games
+
+Comments
+
+Recommended Games
+
+══════════════════════════════════════════════════════════════════════
+
+HOME PAGE
+
+Navbar
+
+Hero Slider
+
+Trending Games
+
+Recently Added
+
+Top Downloads
+
+Categories
+
+Collections
+
+Game Of The Day
+
+Latest Guides
+
+Latest Fixes
+
+Community Section
+
+Newsletter
+
+Footer
+
+══════════════════════════════════════════════════════════════════════
+
+SECURITY
+
+Helmet
+
+Rate Limiting
+
+Input Validation
+
+CORS
+
+Environment Variables
+
+Supabase RLS
+
+JWT (Admin Only)
+
+══════════════════════════════════════════════════════════════════════
+
+PERFORMANCE
+
+Lazy Loading
+
+Image Optimization
+
+Code Splitting
+
+Pagination
+
+Caching
+
+Skeleton Loaders
+
+══════════════════════════════════════════════════════════════════════
+
+ANIMATIONS
+
+Framer Motion
+
+Fade
+
+Slide
+
+Scale
+
+Page Transition
+
+Card Hover
+
+Hero Transition
+
+Smooth Scroll
+
+══════════════════════════════════════════════════════════════════════
+
+SEO
+
+Meta Tags
+
+OpenGraph
+
+Twitter Cards
+
+Sitemap
+
+robots.txt
+
+Structured Data
+
+Canonical URLs
+
+══════════════════════════════════════════════════════════════════════
+
+MONETIZATION
+
+Monetag
+
+Top Banner
+
+Sidebar Banner
+
+Inline Banner
+
+Footer Banner
+
+Future
+
+Donation Page
+
+Premium Membership
+
+Affiliate Links
+
+══════════════════════════════════════════════════════════════════════
+
+VERSION
+
+Void Games v1.0
+
+📌 One change I'd make from the beginning
+
+Instead of putting everything directly inside pages/, I recommend organizing pages by feature as the project grows. For example:
+
+pages/
+├── public/
+├── auth/
+├── user/
+├── admin/
+└── legal/

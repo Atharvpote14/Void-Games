@@ -1,0 +1,517 @@
+══════════════════════════════════════════════════════════════════════
+                  VOID GAMES DEVELOPMENT RULES
+══════════════════════════════════════════════════════════════════════
+
+Project Name
+
+Void Games
+
+Version
+
+1.0
+
+Purpose
+
+These rules define the coding standards,
+folder architecture, naming conventions,
+design consistency, performance standards,
+and best practices for the entire project.
+
+These rules MUST be followed for every page,
+component, API, database query, and feature.
+
+══════════════════════════════════════════════════════════════════════
+GENERAL RULES
+══════════════════════════════════════════════════════════════════════
+
+✔ Always write clean code.
+
+✔ Write production-ready code.
+
+✔ Prioritize readability over clever code.
+
+✔ Never duplicate code.
+
+✔ Reuse components whenever possible.
+
+✔ Keep functions small.
+
+✔ Keep components modular.
+
+✔ Separate UI from business logic.
+
+✔ Never hardcode repeated values.
+
+✔ Use constants instead.
+
+══════════════════════════════════════════════════════════════════════
+PROJECT ARCHITECTURE
+══════════════════════════════════════════════════════════════════════
+
+Frontend
+
+React + Vite
+
+Tailwind CSS
+
+Framer Motion
+
+React Router
+
+Axios
+
+Backend
+
+Node.js
+
+Express.js
+
+Database
+
+Supabase PostgreSQL
+
+Authentication
+
+Supabase Google OAuth
+
+Hosting
+
+Frontend → Vercel
+
+Backend → Render
+
+══════════════════════════════════════════════════════════════════════
+FOLDER RULES
+══════════════════════════════════════════════════════════════════════
+
+Every page
+
+Own folder
+
+Example
+
+pages/
+    Home/
+        Home.jsx
+        Home.css (only if required)
+
+Every reusable component
+
+Own folder
+
+Example
+
+components/
+    GameCard/
+        GameCard.jsx
+
+Never place multiple unrelated components
+inside one file.
+
+══════════════════════════════════════════════════════════════════════
+NAMING CONVENTIONS
+══════════════════════════════════════════════════════════════════════
+
+Components
+
+PascalCase
+
+Example
+
+GameCard.jsx
+
+HeroBanner.jsx
+
+DownloadSection.jsx
+
+------------------------------------
+
+Hooks
+
+useCamelCase
+
+Example
+
+useAuth()
+
+useGames()
+
+useSearch()
+
+------------------------------------
+
+Variables
+
+camelCase
+
+Example
+
+featuredGames
+
+downloadCount
+
+------------------------------------
+
+Functions
+
+camelCase
+
+Example
+
+handleDownload()
+
+fetchGames()
+
+------------------------------------
+
+Constants
+
+UPPER_CASE
+
+Example
+
+MAX_DOWNLOAD_LIMIT
+
+API_BASE_URL
+
+------------------------------------
+
+CSS Classes
+
+Tailwind Utilities
+
+No custom CSS unless required.
+
+══════════════════════════════════════════════════════════════════════
+REACT RULES
+══════════════════════════════════════════════════════════════════════
+
+Use Functional Components
+
+Use Hooks
+
+No Class Components
+
+Use React Router
+
+Use Lazy Loading
+
+Keep JSX clean
+
+Extract repeated JSX into components
+
+Use Context only when necessary
+
+Prefer local state first
+
+══════════════════════════════════════════════════════════════════════
+TAILWIND RULES
+══════════════════════════════════════════════════════════════════════
+
+Use utility classes first.
+
+Avoid custom CSS.
+
+Avoid inline styles.
+
+Maintain spacing consistency.
+
+Use design tokens from UI Reference.
+
+══════════════════════════════════════════════════════════════════════
+BACKEND RULES
+══════════════════════════════════════════════════════════════════════
+
+Controller
+
+↓
+
+Service
+
+↓
+
+Database
+
+Never access database directly
+inside routes.
+
+Always validate input.
+
+Always return consistent JSON.
+
+Use async/await.
+
+Use try/catch.
+
+══════════════════════════════════════════════════════════════════════
+API RESPONSE FORMAT
+══════════════════════════════════════════════════════════════════════
+
+Success
+
+{
+    success: true,
+    message: "",
+    data: {}
+}
+
+----------------------------------------
+
+Error
+
+{
+    success: false,
+    message: "",
+    error: {}
+}
+
+══════════════════════════════════════════════════════════════════════
+DATABASE RULES
+══════════════════════════════════════════════════════════════════════
+
+Use UUID
+
+Use Foreign Keys
+
+Normalize Data
+
+Never duplicate data.
+
+Always use indexes where needed.
+
+Enable Row Level Security.
+
+══════════════════════════════════════════════════════════════════════
+SECURITY RULES
+══════════════════════════════════════════════════════════════════════
+
+Never expose secrets.
+
+Never commit .env
+
+Validate every request.
+
+Use HTTPS.
+
+Protect admin routes.
+
+Sanitize user input.
+
+Escape output where required.
+
+══════════════════════════════════════════════════════════════════════
+ERROR HANDLING
+══════════════════════════════════════════════════════════════════════
+
+Every API
+
+↓
+
+try/catch
+
+Every Page
+
+↓
+
+Error Boundary
+
+Every Form
+
+↓
+
+Validation
+
+Show friendly messages.
+
+Never expose server errors.
+
+══════════════════════════════════════════════════════════════════════
+PERFORMANCE RULES
+══════════════════════════════════════════════════════════════════════
+
+Lazy Load Pages
+
+Memoize expensive components
+
+Use Pagination
+
+Optimize Images
+
+Use Skeleton Loaders
+
+Minimize bundle size
+
+Avoid unnecessary re-renders
+
+══════════════════════════════════════════════════════════════════════
+IMAGE RULES
+══════════════════════════════════════════════════════════════════════
+
+Use WebP where possible
+
+Lazy Load Images
+
+Use responsive sizes
+
+Compress before upload
+
+Always include alt text
+
+══════════════════════════════════════════════════════════════════════
+ACCESSIBILITY
+══════════════════════════════════════════════════════════════════════
+
+Semantic HTML
+
+Keyboard Navigation
+
+ARIA Labels
+
+Visible Focus States
+
+Proper Heading Structure
+
+Sufficient Color Contrast
+
+══════════════════════════════════════════════════════════════════════
+ANIMATIONS
+══════════════════════════════════════════════════════════════════════
+
+Framer Motion Only
+
+Keep animations subtle.
+
+Duration
+
+0.2s–0.5s
+
+Avoid excessive animations.
+
+No autoplay animations on every component.
+
+══════════════════════════════════════════════════════════════════════
+GIT RULES
+══════════════════════════════════════════════════════════════════════
+
+Meaningful commits
+
+Example
+
+feat: add game details page
+
+fix: resolve navbar overflow
+
+refactor: optimize search component
+
+Never push broken code.
+
+Use feature branches.
+
+Merge only after testing.
+
+══════════════════════════════════════════════════════════════════════
+TESTING CHECKLIST
+══════════════════════════════════════════════════════════════════════
+
+Desktop
+
+Laptop
+
+Tablet
+
+Mobile
+
+Chrome
+
+Edge
+
+Firefox
+
+══════════════════════════════════════════════════════════════════════
+CODE QUALITY
+══════════════════════════════════════════════════════════════════════
+
+No duplicated code
+
+No unused imports
+
+No unused variables
+
+No console.log() in production
+
+No commented-out code
+
+No magic numbers
+
+Write self-explanatory code
+
+══════════════════════════════════════════════════════════════════════
+DOCUMENTATION
+══════════════════════════════════════════════════════════════════════
+
+Every feature
+
+↓
+
+Update documentation
+
+Every API
+
+↓
+
+Document request & response
+
+Every database change
+
+↓
+
+Update Database-schema.txt
+
+══════════════════════════════════════════════════════════════════════
+AI CODING RULES
+══════════════════════════════════════════════════════════════════════
+
+When generating code:
+
+✔ Follow Project Structure.
+
+✔ Follow UI Reference.
+
+✔ Follow Brand Guidelines.
+
+✔ Follow Component List.
+
+✔ Follow API Routes.
+
+✔ Follow Database Schema.
+
+✔ Follow Development Rules.
+
+Never generate placeholder code
+unless specifically requested.
+
+Generate scalable and production-ready code.
+
+Prefer reusable components over page-specific implementations.
+
+══════════════════════════════════════════════════════════════════════
+FINAL GOAL
+══════════════════════════════════════════════════════════════════════
+
+Build a premium-quality gaming platform with:
+
+✔ Clean Architecture
+
+✔ Scalable Codebase
+
+✔ Responsive Design
+
+✔ Fast Performance
+
+✔ Modern UI
+
+✔ Maintainable Structure
+
+✔ Professional Development Standards
+
+══════════════════════════════════════════════════════════════════════

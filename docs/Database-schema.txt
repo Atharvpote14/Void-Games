@@ -1,0 +1,566 @@
+══════════════════════════════════════════════════════════════════════
+                    VOID GAMES DATABASE SCHEMA
+══════════════════════════════════════════════════════════════════════
+
+Database
+---------
+Supabase PostgreSQL
+
+Purpose
+-------
+Store users, games, categories, collections,
+download links, comments, ratings, guides,
+fixes, favorites, and analytics.
+
+══════════════════════════════════════════════════════════════════════
+TABLE RELATION
+══════════════════════════════════════════════════════════════════════
+
+Users
+ │
+ ├──────── Favorites
+ │
+ ├──────── Comments
+ │
+ ├──────── Ratings
+ │
+ └──────── Download History
+
+Games
+ │
+ ├──────── Categories
+ │
+ ├──────── Collections
+ │
+ ├──────── Screenshots
+ │
+ ├──────── Download Links
+ │
+ ├──────── Guides
+ │
+ ├──────── Fix Articles
+ │
+ ├──────── Ratings
+ │
+ └──────── Comments
+
+══════════════════════════════════════════════════════════════════════
+1. USERS
+══════════════════════════════════════════════════════════════════════
+
+id (UUID)
+
+google_id
+
+name
+
+username
+
+email
+
+avatar
+
+role
+
+bio
+
+country
+
+created_at
+
+updated_at
+
+-----------------------------------
+
+Role Values
+
+user
+
+admin
+
+══════════════════════════════════════════════════════════════════════
+2. GAMES
+══════════════════════════════════════════════════════════════════════
+
+id (UUID)
+
+title
+
+slug
+
+description
+
+short_description
+
+developer
+
+publisher
+
+release_date
+
+version
+
+game_size
+
+genre_id
+
+collection_id
+
+cover_image
+
+banner_image
+
+trailer_url
+
+system_requirements
+
+installation_guide
+
+status
+
+downloads
+
+views
+
+likes
+
+featured
+
+created_at
+
+updated_at
+
+══════════════════════════════════════════════════════════════════════
+3. CATEGORIES
+══════════════════════════════════════════════════════════════════════
+
+id
+
+name
+
+slug
+
+icon
+
+color
+
+══════════════════════════════════════════════════════════════════════
+4. COLLECTIONS
+══════════════════════════════════════════════════════════════════════
+
+id
+
+title
+
+slug
+
+banner
+
+description
+
+══════════════════════════════════════════════════════════════════════
+5. GAME SCREENSHOTS
+══════════════════════════════════════════════════════════════════════
+
+id
+
+game_id
+
+image_url
+
+display_order
+
+══════════════════════════════════════════════════════════════════════
+6. DOWNLOAD LINKS
+══════════════════════════════════════════════════════════════════════
+
+id
+
+game_id
+
+provider
+
+mirror_name
+
+download_url
+
+version
+
+password
+
+file_size
+
+is_active
+
+══════════════════════════════════════════════════════════════════════
+Provider Values
+══════════════════════════════════════════════════════════════════════
+
+Terabox
+
+Pixeldrain
+
+GoFile
+
+MEGA
+
+Google Drive
+
+MediaFire
+
+══════════════════════════════════════════════════════════════════════
+7. FAVORITES
+══════════════════════════════════════════════════════════════════════
+
+id
+
+user_id
+
+game_id
+
+created_at
+
+══════════════════════════════════════════════════════════════════════
+8. DOWNLOAD HISTORY
+══════════════════════════════════════════════════════════════════════
+
+id
+
+user_id
+
+game_id
+
+downloaded_at
+
+ip_address
+
+══════════════════════════════════════════════════════════════════════
+9. COMMENTS
+══════════════════════════════════════════════════════════════════════
+
+id
+
+user_id
+
+game_id
+
+comment
+
+created_at
+
+updated_at
+
+══════════════════════════════════════════════════════════════════════
+10. RATINGS
+══════════════════════════════════════════════════════════════════════
+
+id
+
+user_id
+
+game_id
+
+rating
+
+created_at
+
+══════════════════════════════════════════════════════════════════════
+Rating Range
+══════════════════════════════════════════════════════════════════════
+
+1
+
+2
+
+3
+
+4
+
+5
+
+══════════════════════════════════════════════════════════════════════
+11. GUIDES
+══════════════════════════════════════════════════════════════════════
+
+id
+
+title
+
+slug
+
+thumbnail
+
+content
+
+author
+
+game_id
+
+created_at
+
+══════════════════════════════════════════════════════════════════════
+12. FIX ARTICLES
+══════════════════════════════════════════════════════════════════════
+
+id
+
+game_id
+
+title
+
+slug
+
+thumbnail
+
+problem
+
+solution
+
+created_at
+
+══════════════════════════════════════════════════════════════════════
+13. GAME TAGS
+══════════════════════════════════════════════════════════════════════
+
+id
+
+game_id
+
+tag_name
+
+══════════════════════════════════════════════════════════════════════
+Examples
+══════════════════════════════════════════════════════════════════════
+
+Open World
+
+Horror
+
+FPS
+
+Action
+
+Adventure
+
+Anime
+
+Co-op
+
+Online
+
+Offline
+
+Controller Support
+
+Single Player
+
+Multiplayer
+
+══════════════════════════════════════════════════════════════════════
+14. ANNOUNCEMENTS
+══════════════════════════════════════════════════════════════════════
+
+id
+
+title
+
+content
+
+created_at
+
+══════════════════════════════════════════════════════════════════════
+15. REPORTS
+══════════════════════════════════════════════════════════════════════
+
+id
+
+user_id
+
+game_id
+
+reason
+
+message
+
+status
+
+created_at
+
+══════════════════════════════════════════════════════════════════════
+16. CONTACT MESSAGES
+══════════════════════════════════════════════════════════════════════
+
+id
+
+name
+
+email
+
+subject
+
+message
+
+created_at
+
+══════════════════════════════════════════════════════════════════════
+17. NEWSLETTER
+══════════════════════════════════════════════════════════════════════
+
+id
+
+email
+
+created_at
+
+══════════════════════════════════════════════════════════════════════
+18. WEBSITE SETTINGS
+══════════════════════════════════════════════════════════════════════
+
+id
+
+website_name
+
+logo
+
+favicon
+
+primary_color
+
+secondary_color
+
+discord_url
+
+reddit_url
+
+youtube_url
+
+telegram_url
+
+copyright
+
+══════════════════════════════════════════════════════════════════════
+RELATIONSHIPS
+══════════════════════════════════════════════════════════════════════
+
+One User
+↓
+
+Many Favorites
+
+Many Comments
+
+Many Ratings
+
+Many Downloads
+
+-------------------------------------
+
+One Category
+
+↓
+
+Many Games
+
+-------------------------------------
+
+One Collection
+
+↓
+
+Many Games
+
+-------------------------------------
+
+One Game
+
+↓
+
+Many Screenshots
+
+Many Download Links
+
+Many Comments
+
+Many Ratings
+
+Many Guides
+
+Many Fixes
+
+══════════════════════════════════════════════════════════════════════
+SEARCH INDEX
+══════════════════════════════════════════════════════════════════════
+
+Game Name
+
+Category
+
+Collection
+
+Tags
+
+Developer
+
+Publisher
+
+══════════════════════════════════════════════════════════════════════
+ADMIN PERMISSIONS
+══════════════════════════════════════════════════════════════════════
+
+Create Game
+
+Edit Game
+
+Delete Game
+
+Upload Images
+
+Manage Users
+
+Manage Guides
+
+Manage Collections
+
+Manage Categories
+
+Manage Comments
+
+Manage Reports
+
+══════════════════════════════════════════════════════════════════════
+SUPABASE STORAGE
+══════════════════════════════════════════════════════════════════════
+
+avatars/
+
+covers/
+
+banners/
+
+screenshots/
+
+logos/
+
+thumbnails/
+
+══════════════════════════════════════════════════════════════════════
+
+⭐ One improvement I'd make
+
+Instead of storing categories directly in the games table as plain text, use foreign keys:
+
+games.category_id
+        ↓
+categories.id
+
+games.collection_id
+        ↓
+collections.id
+
+This makes filtering much faster and avoids duplicate values like:
+
+Action
+action
+ACTION
+
+all being treated as different categories.

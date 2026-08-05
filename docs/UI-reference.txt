@@ -1,0 +1,385 @@
+══════════════════════════════════════════════════════════════
+                VOID GAMES - UI DESIGN SYSTEM v1.0
+══════════════════════════════════════════════════════════════
+
+Project Name:
+Void Games
+
+Design Style:
+Modern Gaming Platform
+Minimal
+Dark Theme
+Glassmorphism
+Neon Accents
+Premium Animations
+
+===========================================================
+PRIMARY COLORS
+===========================================================
+
+Primary Background
+#070B14
+
+Secondary Background
+#0D1321
+
+Card Background
+#131B2E
+
+Navbar
+#090F1E
+
+Sidebar
+#0B1020
+
+Footer
+#060A14
+
+===========================================================
+ACCENT COLORS
+===========================================================
+
+Primary Accent
+Electric Blue
+#2EA8FF
+
+Secondary Accent
+Cyber Purple
+#7B61FF
+
+Success
+#22C55E
+
+Warning
+#F59E0B
+
+Danger
+#EF4444
+
+Premium Gold
+#FFC857
+
+===========================================================
+TEXT COLORS
+===========================================================
+
+Primary Text
+#FFFFFF
+
+Secondary Text
+#B8C1D9
+
+Muted Text
+#8A93A8
+
+Disabled
+#606A80
+
+===========================================================
+BORDER COLORS
+===========================================================
+
+Normal Border
+rgba(255,255,255,0.08)
+
+Hover Border
+#2EA8FF
+
+Glow Border
+rgba(46,168,255,0.35)
+
+===========================================================
+BUTTON COLORS
+===========================================================
+
+Primary Button
+
+Background
+#2EA8FF
+
+Text
+White
+
+Hover
+#1493F7
+
+Shadow
+
+0 0 20px rgba(46,168,255,.35)
+
+-------------------------------------
+
+Secondary Button
+
+Background
+
+Transparent
+
+Border
+
+1px solid rgba(255,255,255,.12)
+
+Hover
+
+rgba(255,255,255,.05)
+
+===========================================================
+GAME CARD
+===========================================================
+
+Background
+#111827
+
+Radius
+18px
+
+Hover Scale
+
+1.04
+
+Hover Shadow
+
+0 20px 40px rgba(0,0,0,.35)
+
+Image Radius
+
+16px
+
+Overlay Gradient
+
+Black
+40%
+to
+Transparent
+
+===========================================================
+GLASS EFFECT
+===========================================================
+
+background:
+rgba(255,255,255,.05)
+
+backdrop-filter:
+blur(20px)
+
+border:
+1px solid rgba(255,255,255,.08)
+
+===========================================================
+GRADIENTS
+===========================================================
+
+Hero
+
+linear-gradient(
+135deg,
+#070B14,
+#101D36,
+#070B14
+)
+
+Buttons
+
+linear-gradient(
+90deg,
+#2EA8FF,
+#7B61FF
+)
+
+Premium Cards
+
+linear-gradient(
+135deg,
+#111827,
+#1A2440
+)
+
+===========================================================
+TYPOGRAPHY
+===========================================================
+
+Primary Font
+
+Poppins
+
+Secondary
+
+Inter
+
+Hero Title
+
+64px
+
+Page Heading
+
+42px
+
+Section Heading
+
+34px
+
+Game Title
+
+22px
+
+Body
+
+16px
+
+Small
+
+14px
+
+===========================================================
+SPACING
+===========================================================
+
+Section Gap
+
+100px
+
+Container Width
+
+1440px
+
+Card Padding
+
+20px
+
+Page Padding
+
+40px
+
+===========================================================
+BORDER RADIUS
+===========================================================
+
+Buttons
+
+14px
+
+Cards
+
+18px
+
+Hero
+
+24px
+
+Inputs
+
+12px
+
+Profile Avatar
+
+50%
+
+===========================================================
+ANIMATIONS
+===========================================================
+
+Hover Scale
+
+1.04
+
+Button Hover
+
+TranslateY(-2px)
+
+Cards
+
+0.3s ease
+
+Page Transition
+
+Framer Motion
+
+0.5s
+
+Navbar Blur
+
+20px
+
+Hero Fade
+
+1s
+
+===========================================================
+SHADOWS
+===========================================================
+
+Cards
+
+0 10px 30px rgba(0,0,0,.35)
+
+Hero
+
+0 20px 60px rgba(0,0,0,.5)
+
+Buttons
+
+0 0 25px rgba(46,168,255,.35)
+
+===========================================================
+ICONS
+===========================================================
+
+Lucide React
+
+Rounded
+
+2px stroke
+
+===========================================================
+SCROLLBAR
+===========================================================
+
+Width
+
+8px
+
+Track
+
+#090F1E
+
+Thumb
+
+#2EA8FF
+
+Hover
+
+#1493F7
+
+===========================================================
+OVERALL FEEL
+===========================================================
+
+Dark
+
+Premium
+
+Minimal
+
+Fast
+
+Modern
+
+Console Inspired
+
+Steam + Epic + PlayStation + Xbox Design Language
+
+Never cluttered
+
+Lots of whitespace
+
+Large game banners
+
+Smooth hover effects
+
+Subtle neon glow
+
+No excessive colors
+
+Only Blue + Purple as primary branding
+
+===========================================================

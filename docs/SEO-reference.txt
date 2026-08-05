@@ -1,0 +1,382 @@
+══════════════════════════════════════════════════════════════════════
+                    VOID GAMES SEO REFERENCE
+══════════════════════════════════════════════════════════════════════
+
+Website Name
+
+Void Games
+
+Domain
+
+TBD
+
+Target Audience
+
+Gamers
+
+PC Gaming
+
+Steam Users
+
+Windows Users
+
+Game Modding Community
+
+══════════════════════════════════════════════════════════════════════
+SEO GOALS
+══════════════════════════════════════════════════════════════════════
+
+Fast Website
+
+SEO Friendly URLs
+
+Rich Snippets
+
+Google Indexing
+
+High Core Web Vitals
+
+Social Sharing Support
+
+══════════════════════════════════════════════════════════════════════
+URL STRUCTURE
+══════════════════════════════════════════════════════════════════════
+
+/
+
+/games
+
+/game/:slug
+
+/categories
+
+/category/:slug
+
+/collections
+
+/collection/:slug
+
+/guides
+
+/guide/:slug
+
+/fixes
+
+/fix/:slug
+
+/search
+
+/about
+
+/contact
+
+/faq
+
+/privacy
+
+/terms
+
+══════════════════════════════════════════════════════════════════════
+SLUG FORMAT
+══════════════════════════════════════════════════════════════════════
+
+Correct
+
+black-myth-wukong
+
+ghost-of-tsushima
+
+god-of-war-ragnarok
+
+Incorrect
+
+Game123
+
+Game_Page
+
+Game Name
+
+══════════════════════════════════════════════════════════════════════
+META TITLE FORMAT
+══════════════════════════════════════════════════════════════════════
+
+Game Name
+
+|
+
+Void Games
+
+Example
+
+Ghost of Tsushima Director's Cut | Void Games
+
+══════════════════════════════════════════════════════════════════════
+META DESCRIPTION
+══════════════════════════════════════════════════════════════════════
+
+120–160 characters
+
+Example
+
+Read game information, system requirements,
+installation guide, troubleshooting tips,
+and download mirror information on Void Games.
+
+══════════════════════════════════════════════════════════════════════
+META KEYWORDS
+══════════════════════════════════════════════════════════════════════
+
+Game Name
+
+Genre
+
+Developer
+
+Publisher
+
+Platform
+
+Version
+
+Guide
+
+Fix
+
+Performance
+
+Compatibility
+
+══════════════════════════════════════════════════════════════════════
+OPEN GRAPH TAGS
+══════════════════════════════════════════════════════════════════════
+
+og:title
+
+og:description
+
+og:image
+
+og:url
+
+og:type
+
+══════════════════════════════════════════════════════════════════════
+TWITTER CARDS
+══════════════════════════════════════════════════════════════════════
+
+summary_large_image
+
+══════════════════════════════════════════════════════════════════════
+FAVICON
+══════════════════════════════════════════════════════════════════════
+
+PNG
+
+SVG
+
+Apple Touch Icon
+
+══════════════════════════════════════════════════════════════════════
+ROBOTS.TXT
+══════════════════════════════════════════════════════════════════════
+
+Allow
+
+/
+
+Disallow
+
+/admin
+
+/login
+
+/settings
+
+/profile
+
+══════════════════════════════════════════════════════════════════════
+SITEMAP
+══════════════════════════════════════════════════════════════════════
+
+Home
+
+Games
+
+Categories
+
+Collections
+
+Guides
+
+Fixes
+
+About
+
+Contact
+
+FAQ
+
+══════════════════════════════════════════════════════════════════════
+SCHEMA MARKUP
+══════════════════════════════════════════════════════════════════════
+
+WebSite
+
+Organization
+
+BreadcrumbList
+
+Article
+
+FAQPage
+
+SearchAction
+
+══════════════════════════════════════════════════════════════════════
+IMAGE OPTIMIZATION
+══════════════════════════════════════════════════════════════════════
+
+WebP
+
+Lazy Loading
+
+Responsive Images
+
+Alt Text
+
+Compressed Images
+
+══════════════════════════════════════════════════════════════════════
+PERFORMANCE TARGETS
+══════════════════════════════════════════════════════════════════════
+
+Lighthouse
+
+95+
+
+Largest Contentful Paint
+
+< 2.5s
+
+First Contentful Paint
+
+< 1.8s
+
+CLS
+
+< 0.1
+
+INP
+
+Excellent
+
+══════════════════════════════════════════════════════════════════════
+SOCIAL SHARE
+══════════════════════════════════════════════════════════════════════
+
+Discord
+
+WhatsApp
+
+Telegram
+
+Reddit
+
+Facebook
+
+X
+
+══════════════════════════════════════════════════════════════════════
+GOOGLE TOOLS
+══════════════════════════════════════════════════════════════════════
+
+Google Search Console
+
+Google Analytics
+
+Google Tag Manager
+
+Bing Webmaster Tools
+
+══════════════════════════════════════════════════════════════════════
+CONTENT STRATEGY
+══════════════════════════════════════════════════════════════════════
+
+Game Guides
+
+Performance Tips
+
+Crash Fixes
+
+Graphics Optimization
+
+Controller Support
+
+Steam Deck Compatibility
+
+Windows Compatibility
+
+══════════════════════════════════════════════════════════════════════
+INTERNAL LINKING
+══════════════════════════════════════════════════════════════════════
+
+Game
+
+↓
+
+Related Games
+
+↓
+
+Related Guides
+
+↓
+
+Related Fixes
+
+↓
+
+Collections
+
+══════════════════════════════════════════════════════════════════════
+404 PAGE
+══════════════════════════════════════════════════════════════════════
+
+Friendly Message
+
+Search Bar
+
+Popular Games
+
+Return Home Button
+
+══════════════════════════════════════════════════════════════════════
+
+⭐ Extra document I think we should add
+
+Before the roadmap, I think we're missing something even more important:
+
+Features-reference.txt
+
+This would be a master list of every feature in the project.
+
+Example sections:
+
+Authentication
+Downloads
+Search
+Admin
+Analytics
+User Profile
+Comments
+Ratings
+Collections
+Guides
+Fix Center
+Notifications
+Advertisements
+Game Requests
+Newsletter
+Future Features (v2/v3)
+
+This becomes your checklist during development. As you finish a feature, you simply mark it complete.

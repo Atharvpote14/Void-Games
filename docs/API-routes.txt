@@ -1,0 +1,624 @@
+══════════════════════════════════════════════════════════════════════
+                        VOID GAMES API ROUTES
+══════════════════════════════════════════════════════════════════════
+
+Base URL
+
+/api/v1
+
+══════════════════════════════════════════════════════════════════════
+AUTHENTICATION
+══════════════════════════════════════════════════════════════════════
+
+POST
+
+/auth/google
+
+Purpose
+
+Login using Google OAuth
+
+----------------------------------------
+
+GET
+
+/auth/user
+
+Purpose
+
+Get current logged-in user
+
+----------------------------------------
+
+POST
+
+/auth/logout
+
+Purpose
+
+Logout user
+
+══════════════════════════════════════════════════════════════════════
+USERS
+══════════════════════════════════════════════════════════════════════
+
+GET
+
+/users/profile
+
+Get profile
+
+----------------------------------------
+
+PATCH
+
+/users/profile
+
+Update profile
+
+----------------------------------------
+
+GET
+
+/users/favorites
+
+Get favorites
+
+----------------------------------------
+
+POST
+
+/users/favorites
+
+Add favorite
+
+----------------------------------------
+
+DELETE
+
+/users/favorites/:gameId
+
+Remove favorite
+
+----------------------------------------
+
+GET
+
+/users/download-history
+
+Download history
+
+══════════════════════════════════════════════════════════════════════
+GAMES
+══════════════════════════════════════════════════════════════════════
+
+GET
+
+/games
+
+Get all games
+
+Supports
+
+page
+
+limit
+
+search
+
+category
+
+collection
+
+sort
+
+featured
+
+----------------------------------------
+
+GET
+
+/games/:slug
+
+Get single game
+
+----------------------------------------
+
+GET
+
+/games/trending
+
+Trending games
+
+----------------------------------------
+
+GET
+
+/games/latest
+
+Latest games
+
+----------------------------------------
+
+GET
+
+/games/popular
+
+Popular games
+
+----------------------------------------
+
+GET
+
+/games/featured
+
+Featured games
+
+----------------------------------------
+
+GET
+
+/games/recommended
+
+Recommended games
+
+══════════════════════════════════════════════════════════════════════
+SEARCH
+══════════════════════════════════════════════════════════════════════
+
+GET
+
+/search
+
+Parameters
+
+keyword
+
+category
+
+year
+
+platform
+
+genre
+
+══════════════════════════════════════════════════════════════════════
+DOWNLOADS
+══════════════════════════════════════════════════════════════════════
+
+GET
+
+/download/:gameId
+
+Purpose
+
+Fetch download mirrors
+
+----------------------------------------
+
+POST
+
+/download/start
+
+Purpose
+
+Log download
+
+----------------------------------------
+
+GET
+
+/download/redirect/:id
+
+Purpose
+
+Redirect user
+
+↓
+
+Monetag (optional)
+
+↓
+
+TeraBox
+
+══════════════════════════════════════════════════════════════════════
+CATEGORIES
+══════════════════════════════════════════════════════════════════════
+
+GET
+
+/categories
+
+All categories
+
+----------------------------------------
+
+GET
+
+/categories/:slug
+
+Games inside category
+
+══════════════════════════════════════════════════════════════════════
+COLLECTIONS
+══════════════════════════════════════════════════════════════════════
+
+GET
+
+/collections
+
+All collections
+
+----------------------------------------
+
+GET
+
+/collections/:slug
+
+Single collection
+
+══════════════════════════════════════════════════════════════════════
+GUIDES
+══════════════════════════════════════════════════════════════════════
+
+GET
+
+/guides
+
+All guides
+
+----------------------------------------
+
+GET
+
+/guides/:slug
+
+Single guide
+
+══════════════════════════════════════════════════════════════════════
+FIX CENTER
+══════════════════════════════════════════════════════════════════════
+
+GET
+
+/fixes
+
+All fixes
+
+----------------------------------------
+
+GET
+
+/fixes/:slug
+
+Single fix article
+
+══════════════════════════════════════════════════════════════════════
+COMMENTS
+══════════════════════════════════════════════════════════════════════
+
+GET
+
+/comments/:gameId
+
+All comments
+
+----------------------------------------
+
+POST
+
+/comments
+
+Add comment
+
+----------------------------------------
+
+PATCH
+
+/comments/:id
+
+Edit comment
+
+----------------------------------------
+
+DELETE
+
+/comments/:id
+
+Delete comment
+
+══════════════════════════════════════════════════════════════════════
+RATINGS
+══════════════════════════════════════════════════════════════════════
+
+POST
+
+/ratings
+
+Rate game
+
+----------------------------------------
+
+GET
+
+/ratings/:gameId
+
+Average rating
+
+══════════════════════════════════════════════════════════════════════
+REPORTS
+══════════════════════════════════════════════════════════════════════
+
+POST
+
+/reports
+
+Broken link
+
+Wrong version
+
+Virus report
+
+Game issue
+
+══════════════════════════════════════════════════════════════════════
+CONTACT
+══════════════════════════════════════════════════════════════════════
+
+POST
+
+/contact
+
+Send message
+
+══════════════════════════════════════════════════════════════════════
+NEWSLETTER
+══════════════════════════════════════════════════════════════════════
+
+POST
+
+/newsletter
+
+Subscribe email
+
+══════════════════════════════════════════════════════════════════════
+ADMIN
+══════════════════════════════════════════════════════════════════════
+
+Admin Only
+
+GET
+
+/admin/dashboard
+
+Dashboard
+
+----------------------------------------
+
+POST
+
+/admin/games
+
+Create game
+
+----------------------------------------
+
+PATCH
+
+/admin/games/:id
+
+Update game
+
+----------------------------------------
+
+DELETE
+
+/admin/games/:id
+
+Delete game
+
+----------------------------------------
+
+POST
+
+/admin/screenshots
+
+Upload screenshots
+
+----------------------------------------
+
+POST
+
+/admin/banner
+
+Upload banner
+
+----------------------------------------
+
+POST
+
+/admin/download-link
+
+Add download mirror
+
+----------------------------------------
+
+POST
+
+/admin/category
+
+Create category
+
+----------------------------------------
+
+PATCH
+
+/admin/category/:id
+
+Update category
+
+----------------------------------------
+
+DELETE
+
+/admin/category/:id
+
+Delete category
+
+----------------------------------------
+
+POST
+
+/admin/collection
+
+Create collection
+
+----------------------------------------
+
+POST
+
+/admin/fix
+
+Create fix article
+
+----------------------------------------
+
+POST
+
+/admin/guide
+
+Create guide
+
+----------------------------------------
+
+DELETE
+
+/admin/comment/:id
+
+Delete comment
+
+----------------------------------------
+
+GET
+
+/admin/users
+
+All users
+
+----------------------------------------
+
+PATCH
+
+/admin/user/:id
+
+Ban / Unban user
+
+══════════════════════════════════════════════════════════════════════
+ANALYTICS
+══════════════════════════════════════════════════════════════════════
+
+GET
+
+/stats/home
+
+Homepage statistics
+
+----------------------------------------
+
+GET
+
+/stats/downloads
+
+Downloads
+
+----------------------------------------
+
+GET
+
+/stats/popular
+
+Popular games
+
+══════════════════════════════════════════════════════════════════════
+RESPONSE FORMAT
+══════════════════════════════════════════════════════════════════════
+
+SUCCESS
+
+{
+    success: true,
+    message: "",
+    data: {}
+}
+
+----------------------------------------
+
+ERROR
+
+{
+    success: false,
+    message: "",
+    error: {}
+}
+
+══════════════════════════════════════════════════════════════════════
+STATUS CODES
+══════════════════════════════════════════════════════════════════════
+
+200 OK
+
+201 Created
+
+400 Bad Request
+
+401 Unauthorized
+
+403 Forbidden
+
+404 Not Found
+
+500 Server Error
+
+══════════════════════════════════════════════════════════════════════
+API VERSION
+
+v1
+
+Future
+
+/api/v2
+
+══════════════════════════════════════════════════════════════════════
+
+📌 One feature I'd add from the beginning
+
+Instead of storing the actual TeraBox URL directly in the frontend, use a redirect API.
+
+Instead of:
+
+User
+↓
+TeraBox Link
+
+Use:
+
+User
+↓
+GET /download/redirect/842
+↓
+Backend checks:
+• Link is active?
+• Count download
+• Log analytics
+• Optional Monetag redirect
+↓
+Redirect to TeraBox
+
+This gives you several advantages:
+
+✅ You can change download links without updating the frontend.
+✅ Track download counts accurately.
+✅ Disable broken or removed links instantly.
+✅ Show multiple mirrors (TeraBox, Pixeldrain, GoFile).
+✅ Integrate Monetag or another ad service later without changing the frontend.

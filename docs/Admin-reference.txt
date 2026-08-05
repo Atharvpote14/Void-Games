@@ -1,0 +1,542 @@
+══════════════════════════════════════════════════════════════════════
+                    VOID GAMES ADMIN PANEL
+══════════════════════════════════════════════════════════════════════
+
+Panel Name
+
+Void Games Admin Dashboard
+
+Route
+
+/admin
+
+Access
+
+Admin Only
+
+Authentication
+
+Google OAuth
++
+Role = Admin
+
+══════════════════════════════════════════════════════════════════════
+ADMIN SIDEBAR
+══════════════════════════════════════════════════════════════════════
+
+🏠 Dashboard
+
+🎮 Games
+
+📂 Categories
+
+📚 Collections
+
+📰 Guides
+
+🛠 Fix Center
+
+🖼 Media Library
+
+💬 Comments
+
+⭐ Reviews
+
+🚩 Reports
+
+👤 Users
+
+📊 Analytics
+
+📢 Announcements
+
+⚙ Website Settings
+
+🚪 Logout
+
+══════════════════════════════════════════════════════════════════════
+DASHBOARD
+══════════════════════════════════════════════════════════════════════
+
+Quick Statistics
+
+Total Games
+
+Total Users
+
+Downloads Today
+
+Downloads This Month
+
+Total Downloads
+
+Latest Comments
+
+Pending Reports
+
+Newest Users
+
+Popular Games
+
+Quick Actions
+
+Add Game
+
+Add Guide
+
+Add Fix
+
+Create Announcement
+
+══════════════════════════════════════════════════════════════════════
+GAMES
+══════════════════════════════════════════════════════════════════════
+
+Game Table
+
+Cover
+
+Title
+
+Version
+
+Genre
+
+Downloads
+
+Views
+
+Featured
+
+Status
+
+Actions
+
+Search
+
+Filter
+
+Sort
+
+Pagination
+
+══════════════════════════════════════════════════════════════════════
+CREATE GAME
+══════════════════════════════════════════════════════════════════════
+
+Game Name
+
+Slug
+
+Description
+
+Short Description
+
+Developer
+
+Publisher
+
+Release Date
+
+Version
+
+Genre
+
+Collection
+
+Game Size
+
+Platform
+
+Game Status
+
+Cover Image
+
+Banner Image
+
+Screenshots
+
+Trailer URL
+
+System Requirements
+
+Installation Guide
+
+Download Mirrors
+
+Tags
+
+Featured
+
+Publish
+
+Draft
+
+══════════════════════════════════════════════════════════════════════
+DOWNLOAD MIRRORS
+══════════════════════════════════════════════════════════════════════
+
+Mirror Name
+
+Provider
+
+Download URL
+
+Version
+
+File Size
+
+Password
+
+Status
+
+Priority
+
+Example
+
+Mirror 1
+
+Terabox
+
+Mirror 2
+
+Pixeldrain
+
+Mirror 3
+
+GoFile
+
+Mirror 4
+
+MEGA
+
+══════════════════════════════════════════════════════════════════════
+MEDIA LIBRARY
+══════════════════════════════════════════════════════════════════════
+
+Upload
+
+Delete
+
+Preview
+
+Search
+
+Folders
+
+Game Covers
+
+Banners
+
+Screenshots
+
+Guide Images
+
+Logos
+
+Icons
+
+══════════════════════════════════════════════════════════════════════
+GUIDES
+══════════════════════════════════════════════════════════════════════
+
+Create Guide
+
+Edit Guide
+
+Delete Guide
+
+Draft
+
+Publish
+
+Search
+
+══════════════════════════════════════════════════════════════════════
+FIX CENTER
+══════════════════════════════════════════════════════════════════════
+
+Create Fix
+
+Problem
+
+Symptoms
+
+Solution
+
+Images
+
+Related Game
+
+Publish
+
+══════════════════════════════════════════════════════════════════════
+CATEGORIES
+══════════════════════════════════════════════════════════════════════
+
+Create
+
+Edit
+
+Delete
+
+Game Count
+
+Icon
+
+Color
+
+══════════════════════════════════════════════════════════════════════
+COLLECTIONS
+══════════════════════════════════════════════════════════════════════
+
+Create Collection
+
+Banner
+
+Description
+
+Featured
+
+Game Count
+
+══════════════════════════════════════════════════════════════════════
+COMMENTS
+══════════════════════════════════════════════════════════════════════
+
+View
+
+Delete
+
+Pin
+
+Hide
+
+Approve
+
+Search
+
+══════════════════════════════════════════════════════════════════════
+REVIEWS
+══════════════════════════════════════════════════════════════════════
+
+View
+
+Delete
+
+Average Rating
+
+Game Rating
+
+User Rating
+
+══════════════════════════════════════════════════════════════════════
+REPORTS
+══════════════════════════════════════════════════════════════════════
+
+Broken Link
+
+Wrong Version
+
+Corrupted File
+
+Virus Report
+
+Spam
+
+Solved
+
+Pending
+
+══════════════════════════════════════════════════════════════════════
+USERS
+══════════════════════════════════════════════════════════════════════
+
+Avatar
+
+Name
+
+Email
+
+Country
+
+Role
+
+Join Date
+
+Status
+
+Ban
+
+Unban
+
+Delete
+
+══════════════════════════════════════════════════════════════════════
+ANALYTICS
+══════════════════════════════════════════════════════════════════════
+
+Total Views
+
+Downloads
+
+Popular Games
+
+Countries
+
+Devices
+
+Browsers
+
+Traffic Sources
+
+Top Search Keywords
+
+══════════════════════════════════════════════════════════════════════
+ANNOUNCEMENTS
+══════════════════════════════════════════════════════════════════════
+
+Create
+
+Edit
+
+Delete
+
+Pin
+
+Schedule
+
+══════════════════════════════════════════════════════════════════════
+WEBSITE SETTINGS
+══════════════════════════════════════════════════════════════════════
+
+Website Name
+
+Logo
+
+Favicon
+
+Primary Color
+
+Secondary Color
+
+Discord
+
+Telegram
+
+YouTube
+
+Reddit
+
+Contact Email
+
+SEO Title
+
+SEO Description
+
+Google Analytics ID
+
+Monetag Script
+
+Footer Text
+
+Maintenance Mode
+
+══════════════════════════════════════════════════════════════════════
+SECURITY
+══════════════════════════════════════════════════════════════════════
+
+Admin Only Access
+
+Role Verification
+
+Protected Routes
+
+Audit Logs
+
+Session Timeout
+
+Rate Limiting
+
+══════════════════════════════════════════════════════════════════════
+NOTIFICATIONS
+══════════════════════════════════════════════════════════════════════
+
+Game Added
+
+Guide Published
+
+Broken Link Report
+
+New User
+
+Comment Report
+
+══════════════════════════════════════════════════════════════════════
+FUTURE FEATURES
+══════════════════════════════════════════════════════════════════════
+
+Bulk Import Games
+
+CSV Export
+
+Scheduled Publishing
+
+Automatic Backups
+
+AI Metadata Generator
+
+Automatic Slug Generator
+
+Broken Link Checker
+
+Game Version Checker
+
+══════════════════════════════════════════════════════════════════════
+
+⭐ One feature I'd add that most gaming sites don't have
+Game Submission Queue
+
+Instead of adding every game yourself, users can suggest games.
+
+Flow
+User
+
+↓
+
+Suggest New Game
+
+↓
+
+Admin Dashboard
+
+↓
+
+Pending Queue
+
+↓
+
+Approve
+
+↓
+
+Auto-create Draft
+
+↓
+
+Admin completes details
+
+↓
+
+Publish
+
+The submission form could ask for:
+
+Game Name
+Steam URL (optional)
+Official Website (optional)
+Genre
+Why they want it added
+Additional notes
+
+This helps you understand what users are looking for without promising that you'll provide copyrighted content. It also helps prioritize guides, fixes, or pages for popular requests.
