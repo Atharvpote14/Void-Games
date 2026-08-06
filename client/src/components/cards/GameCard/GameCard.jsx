@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Download, Star } from 'lucide-react'
 import Badge from '@/components/common/Badge/Badge'
-import { formatCompactNumber } from '@/utils/formatters'
+import { formatBytes, formatCompactNumber } from '@/utils/formatters'
 
 function GameCard({ game }) {
   const rating = game.rating ?? 0
@@ -21,7 +21,9 @@ function GameCard({ game }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
         <div className="absolute right-2.5 bottom-2.5 left-2.5 flex flex-wrap items-center gap-1.5">
           {game.version && <Badge tone="primary">{game.version}</Badge>}
-          {game.game_size && <Badge tone="neutral">{game.game_size}</Badge>}
+          {game.game_size ? (
+            <Badge tone="neutral">{formatBytes(game.game_size)}</Badge>
+          ) : null}
         </div>
       </div>
       <div className="flex flex-col gap-1.5 p-4">
@@ -29,7 +31,7 @@ function GameCard({ game }) {
           {game.title}
         </h3>
         <p className="truncate text-sm text-text-muted">
-          {game.category?.name || game.genre || 'Game'}
+          {game.category?.name || game.genre?.name || game.genre || 'Game'}
         </p>
         <div className="mt-1.5 flex items-center justify-between">
           <span className="inline-flex items-center gap-1.5 text-xs text-text-muted">

@@ -9,7 +9,9 @@ import {
   Eye,
   Video,
   ListChecks,
+  Heart,
 } from 'lucide-react'
+import toast from 'react-hot-toast'
 import PageWrapper from '@/layouts/PageWrapper/PageWrapper'
 import Container from '@/layouts/Container/Container'
 import Grid from '@/layouts/Grid/Grid'
@@ -28,6 +30,8 @@ import CommentSection from '@/components/comments/CommentSection/CommentSection'
 import ReportModal from '@/components/reports/ReportModal/ReportModal'
 import useFetch from '@/hooks/useFetch'
 import usePageMeta from '@/hooks/usePageMeta'
+import { useAuth } from '@/hooks/useAuth'
+import { useFavorites } from '@/hooks/useFavorites'
 import { getGameBySlug, getGames } from '@/services/games'
 import { formatBytes, formatDate, formatNumber } from '@/utils/formatters'
 
@@ -128,6 +132,26 @@ function GameDetails() {
 
   const [lightboxIndex, setLightboxIndex] = useState(null)
   const [reportOpen, setReportOpen] = useState(false)
+  const { user } = useAuth()
+  const { isFavorite, toggleFavorite } = useFavorites()
+  const [favoriteBusy, setFavoriteBusy] = useState(false)
+
+  const handleToggleFavorite = async () => {
+    if (!game) return
+    if (!user) {
+      toast.error('Sign in to save favorites')
+      return
+    }
+    setFavoriteBusy(true)
+    try {
+      const added = await toggleFavorite(game)
+      toast.success(added ? 'Added to favorites' : 'Removed from favorites')
+    } catch {
+      toast.error('Could not update favorites')
+    } finally {
+      setFavoriteBusy(false)
+    }
+  }
 
   usePageMeta({
     title: game ? `${game.title} – Void Games` : 'Game – Void Games',
@@ -277,6 +301,19 @@ function GameDetails() {
                   <Download className="size-5" />
                   Download Now
                 </Button>
+                <Button
+                  variant={isFavorite(game.id) ? 'primary' : 'outline'}
+                  size="lg"
+                  onClick={handleToggleFavorite}
+                  loading={favoriteBusy}
+                >
+                  <Heart
+                    className={`size-4.5 ${
+                      isFavorite(game.id) ? 'fill-current' : ''
+                    }`}
+                  />
+                  {isFavorite(game.id) ? 'Saved' : 'Save'}
+                </Button>
                 {game.video_url && (
                   <Button
                     variant="outline"
@@ -384,6 +421,7 @@ function GameDetails() {
             <div id="downloads" className="scroll-mt-24">
               <DownloadSection
                 gameId={game.id}
+                game={game}
                 mirrors={game.download_links || []}
               />
             </div>
@@ -482,3 +520,4 @@ function GameDetails() {
 }
 
 export default GameDetails
+

@@ -2,11 +2,17 @@ import { RouterProvider } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import router from '@/routes'
 import AppErrorBoundary from '@/components/common/AppErrorBoundary/AppErrorBoundary'
+import { AuthProvider } from '@/context/AuthContext'
+import { FavoritesProvider } from '@/context/FavoritesContext'
 
 function App() {
   return (
     <AppErrorBoundary>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <FavoritesProvider>
+          <RouterProvider router={router} />
+        </FavoritesProvider>
+      </AuthProvider>
       <Toaster
         position="bottom-right"
         toastOptions={{

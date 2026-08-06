@@ -10,7 +10,9 @@ export const ENDPOINTS = {
   USERS: {
     PROFILE: '/users/profile',
     FAVORITES: '/users/favorites',
+    FAVORITE_BY_GAME: (gameId) => `/users/favorites/${gameId}`,
     DOWNLOAD_HISTORY: '/users/download-history',
+    DOWNLOAD_RECORD: (id) => `/users/download-history/${id}`,
   },
   GAMES: {
     ALL: '/games',
@@ -38,10 +40,12 @@ export const ENDPOINTS = {
   GUIDES: {
     ALL: '/guides',
     BY_SLUG: (slug) => `/guides/${slug}`,
+    CATEGORIES: '/guides/categories',
   },
   FIXES: {
     ALL: '/fixes',
     BY_SLUG: (slug) => `/fixes/${slug}`,
+    CATEGORIES: '/fixes/categories',
   },
   COMMENTS: {
     BY_GAME: (gameId) => `/comments/${gameId}`,

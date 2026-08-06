@@ -18,63 +18,61 @@ Status Legend
 AUTHENTICATION
 ══════════════════════════════════════════════════════════════════════
 
-⬜ Google Login
+🟩 Google Login
 
-⬜ Logout
+🟩 Logout
 
-⬜ Guest Mode
+🟩 Guest Mode
 
-⬜ Profile
+🟩 Profile
 
-⬜ Avatar
+🟩 Avatar
 
-⬜ Role Management
+🟩 Role Management
 
-⬜ Protected Routes
+🟩 Protected Routes
 
 ══════════════════════════════════════════════════════════════════════
 HOME PAGE
 ══════════════════════════════════════════════════════════════════════
 
-⬜ Hero Banner
+🟩 Hero Slider (featured games; cinematic redesign: game logo, version/PC/publisher/year pills, gradient glow buttons, animated segmented progress bar, glass arrows, bg zoom + staggered entrance)
 
-⬜ Hero Slider
+🟩 Featured Games
 
-⬜ Featured Games
+🟩 Trending Games
 
-⬜ Trending Games
+🟩 Recently Added
 
-⬜ Recently Added
+🟩 Popular Games
 
-⬜ Popular Games
+🟩 Categories
 
-⬜ Categories
+🟩 Collections
 
-⬜ Collections
+🟩 Latest Guides
 
-⬜ Latest Guides
-
-⬜ Latest Fixes
+🟩 Latest Fixes
 
 ⬜ Community Section
 
-⬜ Newsletter
+🟩 Newsletter
 
 ══════════════════════════════════════════════════════════════════════
 GAME LIBRARY
 ══════════════════════════════════════════════════════════════════════
 
-⬜ Browse Games
+🟩 Browse Games
 
-⬜ Search
+🟩 Search
 
-⬜ Filters
+🟩 Filters (category)
 
-⬜ Sorting
+🟩 Sorting (featured, latest, trending, popular, A-Z, rating)
 
-⬜ Pagination
+🟩 Pagination
 
-⬜ Related Games
+🟩 Related Games
 
 ⬜ Similar Games
 
@@ -82,33 +80,33 @@ GAME LIBRARY
 GAME DETAILS
 ══════════════════════════════════════════════════════════════════════
 
-⬜ Banner
+🟩 Banner
 
-⬜ Cover
+🟩 Cover
 
-⬜ Gallery
+🟩 Gallery (screenshots)
 
-⬜ Description
+🟩 Description
 
-⬜ Features
+🟩 Features
 
 ⬜ Developer
 
 ⬜ Publisher
 
-⬜ Version
+🟩 Version
 
-⬜ Release Date
+🟩 Release Date
 
-⬜ Game Size
+🟩 Game Size
 
-⬜ Trailer
+🟩 Trailer
 
-⬜ System Requirements
+🟩 System Requirements
 
-⬜ Installation Guide
+🟩 Installation Guide
 
-⬜ Download Mirrors
+🟩 Download Mirrors
 
 ⬜ Version History
 
@@ -116,29 +114,29 @@ GAME DETAILS
 DOWNLOAD SYSTEM
 ══════════════════════════════════════════════════════════════════════
 
-⬜ Multiple Mirrors
+🟩 Multiple Mirrors
 
-⬜ Download Counter
+🟩 Download Counter
 
-⬜ Redirect API
+🟩 Redirect API
 
 ⬜ Broken Link Detection
 
-⬜ Mirror Priority
+🟩 Mirror Priority (sort_order)
 
-⬜ Password Support
+🟩 Password Support
 
-⬜ Download Instructions
+🟩 Download Instructions
 
 ══════════════════════════════════════════════════════════════════════
 SEARCH
 ══════════════════════════════════════════════════════════════════════
 
-⬜ Live Search
+🟩 Live Search
 
-⬜ Category Filter
+🟩 Category Filter
 
-⬜ Genre Filter
+🟩 Genre Filter
 
 ⬜ Year Filter
 
@@ -150,13 +148,13 @@ SEARCH
 USER FEATURES
 ══════════════════════════════════════════════════════════════════════
 
-⬜ Favorites
+🟩 Favorites
 
-⬜ Download History
+🟩 Download History
 
 ⬜ Recently Viewed
 
-⬜ Profile Settings
+🟩 Profile Settings
 
 ⬜ Notifications
 
@@ -164,9 +162,9 @@ USER FEATURES
 COMMUNITY
 ══════════════════════════════════════════════════════════════════════
 
-⬜ Comments
+🟩 Comments (create, reply, edit, delete)
 
-⬜ Ratings
+🟩 Ratings (1-5 stars, own rating)
 
 ⬜ Like Comments
 
@@ -178,27 +176,37 @@ COMMUNITY
 GUIDES
 ══════════════════════════════════════════════════════════════════════
 
-⬜ Guide Categories
+✅ Guide Categories
 
-⬜ Rich Text
+✅ Rich Text (headings, lists, numbered steps)
 
-⬜ Related Guides
+✅ Related Guides
 
-⬜ Search Guides
+✅ Search Guides
+
+✅ Featured Guide
+
+✅ Views Counter
+
+✅ Reading Time
+
+✅ Table of Contents
 
 ══════════════════════════════════════════════════════════════════════
 FIX CENTER
 ══════════════════════════════════════════════════════════════════════
 
-⬜ Fix Categories
+✅ Fix Categories
 
-⬜ Step-by-Step Solutions
+✅ Step-by-Step Solutions
 
 ⬜ Images
 
-⬜ Related Games
+✅ Related Games (links to game pages)
 
-⬜ Popular Fixes
+✅ Popular Fixes
+
+✅ Search Fixes
 
 ══════════════════════════════════════════════════════════════════════
 ADMIN PANEL

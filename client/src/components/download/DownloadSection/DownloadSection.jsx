@@ -5,6 +5,8 @@ import Badge from '@/components/common/Badge/Badge'
 import { Spinner } from '@/components/common/Spinner/Spinner'
 import Modal from '@/components/modal/Modal/Modal'
 import { getDownloadRedirectUrl, startDownload } from '@/services/downloads'
+import { useAuth } from '@/hooks/useAuth'
+import { addDownloadRecord } from '@/services/users'
 import { formatBytes } from '@/utils/formatters'
 
 const PROVIDER_COLORS = {
@@ -99,8 +101,9 @@ function DownloadMirrorCard({ mirror, loading, onDownload }) {
   )
 }
 
-function DownloadSection({ gameId, mirrors = [] }) {
+function DownloadSection({ gameId, game, mirrors = [] }) {
   const [downloadingId, setDownloadingId] = useState(null)
+  const { user } = useAuth()
 
   if (mirrors.length === 0) {
     return (
@@ -114,6 +117,9 @@ function DownloadSection({ gameId, mirrors = [] }) {
     setDownloadingId(mirror.id)
     try {
       await startDownload(gameId, mirror.id)
+      if (user && game) {
+        addDownloadRecord(game).catch(() => {})
+      }
       window.location.href = getDownloadRedirectUrl(mirror.id)
     } catch {
       window.open(getDownloadRedirectUrl(mirror.id), '_blank', 'noopener')
@@ -149,3 +155,4 @@ function DownloadSection({ gameId, mirrors = [] }) {
 }
 
 export default DownloadSection
+

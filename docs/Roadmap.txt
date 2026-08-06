@@ -170,28 +170,28 @@ PHASE 7
 USER SYSTEM
 ══════════════════════════════════════════════════════════════════════
 
-⬜ Google Login
+✅ Google Login
 
-⬜ Profile
+✅ Profile
 
-⬜ Favorites
+✅ Favorites
 
-⬜ Download History
+✅ Download History
 
-⬜ Settings
+✅ Settings
 
 ══════════════════════════════════════════════════════════════════════
 PHASE 8
 GUIDES & FIX CENTER
 ══════════════════════════════════════════════════════════════════════
 
-⬜ Guide Listing
+✅ Guide Listing
 
-⬜ Guide Details
+✅ Guide Details
 
-⬜ Fix Center
+✅ Fix Center
 
-⬜ Fix Details
+✅ Fix Details
 
 ══════════════════════════════════════════════════════════════════════
 PHASE 9
@@ -340,11 +340,11 @@ Planning           ██████████ 100%
 
 Setup              ██████████ 100%
 
-Frontend           ██░░░░░░░░  20%
+Frontend           ███░░░░░░░  30%
 
-Backend            █░░░░░░░░░  10%
+Backend            ██░░░░░░░░  20%
 
-Database           ░░░░░░░░░░   0%
+Database           █░░░░░░░░░  10%
 
 Testing            ░░░░░░░░░░   0%
 

@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
+import CategoryIcon from '@/components/category/CategoryIcon/CategoryIcon'
 
 function CategoryCard({ category }) {
-  const Icon = category.icon
 
   return (
     <Link
-      to={`/category/${category.slug}`}
+      to={`/games?category=${category.slug}`}
       className="group flex flex-col gap-4 rounded-card border border-border-default bg-void-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-border-hover hover:shadow-card"
       style={{ '--category-color': category.color || '#2EA8FF' }}
     >
@@ -14,8 +14,12 @@ function CategoryCard({ category }) {
         className="grid size-12 place-items-center rounded-2xl border bg-white/5 transition-all duration-300 group-hover:bg-white/10"
         style={{ borderColor: 'var(--category-color)' }}
       >
-        {Icon ? (
-          <Icon className="size-6 transition-colors" style={{ color: 'var(--category-color)' }} />
+        {category.icon ? (
+          <CategoryIcon
+            icon={category.icon}
+            className="size-6 transition-colors"
+            style={{ color: 'var(--category-color)' }}
+          />
         ) : (
           <span className="size-6 rounded-full" style={{ background: 'var(--category-color)' }} />
         )}

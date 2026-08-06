@@ -10,3 +10,8 @@ export async function getFixBySlug(slug) {
   const response = await api.get(ENDPOINTS.FIXES.BY_SLUG(slug))
   return response.data
 }
+
+export async function getFixCategories() {
+  const response = await api.get(ENDPOINTS.FIXES.CATEGORIES)
+  return response.data
+}

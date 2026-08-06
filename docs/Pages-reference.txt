@@ -230,11 +230,15 @@ Sections
 
 Sections
 
-✓ Featured Guide
+✓ Search
 
-✓ Latest Guides
+✓ Sort (latest | most read | A-Z)
 
-✓ Categories
+✓ Categories (chips)
+
+✓ Guides Grid
+
+✓ Pagination
 
 --------------------------------------------------------
 
@@ -246,7 +250,11 @@ Sections
 
 ✓ Thumbnail
 
-✓ Content
+✓ Content (headings, lists, steps)
+
+✓ Table of Contents
+
+✓ Related Game
 
 ✓ Related Guides
 
@@ -302,7 +310,17 @@ USER PAGES
 
 /login
 
-Google Login
+✓ Google Sign-In Button
+
+✓ Guest Mode
+
+✓ Redirect Back To Origin
+
+18b. AUTH CALLBACK
+
+/auth/callback
+
+✓ OAuth Redirect Handler
 
 --------------------------------------------------------
 
@@ -330,15 +348,21 @@ Sections
 
 ✓ Favorite Games
 
+✓ Empty State
+
 --------------------------------------------------------
 
 21. DOWNLOAD HISTORY
 
-/history
+/downloads
 
 Sections
 
 ✓ Download List
+
+✓ Remove Record
+
+✓ Clear All
 
 --------------------------------------------------------
 
@@ -348,11 +372,11 @@ Sections
 
 Sections
 
-✓ Profile
+✓ Profile Edit Form
 
-✓ Password
+✓ Preferences (local)
 
-✓ Notifications
+✓ Sign Out (Google OAuth has no password)
 
 ══════════════════════════════════════════════════════════════════════
 ADMIN PANEL

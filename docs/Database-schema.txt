@@ -48,13 +48,13 @@ Games
 1. USERS
 ══════════════════════════════════════════════════════════════════════
 
-id (UUID)
+id (UUID) → references auth.users(id)
 
 google_id
 
 name
 
-username
+username (unique, nullable)
 
 email
 
@@ -78,9 +78,83 @@ user
 
 admin
 
+-----------------------------------
+
+Notes
+
+Created automatically by the handle_new_user trigger
+when Supabase Auth signs in a new user (Google OAuth).
+
+Phase 7 setup SQL: docs/sql/phase7-user-system.sql
+
+Games backend setup SQL (Phases 3-6 server-side):
+docs/sql/games-backend-schema.sql
+Sample data: docs/sql/games-backend-seed.sql
+
 ══════════════════════════════════════════════════════════════════════
 2. GAMES
 ══════════════════════════════════════════════════════════════════════
+
+Implemented columns (games-backend-schema.sql):
+
+id (UUID)
+
+title
+
+slug (unique)
+
+short_description
+
+description
+
+cover_image
+
+banner_image
+
+logo_image (added by docs/sql/games-hero-upgrade.sql; used by home hero)
+
+publisher (added by games-hero-upgrade.sql)
+
+developer (added by games-hero-upgrade.sql)
+
+version
+
+size_bytes (numeric bytes; API exposes as game_size)
+
+release_date
+
+video_url (API name)
+
+website_url
+
+features (text[])
+
+installation_instructions (API name)
+
+system_requirements (jsonb)
+
+genre_id → categories(id)
+
+is_featured
+
+is_trending
+
+is_active
+
+views
+
+downloads
+
+created_at
+
+updated_at
+
+API-visible naming: game_size, video_url, installation_instructions,
+is_featured, is_trending, view_count, download_count, rating, genre
+({id, name, slug}), category ({id, name, slug}), screenshots ([{url}]),
+download_links ([{id, provider, mirror_name, file_size, password}]),
+related, game_count (categories/collections), total_count (search),
+total_pages / totalPages (list pagination).
 
 id (UUID)
 
@@ -209,30 +283,122 @@ Google Drive
 MediaFire
 
 ══════════════════════════════════════════════════════════════════════
-7. FAVORITES
+ADDED TABLES (games backend, games-backend-schema.sql)
 ══════════════════════════════════════════════════════════════════════
+
+collection_games (many-to-many)
+
+collection_id → collections.id
+
+game_id → games.id
+
+position
+
+created_at
+
+------------------------------------
+
+game_tags
 
 id
 
-user_id
+game_id → games.id
+
+tag_name
+
+unique (game_id, tag_name)
+
+------------------------------------
+
+ratings
+
+game_id → games.id
+
+user_id → users.id
+
+rating (1-5)
+
+primary key (game_id, user_id)
+
+------------------------------------
+
+comments
+
+id
+
+game_id → games.id
+
+user_id → users.id
+
+parent_id → comments.id (nullable, replies)
+
+content
+
+status (approved)
+
+created_at
+
+updated_at
+
+------------------------------------
+
+RLS: all content tables public-read; ratings/comments writes
+require auth.uid() = user_id. Admin writes via service role key.
+
+══════════════════════════════════════════════════════════════════════
+7. FAVORITES
+══════════════════════════════════════════════════════════════════════
+
+id (UUID)
+
+user_id → users.id
 
 game_id
 
+game_title
+
+game_slug
+
+game_cover
+
 created_at
+
+-----------------------------------
+
+Notes
+
+Unique (user_id, game_id) — one favorite per game per user.
+
+game_title / game_slug / game_cover are denormalized
+snapshots so the Favorites page works before the games
+table exists. Add the FK to games(id) in Phase 9.
 
 ══════════════════════════════════════════════════════════════════════
 8. DOWNLOAD HISTORY
 ══════════════════════════════════════════════════════════════════════
 
-id
+id (UUID)
 
-user_id
+user_id → users.id
 
 game_id
+
+game_title
+
+game_slug
+
+game_cover
 
 downloaded_at
 
 ip_address
+
+-----------------------------------
+
+Notes
+
+Unique (user_id, game_id) — re-downloads update the timestamp
+instead of creating duplicate rows.
 
 ══════════════════════════════════════════════════════════════════════
 9. COMMENTS
@@ -286,17 +452,32 @@ id
 
 title
 
-slug
+slug (unique)
 
 thumbnail
 
-content
+content (markdown-style text)
 
 author
 
-game_id
+category
+
+is_featured
+
+views
+
+game_id (nullable, FK added in Phase 9)
+
+game_title
+
+game_slug
 
 created_at
+
+updated_at
+
+Phase 8 setup SQL: docs/sql/phase8-guides-fixes.sql
+Sample data: docs/sql/phase8-seed-data.sql
 
 ══════════════════════════════════════════════════════════════════════
 12. FIX ARTICLES
@@ -304,19 +485,31 @@ created_at
 
 id
 
-game_id
-
 title
 
-slug
+slug (unique)
 
 thumbnail
 
+category
+
 problem
 
-solution
+symptoms
+
+solution (numbered steps)
+
+views
+
+game_id (nullable, FK added in Phase 9)
+
+game_title
+
+game_slug
 
 created_at
+
+updated_at
 
 ══════════════════════════════════════════════════════════════════════
 13. GAME TAGS

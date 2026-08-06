@@ -43,6 +43,24 @@ Stack
 Divider
 
 ══════════════════════════════════════════════════════════════════════
+AUTH & STATE (Phase 7 ✅)
+══════════════════════════════════════════════════════════════════════
+
+AuthContext ✅ (Supabase session + profile)
+
+FavoritesContext ✅ (favorites state + toggle)
+
+ProtectedRoute ✅ (route guard)
+
+UserMenu ✅ (navbar avatar dropdown)
+
+Hooks
+
+useAuth ✅
+
+useFavorites ✅
+
+══════════════════════════════════════════════════════════════════════
 NAVIGATION
 ══════════════════════════════════════════════════════════════════════
 
@@ -55,6 +73,8 @@ NavbarMenu
 NavbarSearch
 
 NavbarActions
+
+UserMenu ✅ (avatar dropdown: profile, favorites, history, settings, sign out)
 
 ProfileDropdown
 
@@ -294,11 +314,11 @@ GUIDES
 
 GuideCard
 
-GuideGrid
+CategoryChips
 
-GuideSidebar
+ArticleBlocks (utils/content.js parser)
 
-GuideContent
+Table of Contents (inline in GuideDetails)
 
 ══════════════════════════════════════════════════════════════════════
 FIX CENTER
@@ -306,13 +326,9 @@ FIX CENTER
 
 FixCard
 
-FixGrid
+CategoryChips
 
-FixContent
-
-ProblemCard
-
-SolutionCard
+FixDetails blocks (Problem / Symptoms / Solution steps)
 
 ══════════════════════════════════════════════════════════════════════
 COMMON UI

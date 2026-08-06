@@ -1,5 +1,5 @@
 import api from './api'
-import { ENDPOINTS } from '@/constants/api'
+import { API_BASE_URL, ENDPOINTS } from '@/constants/api'
 
 export async function getDownloadMirrors(gameId) {
   const response = await api.get(ENDPOINTS.DOWNLOADS.MIRRORS(gameId))
@@ -15,5 +15,5 @@ export async function startDownload(gameId, mirrorId) {
 }
 
 export function getDownloadRedirectUrl(id) {
-  return `${ENDPOINTS.DOWNLOADS.REDIRECT(id)}`
+  return `${API_BASE_URL}${ENDPOINTS.DOWNLOADS.REDIRECT(id)}`
 }

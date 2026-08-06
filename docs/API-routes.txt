@@ -16,7 +16,19 @@ POST
 
 Purpose
 
-Login using Google OAuth
+Exchange a Supabase access token for a profile
+
+Request Body
+
+{
+    token: "<supabase-access-token>"
+}
+
+Note
+
+Google OAuth itself runs client-side via supabase-js
+(signInWithOAuth). This endpoint verifies the token with
+Supabase Admin and upserts the public.users profile.
 
 ----------------------------------------
 
@@ -26,7 +38,7 @@ GET
 
 Purpose
 
-Get current logged-in user
+Get current logged-in user (Bearer token required)
 
 ----------------------------------------
 
@@ -36,11 +48,14 @@ POST
 
 Purpose
 
-Logout user
+Logout user (Bearer token required)
 
 ══════════════════════════════════════════════════════════════════════
 USERS
 ══════════════════════════════════════════════════════════════════════
+
+All routes below require a Bearer token
+(a Supabase access token issued at login).
 
 GET
 
@@ -50,11 +65,23 @@ Get profile
 
 ----------------------------------------
 
-PATCH
+PUT
 
 /users/profile
 
 Update profile
+
+Body
+
+name
+
+username
+
+bio
+
+country
+
+avatar
 
 ----------------------------------------
 
@@ -72,6 +99,15 @@ POST
 
 Add favorite
 
+Body
+
+{
+    game_id: "<uuid>",
+    game_title: "Grand Theft Auto V",
+    game_slug: "grand-theft-auto-v",
+    game_cover: "https://.../cover.webp"
+}
+
 ----------------------------------------
 
 DELETE
@@ -87,6 +123,35 @@ GET
 /users/download-history
 
 Download history
+
+----------------------------------------
+
+POST
+
+/users/download-history
+
+Record a download
+
+Body
+
+Same fields as add favorite
+(downloaded_at and ip_address are set by the server)
+
+----------------------------------------
+
+DELETE
+
+/users/download-history/:id
+
+Remove one download record
+
+----------------------------------------
+
+DELETE
+
+/users/download-history
+
+Clear entire download history
 
 ══════════════════════════════════════════════════════════════════════
 GAMES
@@ -268,13 +333,35 @@ GET
 
 All guides
 
+Supports
+
+page
+
+limit
+
+search
+
+category
+
+sort (latest | popular | title_asc | title_desc)
+
+featured
+
+----------------------------------------
+
+GET
+
+/guides/categories
+
+Category list with guide counts
+
 ----------------------------------------
 
 GET
 
 /guides/:slug
 
-Single guide
+Single guide (increments views, includes related)
 
 ══════════════════════════════════════════════════════════════════════
 FIX CENTER
@@ -286,13 +373,33 @@ GET
 
 All fixes
 
+Supports
+
+page
+
+limit
+
+search
+
+category
+
+sort (latest | popular | title_asc | title_desc)
+
+----------------------------------------
+
+GET
+
+/fixes/categories
+
+Category list with fix counts
+
 ----------------------------------------
 
 GET
 
 /fixes/:slug
 
-Single fix article
+Single fix article (increments views, includes related)
 
 ══════════════════════════════════════════════════════════════════════
 COMMENTS
