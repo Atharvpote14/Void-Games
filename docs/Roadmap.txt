@@ -198,17 +198,17 @@ PHASE 9
 ADMIN PANEL
 ══════════════════════════════════════════════════════════════════════
 
-⬜ Dashboard
+✅ Dashboard
 
-⬜ Game Management
+✅ Game Management
 
-⬜ Categories
+✅ Categories
 
-⬜ Collections
+✅ Collections
 
-⬜ Guides
+✅ Guides
 
-⬜ Fixes
+✅ Fixes
 
 ⬜ Users
 

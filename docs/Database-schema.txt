@@ -113,6 +113,10 @@ banner_image
 
 logo_image (added by docs/sql/games-hero-upgrade.sql; used by home hero)
 
+If these columns are missing (error: Could not find the
+'developer'/'publisher'/'logo_image' column of 'games'), run
+docs/sql/phase9-admin-panel.sql once in the Supabase SQL Editor.
+
 publisher (added by games-hero-upgrade.sql)
 
 developer (added by games-hero-upgrade.sql)

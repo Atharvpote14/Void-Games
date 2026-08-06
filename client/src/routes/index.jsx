@@ -5,6 +5,8 @@ import NotFound from '@/pages/NotFound/NotFound'
 import ServerError from '@/pages/NotFound/ServerError'
 import LazyPage from '@/components/loading/LazyPage/LazyPage'
 import ProtectedRoute from '@/components/auth/ProtectedRoute/ProtectedRoute'
+import AdminRoute from '@/components/auth/AdminRoute/AdminRoute'
+import AdminLayout from '@/layouts/AdminLayout/AdminLayout'
 
 const Home = lazy(() => import('@/pages/Home/Home'))
 const BrowseGames = lazy(() => import('@/pages/BrowseGames/BrowseGames'))
@@ -20,6 +22,17 @@ const Profile = lazy(() => import('@/pages/Profile/Profile'))
 const Favorites = lazy(() => import('@/pages/Favorites/Favorites'))
 const DownloadHistory = lazy(() => import('@/pages/DownloadHistory/DownloadHistory'))
 const Settings = lazy(() => import('@/pages/Settings/Settings'))
+const AdminDashboard = lazy(() => import('@/pages/Admin/AdminDashboard/AdminDashboard'))
+const AdminGames = lazy(() => import('@/pages/Admin/AdminGames/AdminGames'))
+const GameForm = lazy(() => import('@/pages/Admin/AdminGames/GameForm'))
+const AdminCategories = lazy(() =>
+  import('@/pages/Admin/AdminCategories/AdminCategories')
+)
+const AdminCollections = lazy(() =>
+  import('@/pages/Admin/AdminCollections/AdminCollections')
+)
+const AdminGuides = lazy(() => import('@/pages/Admin/AdminGuides/AdminGuides'))
+const AdminFixes = lazy(() => import('@/pages/Admin/AdminFixes/AdminFixes'))
 
 const router = createBrowserRouter([
   {
@@ -150,6 +163,81 @@ const router = createBrowserRouter([
       {
         path: '*',
         element: <NotFound />,
+      },
+    ],
+  },
+  {
+    path: '/admin',
+    element: (
+      <AdminRoute>
+        <AdminLayout />
+      </AdminRoute>
+    ),
+    errorElement: <ServerError />,
+    children: [
+      {
+        index: true,
+        element: (
+          <LazyPage>
+            <AdminDashboard />
+          </LazyPage>
+        ),
+      },
+      {
+        path: 'games',
+        element: (
+          <LazyPage>
+            <AdminGames />
+          </LazyPage>
+        ),
+      },
+      {
+        path: 'games/new',
+        element: (
+          <LazyPage>
+            <GameForm />
+          </LazyPage>
+        ),
+      },
+      {
+        path: 'games/:id/edit',
+        element: (
+          <LazyPage>
+            <GameForm />
+          </LazyPage>
+        ),
+      },
+      {
+        path: 'categories',
+        element: (
+          <LazyPage>
+            <AdminCategories />
+          </LazyPage>
+        ),
+      },
+      {
+        path: 'collections',
+        element: (
+          <LazyPage>
+            <AdminCollections />
+          </LazyPage>
+        ),
+      },
+      {
+        path: 'guides',
+        element: (
+          <LazyPage>
+            <AdminGuides />
+          </LazyPage>
+        ),
+      },
+      {
+        path: 'fixes',
+        element: (
+          <LazyPage>
+            <AdminFixes />
+          </LazyPage>
+        ),
       },
     ],
   },

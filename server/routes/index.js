@@ -12,10 +12,12 @@ import downloadsRoutes from './downloads.js'
 import searchRoutes from './search.js'
 import ratingsRoutes from './ratings.js'
 import commentsRoutes from './comments.js'
+import adminRoutes from './admin.js'
 
 const router = Router()
 
 router.use('/auth', authRateLimiter, authRoutes)
+router.use('/admin', adminRoutes)
 router.use('/users', usersRoutes)
 router.use('/guides', guidesRoutes)
 router.use('/fixes', fixesRoutes)

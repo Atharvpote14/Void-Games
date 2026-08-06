@@ -495,11 +495,48 @@ ADMIN
 
 Admin Only
 
+All /admin routes require a Bearer token and role = admin.
+Implemented in Phase 9a.
+
 GET
 
 /admin/dashboard
 
 Dashboard
+
+Stats: total_games, active_games, total_users,
+total_categories, total_collections, total_downloads,
+total_views, downloads_today, downloads_this_month,
+popular_games, latest_games, latest_guides,
+latest_fixes, latest_comments
+
+----------------------------------------
+
+GET
+
+/admin/games
+
+All games (including inactive)
+
+Supports page, limit, search, status (active|inactive),
+featured, category, sort (latest|title_asc|title_desc|downloads|views)
+
+----------------------------------------
+
+GET
+
+/admin/games/picker
+
+Games for collection/guide assignment pickers
+
+----------------------------------------
+
+GET
+
+/admin/games/:id
+
+Single game with screenshots, download_links, tags,
+collection_ids
 
 ----------------------------------------
 
@@ -509,6 +546,17 @@ POST
 
 Create game
 
+Body
+
+title (required), slug, short_description,
+description, cover_image, banner_image, logo_image,
+developer, publisher, version, release_date,
+size_bytes, video_url, website_url, features [],
+installation_instructions, system_requirements {},
+genre_id, is_featured, is_trending, is_active,
+screenshots [], download_links [], tags [],
+collection_ids []
+
 ----------------------------------------
 
 PATCH
@@ -517,6 +565,8 @@ PATCH
 
 Update game
 
+Same body as create
+
 ----------------------------------------
 
 DELETE
@@ -524,6 +574,196 @@ DELETE
 /admin/games/:id
 
 Delete game
+
+----------------------------------------
+
+GET
+
+/admin/categories
+
+All categories with game_count
+
+----------------------------------------
+
+GET
+
+/admin/categories/:id
+
+Single category
+
+----------------------------------------
+
+POST
+
+/admin/category
+
+Create category
+
+Body
+
+name (required), slug, description, icon, color,
+sort_order, is_active
+
+----------------------------------------
+
+PATCH
+
+/admin/category/:id
+
+Update category
+
+----------------------------------------
+
+DELETE
+
+/admin/category/:id
+
+Delete category
+
+409 if the category still contains games
+
+----------------------------------------
+
+GET
+
+/admin/collections
+
+All collections with game_count
+
+----------------------------------------
+
+GET
+
+/admin/collections/:id
+
+Single collection with game_ids
+
+----------------------------------------
+
+POST
+
+/admin/collection
+
+Create collection
+
+Body
+
+title (required), slug, description, thumbnail,
+is_active, game_ids []
+
+----------------------------------------
+
+PATCH
+
+/admin/collection/:id
+
+Update collection
+
+----------------------------------------
+
+DELETE
+
+/admin/collection/:id
+
+Delete collection
+
+----------------------------------------
+
+GET
+
+/admin/guides
+
+All guides
+
+Supports page, limit, search, featured,
+sort (latest|title_asc|title_desc|views)
+
+----------------------------------------
+
+GET
+
+/admin/guides/:id
+
+Single guide
+
+----------------------------------------
+
+POST
+
+/admin/guide
+
+Create guide
+
+Body
+
+title (required), slug, thumbnail, category,
+game_id, game_title, game_slug, author,
+content (required), is_featured
+
+----------------------------------------
+
+PATCH
+
+/admin/guide/:id
+
+Update guide
+
+----------------------------------------
+
+DELETE
+
+/admin/guide/:id
+
+Delete guide
+
+----------------------------------------
+
+GET
+
+/admin/fixes
+
+All fixes
+
+Supports page, limit, search,
+sort (latest|title_asc|title_desc|views)
+
+----------------------------------------
+
+GET
+
+/admin/fixes/:id
+
+Single fix
+
+----------------------------------------
+
+POST
+
+/admin/fix
+
+Create fix
+
+Body
+
+title (required), slug, thumbnail, category,
+game_id, game_title, game_slug,
+problem, symptoms, solution (required)
+
+----------------------------------------
+
+PATCH
+
+/admin/fix/:id
+
+Update fix
+
+----------------------------------------
+
+DELETE
+
+/admin/fix/:id
+
+Delete fix
 
 ----------------------------------------
 

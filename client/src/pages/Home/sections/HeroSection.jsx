@@ -50,15 +50,15 @@ function HeroSection() {
 
   if (loading) {
     return (
-      <div className="border-b border-border-default bg-hero-gradient">
-        <Skeleton className="h-[420px] w-full rounded-none border-0 bg-transparent md:h-[560px]" />
+      <div className="bg-hero-gradient">
+        <Skeleton className="h-[380px] w-full rounded-none border-0 bg-transparent sm:h-[440px] lg:h-[500px]" />
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="border-b border-border-default bg-hero-gradient px-4 py-16">
+      <div className="bg-hero-gradient px-4 py-16">
         <div className="mx-auto max-w-xl">
           <ErrorState
             title="Could not load featured games"
@@ -72,7 +72,7 @@ function HeroSection() {
 
   if (games.length === 0) {
     return (
-      <div className="flex items-center gap-3 border-b border-border-default bg-hero-gradient px-4 py-20 md:py-28">
+      <div className="flex items-center gap-3 bg-hero-gradient px-4 py-20 md:py-28">
         <div className="mx-auto flex max-w-md flex-col items-center gap-3 text-center">
           <div className="grid size-14 place-items-center rounded-2xl border border-border-default bg-white/5">
             <Gamepad2 className="size-6 text-text-muted" />
