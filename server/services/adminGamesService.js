@@ -40,6 +40,7 @@ function toAdminGame(row, extras = {}) {
     is_featured: row.is_featured,
     is_trending: row.is_trending,
     is_active: row.is_active,
+    badges: row.badges || [],
     views: row.views,
     downloads: row.downloads,
     created_at: row.created_at,

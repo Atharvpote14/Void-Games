@@ -261,7 +261,24 @@ function GameDetails() {
                     </Link>
                   </Badge>
                 )}
-                {game.is_featured && <Badge tone="secondary">Featured</Badge>}
+                {(game.badges || []).map((badge) => {
+                  const lower = badge.toLowerCase()
+                  const tone =
+                    lower === 'open world'
+                      ? 'success'
+                      : lower === 'featured'
+                        ? 'secondary'
+                        : 'neutral'
+                  return (
+                    <Badge key={badge} tone={tone}>
+                      {badge}
+                    </Badge>
+                  )
+                })}
+                {game.is_featured &&
+                  !(game.badges || []).some(
+                    (badge) => badge.toLowerCase() === 'featured'
+                  ) && <Badge tone="secondary">Featured</Badge>}
                 {game.is_trending && <Badge tone="gold">Trending</Badge>}
               </div>
               {game.short_description && (

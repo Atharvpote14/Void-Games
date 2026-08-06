@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
@@ -13,10 +13,10 @@ import {
 } from 'lucide-react'
 import Button from '@/components/buttons/Button/Button'
 import Container from '@/layouts/Container/Container'
-import SliderIndicator from '@/components/hero/SliderIndicator/SliderIndicator'
 import { cn } from '@/utils/cn'
 
 const SLIDE_INTERVAL = 6000
+const PROGRESS_TICK = 50
 
 const stagger = {
   show: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
@@ -207,58 +207,83 @@ function HeroSlide({ game }) {
   )
 }
 
-function HeroProgress({ count, current, paused }) {
-  return (
-    <div className="flex items-center gap-1.5" aria-hidden="true">
-      {Array.from({ length: count }, (_, index) => {
-        const done = index < current
-        const active = index === current
-        return (
-          <div
-            key={index}
-            className="h-1 flex-1 overflow-hidden rounded-full bg-white/10"
-          >
-            {done && <div className="h-full w-full rounded-full bg-primary/60" />}
-            {active && (
-              <div
-                className="animate-hero-progress h-full rounded-full bg-btn-gradient shadow-[0_0_12px_rgba(46,168,255,0.8)]"
-                style={paused ? { animationPlayState: 'paused' } : undefined}
-              />
-            )}
-          </div>
-        )
-      })}
-    </div>
-  )
-}
-
 function HeroSlider({ games }) {
   const [current, setCurrent] = useState(0)
-  const [paused, setPaused] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const heroRef = useRef(null)
+  const cursorRef = useRef({ x: -1, y: -1 })
+  const elapsedRef = useRef(0)
   const count = games.length
 
   useEffect(() => {
-    if (paused || count <= 1) return
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % count)
-    }, SLIDE_INTERVAL)
-    return () => clearInterval(interval)
-  }, [paused, count])
+    const handleMouseMove = (e) => {
+      cursorRef.current = { x: e.clientX, y: e.clientY }
+    }
+    const handleMouseOut = (e) => {
+      if (!e.relatedTarget) cursorRef.current = { x: -1, y: -1 }
+    }
+    document.addEventListener('mousemove', handleMouseMove)
+    document.addEventListener('mouseout', handleMouseOut)
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('mouseout', handleMouseOut)
+    }
+  }, [])
 
-  const handlePrev = () => setCurrent((prev) => (prev - 1 + count) % count)
-  const handleNext = () => setCurrent((prev) => (prev + 1) % count)
+  useEffect(() => {
+    if (count <= 1) {
+      setProgress(100)
+      return
+    }
+    let last = performance.now()
+    const loop = setInterval(() => {
+      const now = performance.now()
+      const delta = now - last
+      last = now
+
+      const { x, y } = cursorRef.current
+      const hero = heroRef.current
+      let hovered = false
+      if (hero && x >= 0 && y >= 0) {
+        const rect = hero.getBoundingClientRect()
+        hovered =
+          x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom
+      }
+
+      if (hovered) return
+
+      elapsedRef.current += delta
+      if (elapsedRef.current >= SLIDE_INTERVAL) {
+        elapsedRef.current = 0
+        setCurrent((prev) => (prev + 1) % count)
+      }
+      setProgress(Math.min(100, (elapsedRef.current / SLIDE_INTERVAL) * 100))
+    }, PROGRESS_TICK)
+    return () => clearInterval(loop)
+  }, [count])
+
+  const resetTimer = () => {
+    elapsedRef.current = 0
+    setProgress(0)
+  }
+  const handlePrev = () => {
+    resetTimer()
+    setCurrent((prev) => (prev - 1 + count) % count)
+  }
+  const handleNext = () => {
+    resetTimer()
+    setCurrent((prev) => (prev + 1) % count)
+  }
 
   if (count === 0) return null
 
   return (
-    <section
-      aria-label="Featured games"
-      className="bg-hero-gradient"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
+    <section aria-label="Featured games" className="bg-hero-gradient">
       <Container className="py-4 sm:py-6">
-        <div className="relative h-[380px] overflow-hidden sm:h-[440px] lg:h-[500px]">
+        <div
+          ref={heroRef}
+          className="relative h-[380px] overflow-hidden sm:h-[440px] lg:h-[500px]"
+        >
             <AnimatePresence mode="wait">
               <motion.div
                 key={games[current].id}
@@ -268,21 +293,21 @@ function HeroSlider({ games }) {
                 transition={{ duration: 0.45, ease: 'easeInOut' }}
                 className="absolute inset-0"
               >
-                <HeroSlide game={games[current]} paused={paused} />
+                <HeroSlide game={games[current]} />
               </motion.div>
             </AnimatePresence>
 
-            <div className="absolute inset-x-0 top-0 z-20 px-4 pt-4 sm:px-6 lg:px-10">
-              <HeroProgress count={count} current={current} paused={paused} />
-            </div>
-
             <div className="absolute inset-x-0 bottom-0 z-20 pb-5 sm:pb-6">
               <Container className="flex items-center justify-between gap-4">
-                <SliderIndicator
-                  count={count}
-                  activeIndex={current}
-                  onChange={setCurrent}
-                />
+                <div
+                  aria-hidden="true"
+                  className="h-1 w-full max-w-[260px] overflow-hidden rounded-full bg-white/10"
+                >
+                  <div
+                    className="h-full rounded-full bg-btn-gradient shadow-[0_0_12px_rgba(46,168,255,0.8)] transition-[width] duration-75 ease-linear"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
                 <div className="hidden items-center gap-2.5 md:flex">
                   <button
                     type="button"

@@ -51,6 +51,7 @@ function toGame(row, rating) {
     category: genre ? { id: genre.id, name: genre.name, slug: genre.slug } : null,
     is_featured: row.is_featured,
     is_trending: row.is_trending,
+    badges: row.badges || [],
     views: row.views,
     view_count: row.views,
     downloads: row.downloads,

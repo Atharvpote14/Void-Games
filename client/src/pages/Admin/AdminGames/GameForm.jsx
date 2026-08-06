@@ -81,6 +81,10 @@ function initForm(game) {
     is_featured: Boolean(game?.is_featured),
     is_trending: Boolean(game?.is_trending),
     is_active: game?.is_active !== false,
+    badges:
+      game?.badges?.length > 0
+        ? game.badges
+        : [game?.open_world_label, game?.featured_label].filter(Boolean),
     screenshots:
       game?.screenshots?.length > 0
         ? game.screenshots.map((shot) => shot.image_url || shot.url || '')
@@ -194,6 +198,25 @@ function GameFormFields({ initialGame, isEditing, gameId }) {
     })
   }
 
+  const updateBadge = (index, value) => {
+    setForm((prev) => {
+      const badges = [...prev.badges]
+      badges[index] = value
+      return { ...prev, badges }
+    })
+  }
+
+  const addBadge = () => {
+    setForm((prev) => ({ ...prev, badges: [...prev.badges, ''] }))
+  }
+
+  const removeBadge = (index) => {
+    setForm((prev) => {
+      const badges = prev.badges.filter((_, i) => i !== index)
+      return { ...prev, badges: badges.length ? badges : [''] }
+    })
+  }
+
   const buildPayload = () => {
     const minimum = jsonToRequirements(form.minRequirementsJson)
     const recommended = jsonToRequirements(form.recRequirementsJson)
@@ -230,6 +253,7 @@ function GameFormFields({ initialGame, isEditing, gameId }) {
       is_featured: form.is_featured,
       is_trending: form.is_trending,
       is_active: form.is_active,
+      badges: form.badges.map((badge) => badge.trim()).filter(Boolean),
       screenshots: form.screenshots.map((url) => url.trim()).filter(Boolean),
       download_links: form.download_links
         .filter((link) => link.download_url.trim())
@@ -433,6 +457,33 @@ function GameFormFields({ initialGame, isEditing, gameId }) {
               </button>
             </div>
           ))}
+        </div>
+      </Section>
+
+      <Section title="Badges" description="Custom badges shown on the game page. Add as many as you want.">
+        <div className="flex flex-col gap-3">
+          {form.badges.map((badge, index) => (
+            <div key={index} className="flex items-center gap-3">
+              <TextInput
+                value={badge}
+                onChange={(event) => updateBadge(index, event.target.value)}
+                placeholder={`Badge ${index + 1}, e.g. Open World`}
+                className="flex-1"
+              />
+              <button
+                type="button"
+                onClick={() => removeBadge(index)}
+                aria-label={`Remove badge ${index + 1}`}
+                className="grid size-10 shrink-0 cursor-pointer place-items-center rounded-xl border border-border-default text-text-muted transition-colors hover:border-danger/50 hover:text-danger"
+              >
+                <Trash2 className="size-4" />
+              </button>
+            </div>
+          ))}
+          <Button type="button" variant="secondary" size="sm" onClick={addBadge} className="self-start">
+            <Plus className="size-4" />
+            Add badge
+          </Button>
         </div>
       </Section>
 

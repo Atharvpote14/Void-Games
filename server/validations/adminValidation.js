@@ -107,6 +107,12 @@ export function validateGameInput(body = {}) {
     is_featured: optionalBool(body.is_featured, false),
     is_trending: optionalBool(body.is_trending, false),
     is_active: optionalBool(body.is_active, true),
+    badges: Array.isArray(body.badges)
+      ? body.badges
+          .map((badge) => String(badge).trim())
+          .filter(Boolean)
+          .slice(0, 20)
+      : [],
   }
 
   if (clean.genre_id && !validateUuid(clean.genre_id)) {
