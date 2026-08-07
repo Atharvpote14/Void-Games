@@ -44,6 +44,8 @@ function LazyImage({ src, alt = '', className, ...props }) {
       ref={containerRef}
       src={src}
       alt={alt}
+      loading="lazy"
+      decoding="async"
       onLoad={() => setLoaded(true)}
       className={cn(
         'transition-opacity duration-500',

@@ -28,4 +28,3 @@ npm-debug.log*
 
 # Vercel / Render
 .vercel
-render.yaml

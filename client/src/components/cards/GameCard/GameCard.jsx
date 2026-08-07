@@ -16,6 +16,7 @@ function GameCard({ game }) {
           src={game.cover_image}
           alt={game.title}
           loading="lazy"
+          decoding="async"
           className="size-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />

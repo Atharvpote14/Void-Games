@@ -16,6 +16,7 @@ function CollectionCard({ collection }) {
             src={thumbnail}
             alt={collection.title}
             loading="lazy"
+            decoding="async"
             className="size-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : (

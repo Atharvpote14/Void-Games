@@ -1,0 +1,128 @@
+══════════════════════════════════════════════════════════════════════
+                    VOID GAMES DEPLOYMENT GUIDE
+══════════════════════════════════════════════════════════════════════
+
+Production URLs
+
+Frontend:  https://the-void-games.vercel.app
+Backend:   https://void-games-api.onrender.com  (default Render name, changeable)
+
+══════════════════════════════════════════════════════════════════════
+STEP 0 — GITHUB REPO (REQUIRED FOR RENDER)
+══════════════════════════════════════════════════════════════════════
+
+Render deploys from a Git repository. If you don't have a GitHub repo yet:
+  1. Push the project to GitHub (client/ and server/ at the repo root).
+  2. render.yaml at the root is read automatically as a Blueprint.
+
+If you skip render.yaml, create the service manually with the values below.
+
+══════════════════════════════════════════════════════════════════════
+STEP 1 — SUPABASE (do this FIRST)
+══════════════════════════════════════════════════════════════════════
+
+Google OAuth redirect (required or login breaks):
+  1. Supabase Dashboard → Authentication → URL Configuration
+  2. Add Redirect URLs:
+     - https://the-void-games.vercel.app/auth/callback
+     - http://localhost:5173/auth/callback (dev, usually already there)
+  3. Save.
+
+══════════════════════════════════════════════════════════════════════
+STEP 2 — BACKEND (Render)
+══════════════════════════════════════════════════════════════════════
+
+Option A — Blueprint (needs render.yaml in GitHub repo):
+  Render Dashboard → New → Blueprint → select repo → Create.
+  Only SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are secret; fill them in.
+
+Option B — Manual web service:
+  Render Dashboard → New → Web Service → connect repo
+  Root Directory:  server   (the folder containing package.json)
+  Runtime:         Node
+  Build Command:   npm install
+  Start Command:   npm start
+  Health Check:    /api/v1/health
+
+Environment Variables (manual service — set ALL of these):
+  NODE_ENV                     production
+  PORT                         10000
+  CLIENT_URL                   https://the-void-games.vercel.app
+  SUPABASE_URL                 (your Supabase project URL)
+  SUPABASE_SERVICE_ROLE_KEY    (Supabase Settings → API → service_role)
+  JWT_SECRET                   (any long random string; used as fallback)
+
+CLIENT_URL may be a comma-separated list if you need extra origins, e.g.
+  https://the-void-games.vercel.app,http://localhost:5173
+
+Verify: open https://<your-service>.onrender.com/api/v1/health → {"status":"ok"}
+
+══════════════════════════════════════════════════════════════════════
+STEP 3 — FRONTEND (Vercel)
+══════════════════════════════════════════════════════════════════════
+
+Option A — Git deploy (recommended):
+  vercel.com → Add New Project → import repo → Root: client
+  Framework:  Vite
+  Build:      npm run build
+  Output:     dist
+  vercel.json (SPA rewrites) is read automatically.
+
+Option B — CLI upload (no git needed):
+  cd client
+  npx vercel login
+  npx vercel --prod
+
+Environment Variables (Vercel project settings — set ALL of these):
+  VITE_SUPABASE_URL            (your Supabase project URL)
+  VITE_SUPABASE_ANON_KEY       (Supabase Settings → API → anon public key)
+  VITE_API_BASE_URL            https://void-games-api.onrender.com/api/v1
+
+Domain:
+  The default Vercel URL is assigned automatically. To use
+  https://the-void-games.vercel.app, add it in Vercel → Project →
+  Settings → Domains. It is already configured in the code as
+  SITE_URL (constants/site.js) and in index.html.
+
+Verify: open https://the-void-games.vercel.app → check /robots.txt and
+  /sitemap.xml respond; log in with Google.
+
+══════════════════════════════════════════════════════════════════════
+STEP 4 — SSL
+══════════════════════════════════════════════════════════════════════
+
+Automatic:
+  Render and Vercel both issue free SSL certificates automatically.
+  No action needed.
+
+══════════════════════════════════════════════════════════════════════
+STEP 5 — SITEMAP (regenerate before every content deploy)
+══════════════════════════════════════════════════════════════════════
+
+The sitemap is generated from the live database:
+  cd server
+  npm run generate:sitemap
+This rewrites client/public/sitemap.xml (games, guides, fixes, static
+pages). Commit the file or upload it with the frontend deploy.
+
+══════════════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+══════════════════════════════════════════════════════════════════════
+
+Login fails on production:
+  → Add the callback URL in Supabase (Step 1) and confirm both Supabase
+    env vars exist on Render.
+
+API calls fail from the site:
+  → VITE_API_BASE_URL must point to the Render URL with /api/v1.
+  → CLIENT_URL on Render must be the exact Vercel origin (no trailing /).
+
+Site is slow on first visit:
+  → Render free tier sleeps after 15 minutes idle; first request after
+    a sleep can take 10–30 seconds. The health check keeps it warm.
+
+500 on admin pages:
+  → Confirm SUPABASE_SERVICE_ROLE_KEY is correct on Render (the
+    service_role key, not the anon key).
+
+══════════════════════════════════════════════════════════════════════

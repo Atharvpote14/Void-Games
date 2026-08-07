@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+Disallow: /auth/callback
+Disallow: /profile
+Disallow: /favorites
+Disallow: /downloads
+Disallow: /settings
+
+Sitemap: https://the-void-games.vercel.app/sitemap.xml

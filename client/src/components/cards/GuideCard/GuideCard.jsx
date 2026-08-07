@@ -15,6 +15,7 @@ function GuideCard({ guide }) {
             src={guide.thumbnail}
             alt={guide.title}
             loading="lazy"
+            decoding="async"
             className="size-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : (

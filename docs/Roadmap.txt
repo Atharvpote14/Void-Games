@@ -221,17 +221,17 @@ PHASE 10
 OPTIMIZATION
 ══════════════════════════════════════════════════════════════════════
 
-⬜ Lazy Loading
+✅ Lazy Loading
 
-⬜ Skeleton Loaders
+✅ Skeleton Loaders
 
-⬜ Image Optimization
+✅ Image Optimization
 
-⬜ SEO
+✅ SEO
 
-⬜ Sitemap
+✅ Sitemap
 
-⬜ robots.txt
+✅ robots.txt
 
 ⬜ Performance Audit
 
