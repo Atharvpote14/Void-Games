@@ -104,7 +104,7 @@ export async function getRecommendedGames(req, res, next) {
 export async function getGame(req, res, next) {
   try {
     const { slug } = req.params
-    const game = await getGameBySlug(slug)
+    const game = await getGameBySlug(slug, { incrementViews: true })
 
     if (!game) {
       throw new ApiError(404, 'Game not found')

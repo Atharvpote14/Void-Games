@@ -225,7 +225,7 @@ export async function listGames(query) {
   }
 }
 
-export async function getGameBySlug(slug) {
+export async function getGameBySlug(slug, { incrementViews = false } = {}) {
   const admin = getSupabaseAdmin()
 
   const { data, error } = await admin
@@ -236,6 +236,12 @@ export async function getGameBySlug(slug) {
 
   if (error) throw error
   if (!data) return null
+
+  if (incrementViews) {
+    const next = (data.views || 0) + 1
+    await admin.from('games').update({ views: next }).eq('id', data.id)
+    data.views = next
+  }
 
   const [screenshotsRes, linksRes] = await Promise.all([
     admin
