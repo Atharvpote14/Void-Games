@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useMemo, useEffect, useState } from 'react'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import {
   Flag,
   Globe,
@@ -113,10 +113,24 @@ function RequirementsBlock({ title, items }) {
 
 function GameDetails() {
   const { slug } = useParams()
+  const location = useLocation()
   const { data: game, loading, error, refetch } = useFetch(
     () => getGameBySlug(slug),
     [slug]
   )
+
+  const scrollToDownloads = () => {
+    document
+      .getElementById('downloads')
+      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  useEffect(() => {
+    if (!game || location.hash !== '#downloads') return
+    const id = window.setTimeout(scrollToDownloads, 150)
+    window.history.replaceState(null, '', `${location.pathname}${location.search}`)
+    return () => window.clearTimeout(id)
+  }, [game, location.hash, location.pathname, location.search])
 
   const { data: relatedData } = useFetch(
     () =>
@@ -314,7 +328,7 @@ function GameDetails() {
                 )}
               </div>
               <div className="flex flex-wrap items-center gap-3">
-                <Button to="#downloads" size="lg">
+                <Button size="lg" onClick={scrollToDownloads}>
                   <Download className="size-5" />
                   Download Now
                 </Button>

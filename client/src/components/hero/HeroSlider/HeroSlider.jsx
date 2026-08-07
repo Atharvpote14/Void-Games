@@ -143,7 +143,7 @@ function HeroSlide({ game }) {
           variants={stagger}
           initial="hidden"
           animate="show"
-          className="flex w-full flex-col items-start gap-4 md:gap-5"
+          className="flex w-full flex-col items-start gap-4 pb-16 sm:pb-20 md:gap-5"
         >
           {game.logo_image ? (
             <motion.img
@@ -186,7 +186,7 @@ function HeroSlide({ game }) {
 
           <motion.div variants={pop} className="mt-1 flex flex-wrap items-center gap-3">
             <Button
-              to={`/game/${game.slug}`}
+              to={`/game/${game.slug}#downloads`}
               size="lg"
               className="bg-btn-gradient shadow-btn hover:shadow-[0_0_40px_rgba(46,168,255,0.55)]"
             >
@@ -314,17 +314,17 @@ function HeroSlider({ games }) {
             </AnimatePresence>
 
             <div className="absolute inset-x-0 bottom-0 z-20 pb-5 sm:pb-6">
-              <Container className="flex items-center justify-between gap-4">
+              <Container className="flex items-center justify-between gap-4 sm:gap-5">
                 <div
                   aria-hidden="true"
-                  className="h-1 w-full max-w-[260px] overflow-hidden rounded-full bg-white/10"
+                  className="h-1 min-w-0 flex-1 max-w-[140px] overflow-hidden rounded-full bg-white/10 sm:max-w-[220px] lg:max-w-[260px]"
                 >
                   <div
                     className="h-full rounded-full bg-btn-gradient shadow-[0_0_12px_rgba(46,168,255,0.8)] transition-[width] duration-75 ease-linear"
                     style={{ width: `${progress}%` }}
                   />
                 </div>
-                <div className="flex items-center gap-2 md:gap-2.5">
+                <div className="flex shrink-0 items-center gap-2 md:gap-2.5">
                   <button
                     type="button"
                     aria-label="Previous game"
