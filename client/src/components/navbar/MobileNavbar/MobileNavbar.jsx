@@ -30,7 +30,7 @@ function MobileNavbar({ open, onClose }) {
           onNavigate={onClose}
         />
         <div className="border-t border-border-default pt-4">
-          <NavbarActions />
+          <NavbarActions onNavigate={onClose} />
         </div>
       </div>
     </Drawer>

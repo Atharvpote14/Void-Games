@@ -5,20 +5,20 @@ import Tooltip from '@/components/common/Tooltip/Tooltip'
 import UserMenu from '@/components/auth/UserMenu/UserMenu'
 import { useAuth } from '@/hooks/useAuth'
 
-function NavbarActions({ className }) {
+function NavbarActions({ className, onNavigate }) {
   const { user, loading } = useAuth()
 
   return (
     <div className={`flex items-center gap-2 ${className || ''}`}>
       <Tooltip content="Favorites">
-        <IconButton label="Favorites" to="/favorites">
+        <IconButton label="Favorites" to="/favorites" onClick={onNavigate}>
           <Heart className="size-4.5" />
         </IconButton>
       </Tooltip>
       {loading ? null : user ? (
-        <UserMenu />
+        <UserMenu onNavigate={onNavigate} />
       ) : (
-        <Button to="/login" size="sm">
+        <Button to="/login" size="sm" onClick={onNavigate}>
           Login
         </Button>
       )}

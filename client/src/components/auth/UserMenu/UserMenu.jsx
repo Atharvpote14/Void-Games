@@ -19,13 +19,19 @@ const MENU_LINKS = [
   { to: '/settings', label: 'Settings', icon: Settings },
 ]
 
-function UserMenu() {
+function UserMenu({ onNavigate }) {
   const { user, signOut } = useAuth()
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
 
+  const handleLinkClick = () => {
+    setOpen(false)
+    onNavigate?.()
+  }
+
   const handleSignOut = async () => {
     setOpen(false)
+    onNavigate?.()
     await signOut()
     navigate('/')
   }
@@ -84,7 +90,7 @@ function UserMenu() {
                       key={item.to}
                       to={item.to}
                       role="menuitem"
-                      onClick={() => setOpen(false)}
+                      onClick={handleLinkClick}
                       className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-text-secondary transition-colors duration-200 hover:bg-white/5 hover:text-text-primary"
                     >
                       <Icon className="size-4.5 text-text-muted" />
