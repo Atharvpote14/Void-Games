@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState } from 'react'
+import { useMemo, useEffect, useState, useCallback } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import {
   Flag,
@@ -119,18 +119,32 @@ function GameDetails() {
     [slug]
   )
 
-  const scrollToDownloads = () => {
-    document
-      .getElementById('downloads')
-      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
+  const scrollToDownloads = useCallback(() => {
+    const el = document.getElementById('downloads')
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      return
+    }
+    let attempts = 0
+    const retry = () => {
+      attempts += 1
+      if (attempts > 10) return
+      const target = document.getElementById('downloads')
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      } else {
+        window.setTimeout(retry, 200)
+      }
+    }
+    window.setTimeout(retry, 200)
+  }, [])
 
   useEffect(() => {
     if (!game || location.hash !== '#downloads') return
     const id = window.setTimeout(scrollToDownloads, 150)
     window.history.replaceState(null, '', `${location.pathname}${location.search}`)
     return () => window.clearTimeout(id)
-  }, [game, location.hash, location.pathname, location.search])
+  }, [game, location.hash, location.pathname, location.search, scrollToDownloads])
 
   const { data: relatedData } = useFetch(
     () =>
