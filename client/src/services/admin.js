@@ -229,3 +229,33 @@ export async function deleteAdminSuggestion(suggestionId) {
   const response = await api.delete(ENDPOINTS.ADMIN.SUGGESTION_BY_ID(suggestionId))
   return response.data
 }
+
+export async function getAdminSteamFreeContent() {
+  const response = await api.get(ENDPOINTS.ADMIN.STEAM_FREE)
+  return response.data
+}
+
+export async function updateAdminSteamFreeVideo(videoUrl) {
+  const response = await api.patch(ENDPOINTS.ADMIN.STEAM_FREE_VIDEO, {
+    video_url: videoUrl,
+  })
+  return response.data
+}
+
+export async function createAdminSteamFreeStep(payload) {
+  const response = await api.post(ENDPOINTS.ADMIN.STEAM_FREE_STEP, payload)
+  return response.data
+}
+
+export async function updateAdminSteamFreeStep(stepId, payload) {
+  const response = await api.patch(
+    ENDPOINTS.ADMIN.STEAM_FREE_STEP_BY_ID(stepId),
+    payload
+  )
+  return response.data
+}
+
+export async function deleteAdminSteamFreeStep(stepId) {
+  const response = await api.delete(ENDPOINTS.ADMIN.STEAM_FREE_STEP_BY_ID(stepId))
+  return response.data
+}

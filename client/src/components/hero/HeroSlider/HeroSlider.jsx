@@ -5,7 +5,7 @@ import {
   Download,
   ChevronLeft,
   ChevronRight,
-  Gamepad2,
+  Rocket,
   BookOpen,
   Wrench,
   Search,
@@ -44,10 +44,10 @@ const pop = {
 
 const QUICK_LINKS = [
   {
-    to: '/games',
-    icon: Gamepad2,
-    label: 'Browse Games',
-    description: 'Explore the full library',
+    to: '/steam-free-games',
+    icon: Rocket,
+    label: 'Steam Free Games',
+    description: 'Get Steam game for free',
   },
   {
     to: '/guides',

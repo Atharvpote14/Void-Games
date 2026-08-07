@@ -15,6 +15,7 @@ import commentsRoutes from './comments.js'
 import reportsRoutes from './reports.js'
 import unbanRequestsRoutes from './unbanRequests.js'
 import suggestionsRoutes from './suggestions.js'
+import steamFreeRoutes from './steamFree.js'
 import adminRoutes from './admin.js'
 
 const router = Router()
@@ -34,6 +35,7 @@ router.use('/comments', commentsRoutes)
 router.use('/reports', reportsRoutes)
 router.use('/unban-requests', unbanRequestsRoutes)
 router.use('/suggestions', suggestionsRoutes)
+router.use('/steam-free', steamFreeRoutes)
 
 router.get('/health', (_req, res) => {
   res.status(200).json({

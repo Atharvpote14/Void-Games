@@ -13,6 +13,7 @@ import {
   Lightbulb,
   LogOut,
   Menu,
+  Rocket,
   Users,
   Wrench,
 } from 'lucide-react'
@@ -33,6 +34,7 @@ const ADMIN_NAV_ITEMS = [
   { label: 'Reports', to: '/admin/reports', icon: AlertTriangle },
   { label: 'Unban Requests', to: '/admin/unban-requests', icon: LifeBuoy },
   { label: 'Suggestions', to: '/admin/suggestions', icon: Lightbulb },
+  { label: 'Steam Free', to: '/admin/steam-free', icon: Rocket },
   { label: 'Analytics', to: '/admin/analytics', icon: BarChart3 },
 ]
 

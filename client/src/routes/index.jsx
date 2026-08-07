@@ -23,6 +23,7 @@ const Favorites = lazy(() => import('@/pages/Favorites/Favorites'))
 const DownloadHistory = lazy(() => import('@/pages/DownloadHistory/DownloadHistory'))
 const Settings = lazy(() => import('@/pages/Settings/Settings'))
 const SuggestGame = lazy(() => import('@/pages/SuggestGame/SuggestGame'))
+const SteamFreeGames = lazy(() => import('@/pages/SteamFreeGames/SteamFreeGames'))
 const AdminDashboard = lazy(() => import('@/pages/Admin/AdminDashboard/AdminDashboard'))
 const AdminGames = lazy(() => import('@/pages/Admin/AdminGames/AdminGames'))
 const GameForm = lazy(() => import('@/pages/Admin/AdminGames/GameForm'))
@@ -44,6 +45,9 @@ const AdminAnalytics = lazy(() =>
 )
 const AdminSuggestions = lazy(() =>
   import('@/pages/Admin/AdminSuggestions/AdminSuggestions')
+)
+const AdminSteamFree = lazy(() =>
+  import('@/pages/Admin/AdminSteamFree/AdminSteamFree')
 )
 
 const router = createBrowserRouter([
@@ -181,6 +185,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: 'steam-free-games',
+        element: (
+          <LazyPage>
+            <SteamFreeGames />
+          </LazyPage>
+        ),
+      },
+      {
         path: '*',
         element: <NotFound />,
       },
@@ -288,6 +300,14 @@ const router = createBrowserRouter([
         element: (
           <LazyPage>
             <AdminSuggestions />
+          </LazyPage>
+        ),
+      },
+      {
+        path: 'steam-free',
+        element: (
+          <LazyPage>
+            <AdminSteamFree />
           </LazyPage>
         ),
       },

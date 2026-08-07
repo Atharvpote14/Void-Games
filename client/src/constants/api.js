@@ -58,6 +58,7 @@ export const ENDPOINTS = {
   },
   REPORTS: '/reports',
   SUGGESTIONS: '/suggestions',
+  STEAM_FREE: '/steam-free',
   UNBAN_REQUESTS: '/unban-requests',
   UNBAN_REQUESTS_MINE: '/unban-requests/mine',
   CONTACT: '/contact',
@@ -91,6 +92,10 @@ export const ENDPOINTS = {
     UNBAN_REQUEST_BY_ID: (id) => `/admin/unban-request/${id}`,
     SUGGESTIONS: '/admin/suggestions',
     SUGGESTION_BY_ID: (id) => `/admin/suggestion/${id}`,
+    STEAM_FREE: '/admin/steam-free',
+    STEAM_FREE_VIDEO: '/admin/steam-free/video',
+    STEAM_FREE_STEP: '/admin/steam-free/step',
+    STEAM_FREE_STEP_BY_ID: (id) => `/admin/steam-free/step/${id}`,
     ANALYTICS: '/admin/analytics',
   },
   STATS: {

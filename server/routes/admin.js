@@ -60,6 +60,13 @@ import {
   deleteSuggestion,
 } from '../controllers/adminSuggestionsController.js'
 import { getAnalyticsData } from '../controllers/adminAnalyticsController.js'
+import {
+  getSteamFreeContent,
+  updateSteamFreeVideo,
+  createStep,
+  updateStep,
+  deleteStep,
+} from '../controllers/adminSteamFreeController.js'
 
 const router = Router()
 
@@ -118,5 +125,11 @@ router.get('/suggestions', getSuggestions)
 router.get('/suggestions/:id', getSuggestion)
 router.patch('/suggestion/:id', updateSuggestion)
 router.delete('/suggestion/:id', deleteSuggestion)
+
+router.get('/steam-free', getSteamFreeContent)
+router.patch('/steam-free/video', updateSteamFreeVideo)
+router.post('/steam-free/step', createStep)
+router.patch('/steam-free/step/:id', updateStep)
+router.delete('/steam-free/step/:id', deleteStep)
 
 export default router
