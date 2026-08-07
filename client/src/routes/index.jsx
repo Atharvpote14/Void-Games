@@ -22,6 +22,7 @@ const Profile = lazy(() => import('@/pages/Profile/Profile'))
 const Favorites = lazy(() => import('@/pages/Favorites/Favorites'))
 const DownloadHistory = lazy(() => import('@/pages/DownloadHistory/DownloadHistory'))
 const Settings = lazy(() => import('@/pages/Settings/Settings'))
+const SuggestGame = lazy(() => import('@/pages/SuggestGame/SuggestGame'))
 const AdminDashboard = lazy(() => import('@/pages/Admin/AdminDashboard/AdminDashboard'))
 const AdminGames = lazy(() => import('@/pages/Admin/AdminGames/AdminGames'))
 const GameForm = lazy(() => import('@/pages/Admin/AdminGames/GameForm'))
@@ -40,6 +41,9 @@ const AdminUnbanRequests = lazy(() =>
 )
 const AdminAnalytics = lazy(() =>
   import('@/pages/Admin/AdminAnalytics/AdminAnalytics')
+)
+const AdminSuggestions = lazy(() =>
+  import('@/pages/Admin/AdminSuggestions/AdminSuggestions')
 )
 
 const router = createBrowserRouter([
@@ -169,6 +173,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: 'suggest',
+        element: (
+          <LazyPage>
+            <SuggestGame />
+          </LazyPage>
+        ),
+      },
+      {
         path: '*',
         element: <NotFound />,
       },
@@ -268,6 +280,14 @@ const router = createBrowserRouter([
         element: (
           <LazyPage>
             <AdminUnbanRequests />
+          </LazyPage>
+        ),
+      },
+      {
+        path: 'suggestions',
+        element: (
+          <LazyPage>
+            <AdminSuggestions />
           </LazyPage>
         ),
       },

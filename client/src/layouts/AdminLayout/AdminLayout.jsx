@@ -10,6 +10,7 @@ import {
   LayoutDashboard,
   Library,
   LifeBuoy,
+  Lightbulb,
   LogOut,
   Menu,
   Users,
@@ -31,6 +32,7 @@ const ADMIN_NAV_ITEMS = [
   { label: 'Users', to: '/admin/users', icon: Users },
   { label: 'Reports', to: '/admin/reports', icon: AlertTriangle },
   { label: 'Unban Requests', to: '/admin/unban-requests', icon: LifeBuoy },
+  { label: 'Suggestions', to: '/admin/suggestions', icon: Lightbulb },
   { label: 'Analytics', to: '/admin/analytics', icon: BarChart3 },
 ]
 

@@ -53,6 +53,12 @@ import {
   reviewUnbanRequest,
   deleteUnbanRequest,
 } from '../controllers/adminUnbanRequestsController.js'
+import {
+  getSuggestions,
+  getSuggestion,
+  updateSuggestion,
+  deleteSuggestion,
+} from '../controllers/adminSuggestionsController.js'
 import { getAnalyticsData } from '../controllers/adminAnalyticsController.js'
 
 const router = Router()
@@ -107,5 +113,10 @@ router.get('/unban-requests', getUnbanRequests)
 router.get('/unban-requests/:id', getUnbanRequest)
 router.patch('/unban-request/:id', reviewUnbanRequest)
 router.delete('/unban-request/:id', deleteUnbanRequest)
+
+router.get('/suggestions', getSuggestions)
+router.get('/suggestions/:id', getSuggestion)
+router.patch('/suggestion/:id', updateSuggestion)
+router.delete('/suggestion/:id', deleteSuggestion)
 
 export default router

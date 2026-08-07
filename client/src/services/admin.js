@@ -206,3 +206,26 @@ export async function deleteAdminUnbanRequest(requestId) {
   const response = await api.delete(ENDPOINTS.ADMIN.UNBAN_REQUEST_BY_ID(requestId))
   return response.data
 }
+
+export async function getAdminSuggestions(params = {}) {
+  const response = await api.get(ENDPOINTS.ADMIN.SUGGESTIONS, { params })
+  return response.data
+}
+
+export async function getAdminSuggestion(suggestionId) {
+  const response = await api.get(ENDPOINTS.ADMIN.SUGGESTION_BY_ID(suggestionId))
+  return response.data
+}
+
+export async function updateAdminSuggestion(suggestionId, payload) {
+  const response = await api.patch(
+    ENDPOINTS.ADMIN.SUGGESTION_BY_ID(suggestionId),
+    payload
+  )
+  return response.data
+}
+
+export async function deleteAdminSuggestion(suggestionId) {
+  const response = await api.delete(ENDPOINTS.ADMIN.SUGGESTION_BY_ID(suggestionId))
+  return response.data
+}

@@ -7,6 +7,7 @@ import {
   Folder,
   Gamepad2,
   Library,
+  Lightbulb,
   MessageSquare,
   Plus,
   Users,
@@ -91,6 +92,7 @@ function AdminDashboard() {
       downloadsMonth: data.downloads_this_month,
       views: data.total_views,
       pendingReports: data.pending_reports,
+      pendingSuggestions: data.pending_suggestions,
     }
   }, [data])
 
@@ -180,6 +182,13 @@ function AdminDashboard() {
           value={formatNumber(stats?.pendingReports)}
           loading={loading}
           accent="danger"
+        />
+        <StatCard
+          icon={Lightbulb}
+          label="Pending Suggestions"
+          value={formatNumber(stats?.pendingSuggestions)}
+          loading={loading}
+          accent="warning"
         />
       </div>
 

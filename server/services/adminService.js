@@ -44,6 +44,7 @@ export async function getDashboardStats() {
     downloadsToday,
     downloadsThisMonth,
     pendingReports,
+    pendingSuggestions,
     popularGames,
     latestGames,
     latestGuides,
@@ -75,6 +76,14 @@ export async function getDashboardStats() {
       }),
     admin
       .from('reports')
+      .select('id', { count: 'exact', head: true })
+      .eq('status', 'pending')
+      .then(({ count, error }) => {
+        if (error) throw error
+        return count || 0
+      }),
+    admin
+      .from('game_suggestions')
       .select('id', { count: 'exact', head: true })
       .eq('status', 'pending')
       .then(({ count, error }) => {
@@ -115,6 +124,7 @@ export async function getDashboardStats() {
     downloads_today: downloadsToday,
     downloads_this_month: downloadsThisMonth,
     pending_reports: pendingReports,
+    pending_suggestions: pendingSuggestions,
     popular_games: popularGames,
     latest_games: latestGames,
     latest_guides: latestGuides,

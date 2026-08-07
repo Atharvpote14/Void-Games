@@ -13,7 +13,7 @@ export const FOOTER_COLUMNS = [
     links: [
       { label: 'Guides', path: '/guides' },
       { label: 'Fix Center', path: '/fixes' },
-      { label: 'FAQ', path: '/faq' },
+      { label: 'Suggest a Game', path: '/suggest' },
       { label: 'Contact', path: '/contact' },
     ],
   },
