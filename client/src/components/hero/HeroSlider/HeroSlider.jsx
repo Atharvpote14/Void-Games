@@ -193,13 +193,15 @@ function HeroSlide({ game }) {
               <Download className="size-4.5" />
               Download Now
             </Button>
-            <Button
-              to={`/game/${game.slug}`}
-              size="lg"
-              className="hidden border-white/15 bg-white/5 text-text-primary backdrop-blur-md sm:inline-flex hover:border-primary hover:bg-white/10 hover:text-primary hover:shadow-btn"
-            >
-              View Details
-            </Button>
+            <div className="hidden sm:block">
+              <Button
+                to={`/game/${game.slug}`}
+                size="lg"
+                className="border-white/15 bg-white/5 text-text-primary backdrop-blur-md hover:border-primary hover:bg-white/10 hover:text-primary hover:shadow-btn"
+              >
+                View Details
+              </Button>
+            </div>
           </motion.div>
         </motion.div>
       </Container>
