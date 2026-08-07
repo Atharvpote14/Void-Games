@@ -11,6 +11,15 @@ import {
 
 const AuthContext = createContext(null)
 
+function isAccessTokenExpired(session) {
+  try {
+    const payload = JSON.parse(atob(session.access_token.split('.')[1]))
+    return payload.exp ? payload.exp * 1000 < Date.now() : false
+  } catch {
+    return false
+  }
+}
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -23,10 +32,33 @@ export function AuthProvider({ children }) {
       return
     }
     setStoredToken(session.access_token)
+
+    const fetchProfile = (token) =>
+      exchange ? loginWithAccessToken(token) : fetchMe()
+
+    let profile = null
+    let sessionAlive = true
+
     try {
-      const profile = exchange
-        ? await loginWithAccessToken(session.access_token)
-        : await fetchMe()
+      profile = await fetchProfile(session.access_token)
+    } catch {
+      // The access token may be expired even though the session exists.
+      // Refresh the Supabase session once and retry before giving up.
+      try {
+        const { data: refreshed } = await supabase.auth.refreshSession()
+        const nextSession = refreshed?.session
+        if (nextSession) {
+          setStoredToken(nextSession.access_token)
+          profile = await fetchProfile(nextSession.access_token)
+        } else {
+          sessionAlive = false
+        }
+      } catch {
+        sessionAlive = false
+      }
+    }
+
+    if (profile) {
       const sessionMeta = session.user?.user_metadata || {}
       const sessionAvatar =
         sessionMeta.avatar_url || sessionMeta.picture || null
@@ -35,8 +67,11 @@ export function AuthProvider({ children }) {
           ? profile
           : { ...(profile || {}), avatar: sessionAvatar }
       )
-    } catch {
+    } else if (!sessionAlive) {
+      // Only sign out when the session itself is truly gone. Transient
+      // network/server errors keep the user signed in.
       setUser(null)
+      setStoredToken(null)
     }
   }, [])
 
@@ -64,7 +99,13 @@ export function AuthProvider({ children }) {
 
     const init = async () => {
       try {
-        const session = await getSession()
+        let session = await getSession()
+        // Supabase access tokens expire (~1h default). Refresh it on app
+        // load so returning users are never signed out.
+        if (session && isAccessTokenExpired(session)) {
+          const { data: refreshed } = await supabase.auth.refreshSession()
+          if (refreshed?.session) session = refreshed.session
+        }
         if (mounted && session) await syncProfile(session)
       } catch {
         // auth network failure — keep app usable as guest
