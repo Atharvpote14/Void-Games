@@ -18,7 +18,7 @@ const PROVIDER_COLORS = {
   MediaFire: '#F59E0B',
 }
 
-function DownloadMirrorCard({ mirror, loading, onDownload }) {
+function DownloadMirrorCard({ mirror, loading, onDownload, gameSize }) {
   const [passwordOpen, setPasswordOpen] = useState(false)
   const color = PROVIDER_COLORS[mirror.provider] || '#2EA8FF'
 
@@ -55,10 +55,10 @@ function DownloadMirrorCard({ mirror, loading, onDownload }) {
             </span>
             <span className="flex items-center gap-2 text-xs text-text-muted">
               <Badge tone="neutral">{mirror.provider}</Badge>
-              {mirror.file_size && (
+              {(gameSize || mirror.file_size) && (
                 <span className="inline-flex items-center gap-1">
                   <HardDrive className="size-3" />
-                  {formatBytes(mirror.file_size)}
+                  {formatBytes(gameSize || mirror.file_size)}
                 </span>
               )}
               {mirror.password && (
@@ -144,6 +144,7 @@ function DownloadSection({ gameId, game, mirrors = [] }) {
           mirror={mirror}
           loading={downloadingId === mirror.id}
           onDownload={handleDownload}
+          gameSize={game?.game_size}
         />
       ))}
       <p className="text-xs text-text-muted">
