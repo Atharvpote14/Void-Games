@@ -131,7 +131,7 @@ function CategoryForm({ open, onClose, category, onSaved }) {
           placeholder="Swords, Shield, Ghost..."
           hint="Must match a known icon key."
         />
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <TextInput
             label="Color"
             type="color"

@@ -167,14 +167,14 @@ function AdminUsers() {
             onChange={(event) => updateParams({ role: event.target.value })}
             options={ROLE_OPTIONS}
             aria-label="Filter by role"
-            className="w-40"
+            className="w-full min-w-0 flex-1 sm:w-40 sm:flex-none"
           />
           <Select
             value={status}
             onChange={(event) => updateParams({ status: event.target.value })}
             options={STATUS_OPTIONS}
             aria-label="Filter by status"
-            className="w-44"
+            className="w-full min-w-0 flex-1 sm:w-44 sm:flex-none"
           />
         </div>
       </div>

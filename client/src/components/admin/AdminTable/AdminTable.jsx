@@ -10,7 +10,7 @@ function AdminTable({
   return (
     <div className="overflow-hidden rounded-card border border-border-default bg-void-card">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[720px] text-left text-sm">
+        <table className="admin-table w-full min-w-[720px] text-left text-sm">
           <thead>
             <tr className="border-b border-border-default bg-white/[0.03]">
               {columns.map((column) => (

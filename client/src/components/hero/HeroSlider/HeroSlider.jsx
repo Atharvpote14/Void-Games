@@ -209,10 +209,11 @@ function HeroSlide({ game }) {
 
 function HeroSlider({ games }) {
   const [current, setCurrent] = useState(0)
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(() => (games.length <= 1 ? 100 : 0))
   const heroRef = useRef(null)
   const cursorRef = useRef({ x: -1, y: -1 })
   const elapsedRef = useRef(0)
+  const touchStartRef = useRef(null)
   const count = games.length
 
   useEffect(() => {
@@ -231,10 +232,7 @@ function HeroSlider({ games }) {
   }, [])
 
   useEffect(() => {
-    if (count <= 1) {
-      setProgress(100)
-      return
-    }
+    if (count <= 1) return
     let last = performance.now()
     const loop = setInterval(() => {
       const now = performance.now()
@@ -275,6 +273,22 @@ function HeroSlider({ games }) {
     setCurrent((prev) => (prev + 1) % count)
   }
 
+  const handleTouchStart = (event) => {
+    touchStartRef.current = event.touches[0].clientX
+  }
+  const handleTouchEnd = (event) => {
+    const startX = touchStartRef.current
+    touchStartRef.current = null
+    if (startX === null) return
+    const deltaX = event.changedTouches[0].clientX - startX
+    if (Math.abs(deltaX) < 48) return
+    if (deltaX < 0) {
+      handleNext()
+    } else {
+      handlePrev()
+    }
+  }
+
   if (count === 0) return null
 
   return (
@@ -282,6 +296,8 @@ function HeroSlider({ games }) {
       <Container className="py-4 sm:py-6">
         <div
           ref={heroRef}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           className="relative h-[380px] overflow-hidden sm:h-[440px] lg:h-[500px]"
         >
             <AnimatePresence mode="wait">
@@ -308,28 +324,28 @@ function HeroSlider({ games }) {
                     style={{ width: `${progress}%` }}
                   />
                 </div>
-                <div className="hidden items-center gap-2.5 md:flex">
+                <div className="flex items-center gap-2 md:gap-2.5">
                   <button
                     type="button"
                     aria-label="Previous game"
                     onClick={handlePrev}
                     className={cn(
-                      'grid size-11 cursor-pointer place-items-center rounded-full border border-white/15 bg-white/10 text-text-primary backdrop-blur-md transition-all duration-300',
+                      'grid size-9 cursor-pointer place-items-center rounded-full border border-white/15 bg-white/10 text-text-primary backdrop-blur-md transition-all duration-300 md:size-11',
                       'hover:scale-105 hover:border-primary hover:bg-primary/20 hover:text-primary hover:shadow-btn active:scale-95'
                     )}
                   >
-                    <ChevronLeft className="size-5" />
+                    <ChevronLeft className="size-4 md:size-5" />
                   </button>
                   <button
                     type="button"
                     aria-label="Next game"
                     onClick={handleNext}
                     className={cn(
-                      'grid size-11 cursor-pointer place-items-center rounded-full border border-white/15 bg-white/10 text-text-primary backdrop-blur-md transition-all duration-300',
+                      'grid size-9 cursor-pointer place-items-center rounded-full border border-white/15 bg-white/10 text-text-primary backdrop-blur-md transition-all duration-300 md:size-11',
                       'hover:scale-105 hover:border-primary hover:bg-primary/20 hover:text-primary hover:shadow-btn active:scale-95'
                     )}
                   >
-                    <ChevronRight className="size-5" />
+                    <ChevronRight className="size-4 md:size-5" />
                   </button>
                 </div>
               </Container>

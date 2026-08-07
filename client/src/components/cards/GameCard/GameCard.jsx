@@ -28,7 +28,7 @@ function GameCard({ game }) {
         </div>
       </div>
       <div className="flex flex-col gap-1.5 p-4">
-        <h3 className="truncate text-[22px] leading-snug font-bold text-text-primary">
+        <h3 className="truncate text-lg leading-snug font-bold text-text-primary sm:text-[22px]">
           {game.title}
         </h3>
         <p className="truncate text-sm text-text-muted">

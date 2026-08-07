@@ -26,7 +26,7 @@ function CollectionCard({ collection }) {
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-void-bg via-void-bg/40 to-transparent" />
         <div className="absolute right-4 bottom-4 left-4 flex items-center justify-between gap-3">
-          <h3 className="font-display text-lg leading-snug font-bold text-text-primary">
+          <h3 className="min-w-0 truncate font-display text-lg leading-snug font-bold text-text-primary">
             {collection.title}
           </h3>
           {collection.game_count > 0 && (

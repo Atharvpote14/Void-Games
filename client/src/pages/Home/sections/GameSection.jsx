@@ -38,7 +38,7 @@ function GameSection({
   const renderContent = () => {
     if (loading) {
       return isRow ? (
-        <div className="flex gap-4 overflow-hidden md:gap-6">
+        <div className="flex gap-4 overflow-x-auto md:gap-6">
           {Array.from({ length: 5 }, (_, index) => (
             <div key={index} className="w-[160px] shrink-0 sm:w-[190px] md:w-[220px]">
               <CardLoader count={1} className="!grid-cols-1 !gap-0" />

@@ -310,7 +310,7 @@ function AdminUnbanRequests() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 min-[400px]:grid-cols-2">
               <div className="rounded-card border border-border-default bg-void-bg p-4">
                 <p className="text-xs font-semibold tracking-wide text-text-muted uppercase">
                   Status

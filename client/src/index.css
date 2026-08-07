@@ -162,3 +162,20 @@
 @utility bg-premium-card {
   background-image: linear-gradient(135deg, #111827, #1a2440);
 }
+
+.admin-table th:last-child,
+.admin-table td:last-child {
+  position: sticky;
+  right: 0;
+  box-shadow: -10px 0 12px -8px rgba(0, 0, 0, 0.6);
+}
+
+.admin-table thead th:last-child {
+  background-color: #1b2236;
+  z-index: 10;
+}
+
+.admin-table tbody td:last-child {
+  background-color: #131b2e;
+  z-index: 5;
+}

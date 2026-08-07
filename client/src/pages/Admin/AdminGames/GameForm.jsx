@@ -345,7 +345,7 @@ function GameFormFields({ initialGame, isEditing, gameId }) {
             onChange={(event) => setField('version', event.target.value)}
             placeholder="e.g. 1.0.3095"
           />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <TextInput
               label="Release Date"
               type="date"

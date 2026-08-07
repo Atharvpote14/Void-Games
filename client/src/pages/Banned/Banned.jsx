@@ -92,7 +92,7 @@ function Banned() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-void-bg px-4 py-16">
-      <Container maxWidth="md" className="flex flex-col items-center gap-8">
+      <Container className="flex flex-col items-center gap-8">
         <Card className="w-full p-6 md:p-10">
           <div className="flex flex-col items-center gap-4 text-center">
             <span className="grid size-16 place-items-center rounded-full bg-danger/10 text-danger">

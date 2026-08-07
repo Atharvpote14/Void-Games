@@ -148,14 +148,14 @@ function AdminReports() {
             onChange={(event) => updateParams({ reason: event.target.value })}
             options={REASON_OPTIONS}
             aria-label="Filter by reason"
-            className="w-56"
+            className="w-full min-w-0 flex-1 sm:w-56 sm:flex-none"
           />
           <Select
             value={status}
             onChange={(event) => updateParams({ status: event.target.value })}
             options={STATUS_OPTIONS}
             aria-label="Filter by status"
-            className="w-44"
+            className="w-full min-w-0 flex-1 sm:w-44 sm:flex-none"
           />
         </div>
       </div>
@@ -304,7 +304,7 @@ function AdminReports() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 min-[400px]:grid-cols-2">
               <div className="rounded-card border border-border-default bg-void-bg p-4">
                 <p className="text-xs font-semibold tracking-wide text-text-muted uppercase">
                   Reported by
