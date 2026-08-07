@@ -196,7 +196,7 @@ function HeroSlide({ game }) {
             <Button
               to={`/game/${game.slug}`}
               size="lg"
-              className="border-white/15 bg-white/5 text-text-primary backdrop-blur-md hover:border-primary hover:bg-white/10 hover:text-primary hover:shadow-btn"
+              className="hidden border-white/15 bg-white/5 text-text-primary backdrop-blur-md sm:inline-flex hover:border-primary hover:bg-white/10 hover:text-primary hover:shadow-btn"
             >
               View Details
             </Button>
