@@ -224,13 +224,13 @@ ADMIN PANEL
 
 ⬜ Manage Fixes
 
-⬜ Manage Users
+✅ Manage Users
 
-⬜ Manage Reports
+✅ Manage Reports
 
 ⬜ Website Settings
 
-⬜ Analytics
+✅ Analytics
 
 ══════════════════════════════════════════════════════════════════════
 ANALYTICS

@@ -443,11 +443,11 @@ function GameDetails() {
               />
             </div>
 
-            <CommentSection gameId={game.id} user={null} />
+            <CommentSection gameId={game.id} user={user} />
           </div>
 
           <aside className="flex min-w-0 flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
-            <RatingSection gameId={game.id} user={null} />
+            <RatingSection gameId={game.id} user={user} />
 
             {(requirements.minimum.length > 0 ||
               requirements.recommended.length > 0) && (

@@ -27,7 +27,7 @@ function CommentCard({ comment, onDelete, canDelete }) {
             )}
           </span>
         </div>
-        <p className="text-sm leading-relaxed text-text-secondary">{comment.comment}</p>
+        <p className="text-sm leading-relaxed text-text-secondary">{comment.content}</p>
       </div>
     </article>
   )

@@ -33,6 +33,14 @@ const AdminCollections = lazy(() =>
 )
 const AdminGuides = lazy(() => import('@/pages/Admin/AdminGuides/AdminGuides'))
 const AdminFixes = lazy(() => import('@/pages/Admin/AdminFixes/AdminFixes'))
+const AdminUsers = lazy(() => import('@/pages/Admin/AdminUsers/AdminUsers'))
+const AdminReports = lazy(() => import('@/pages/Admin/AdminReports/AdminReports'))
+const AdminUnbanRequests = lazy(() =>
+  import('@/pages/Admin/AdminUnbanRequests/AdminUnbanRequests')
+)
+const AdminAnalytics = lazy(() =>
+  import('@/pages/Admin/AdminAnalytics/AdminAnalytics')
+)
 
 const router = createBrowserRouter([
   {
@@ -236,6 +244,38 @@ const router = createBrowserRouter([
         element: (
           <LazyPage>
             <AdminFixes />
+          </LazyPage>
+        ),
+      },
+      {
+        path: 'users',
+        element: (
+          <LazyPage>
+            <AdminUsers />
+          </LazyPage>
+        ),
+      },
+      {
+        path: 'reports',
+        element: (
+          <LazyPage>
+            <AdminReports />
+          </LazyPage>
+        ),
+      },
+      {
+        path: 'unban-requests',
+        element: (
+          <LazyPage>
+            <AdminUnbanRequests />
+          </LazyPage>
+        ),
+      },
+      {
+        path: 'analytics',
+        element: (
+          <LazyPage>
+            <AdminAnalytics />
           </LazyPage>
         ),
       },

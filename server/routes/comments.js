@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { authenticate } from '../middleware/auth.js'
+import { authenticate, blockBanned } from '../middleware/auth.js'
 import {
   getComments,
   addCommentHandler,
@@ -9,9 +9,9 @@ import {
 
 const router = Router()
 
-router.post('/', authenticate, addCommentHandler)
-router.patch('/:id', authenticate, updateCommentHandler)
-router.delete('/:id', authenticate, deleteCommentHandler)
+router.post('/', authenticate, blockBanned, addCommentHandler)
+router.patch('/:id', authenticate, blockBanned, updateCommentHandler)
+router.delete('/:id', authenticate, blockBanned, deleteCommentHandler)
 router.get('/:gameId', getComments)
 
 export default router

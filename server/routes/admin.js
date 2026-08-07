@@ -35,12 +35,32 @@ import {
   updateFix,
   deleteFix,
 } from '../controllers/adminArticlesController.js'
+import {
+  getUsers,
+  getUser,
+  updateUser,
+  deleteUser,
+} from '../controllers/adminUsersController.js'
+import {
+  getReports,
+  getReport,
+  updateReportStatus,
+  deleteReport,
+} from '../controllers/adminReportsController.js'
+import {
+  getUnbanRequests,
+  getUnbanRequest,
+  reviewUnbanRequest,
+  deleteUnbanRequest,
+} from '../controllers/adminUnbanRequestsController.js'
+import { getAnalyticsData } from '../controllers/adminAnalyticsController.js'
 
 const router = Router()
 
 router.use(authenticate, requireAdmin)
 
 router.get('/dashboard', getDashboard)
+router.get('/analytics', getAnalyticsData)
 
 router.get('/games/picker', getGamePicker)
 router.get('/games', getGames)
@@ -72,5 +92,20 @@ router.get('/fixes/:id', getFix)
 router.post('/fix', createFix)
 router.patch('/fix/:id', updateFix)
 router.delete('/fix/:id', deleteFix)
+
+router.get('/users', getUsers)
+router.get('/users/:id', getUser)
+router.patch('/user/:id', updateUser)
+router.delete('/user/:id', deleteUser)
+
+router.get('/reports', getReports)
+router.get('/reports/:id', getReport)
+router.patch('/report/:id', updateReportStatus)
+router.delete('/report/:id', deleteReport)
+
+router.get('/unban-requests', getUnbanRequests)
+router.get('/unban-requests/:id', getUnbanRequest)
+router.patch('/unban-request/:id', reviewUnbanRequest)
+router.delete('/unban-request/:id', deleteUnbanRequest)
 
 export default router

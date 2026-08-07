@@ -12,6 +12,8 @@ import downloadsRoutes from './downloads.js'
 import searchRoutes from './search.js'
 import ratingsRoutes from './ratings.js'
 import commentsRoutes from './comments.js'
+import reportsRoutes from './reports.js'
+import unbanRequestsRoutes from './unbanRequests.js'
 import adminRoutes from './admin.js'
 
 const router = Router()
@@ -28,6 +30,8 @@ router.use('/download', downloadsRoutes)
 router.use('/search', searchRoutes)
 router.use('/ratings', ratingsRoutes)
 router.use('/comments', commentsRoutes)
+router.use('/reports', reportsRoutes)
+router.use('/unban-requests', unbanRequestsRoutes)
 
 router.get('/health', (_req, res) => {
   res.status(200).json({

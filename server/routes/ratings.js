@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { authenticate } from '../middleware/auth.js'
+import { authenticate, blockBanned } from '../middleware/auth.js'
 import {
   getRating,
   rateGameHandler,
@@ -7,7 +7,7 @@ import {
 
 const router = Router()
 
-router.post('/', authenticate, rateGameHandler)
+router.post('/', authenticate, blockBanned, rateGameHandler)
 router.get('/:gameId', getRating)
 
 export default router

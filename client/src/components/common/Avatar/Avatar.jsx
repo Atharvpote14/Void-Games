@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { cn } from '@/utils/cn'
 
 function Avatar({ src, alt = '', name = '', size = 'md', className, ...props }) {
@@ -9,6 +10,8 @@ function Avatar({ src, alt = '', name = '', size = 'md', className, ...props }) 
     xl: 'size-20 text-2xl',
   }
 
+  const [failedSrc, setFailedSrc] = useState(null)
+
   const initials = name
     .split(' ')
     .filter(Boolean)
@@ -16,11 +19,12 @@ function Avatar({ src, alt = '', name = '', size = 'md', className, ...props }) 
     .map((part) => part[0].toUpperCase())
     .join('')
 
-  if (src) {
+  if (src && src !== failedSrc) {
     return (
       <img
         src={src}
         alt={alt || name}
+        onError={() => setFailedSrc(src)}
         className={cn(
           'shrink-0 rounded-full border border-border-default object-cover',
           sizeClasses[size],

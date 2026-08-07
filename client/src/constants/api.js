@@ -57,6 +57,8 @@ export const ENDPOINTS = {
     BY_GAME: (gameId) => `/ratings/${gameId}`,
   },
   REPORTS: '/reports',
+  UNBAN_REQUESTS: '/unban-requests',
+  UNBAN_REQUESTS_MINE: '/unban-requests/mine',
   CONTACT: '/contact',
   NEWSLETTER: '/newsletter',
   ADMIN: {
@@ -82,6 +84,11 @@ export const ENDPOINTS = {
     COMMENT_BY_ID: (id) => `/admin/comment/${id}`,
     USERS: '/admin/users',
     USER_BY_ID: (id) => `/admin/user/${id}`,
+    REPORTS: '/admin/reports',
+    REPORT_BY_ID: (id) => `/admin/report/${id}`,
+    UNBAN_REQUESTS: '/admin/unban-requests',
+    UNBAN_REQUEST_BY_ID: (id) => `/admin/unban-request/${id}`,
+    ANALYTICS: '/admin/analytics',
   },
   STATS: {
     HOME: '/stats/home',

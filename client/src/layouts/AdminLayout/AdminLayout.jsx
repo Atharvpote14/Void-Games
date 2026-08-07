@@ -1,14 +1,18 @@
 import { useState } from 'react'
 import { NavLink, Outlet, Link, useNavigate } from 'react-router-dom'
 import {
+  AlertTriangle,
+  BarChart3,
   BookOpen,
   ExternalLink,
   Folder,
   Gamepad2,
   LayoutDashboard,
   Library,
+  LifeBuoy,
   LogOut,
   Menu,
+  Users,
   Wrench,
 } from 'lucide-react'
 import Logo from '@/components/common/Logo/Logo'
@@ -24,6 +28,10 @@ const ADMIN_NAV_ITEMS = [
   { label: 'Collections', to: '/admin/collections', icon: Library },
   { label: 'Guides', to: '/admin/guides', icon: BookOpen },
   { label: 'Fix Center', to: '/admin/fixes', icon: Wrench },
+  { label: 'Users', to: '/admin/users', icon: Users },
+  { label: 'Reports', to: '/admin/reports', icon: AlertTriangle },
+  { label: 'Unban Requests', to: '/admin/unban-requests', icon: LifeBuoy },
+  { label: 'Analytics', to: '/admin/analytics', icon: BarChart3 },
 ]
 
 function NavItems() {

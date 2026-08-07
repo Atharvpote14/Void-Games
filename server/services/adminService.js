@@ -43,6 +43,7 @@ export async function getDashboardStats() {
     totalViews,
     downloadsToday,
     downloadsThisMonth,
+    pendingReports,
     popularGames,
     latestGames,
     latestGuides,
@@ -68,6 +69,14 @@ export async function getDashboardStats() {
       .from('download_history')
       .select('id', { count: 'exact', head: true })
       .gte('downloaded_at', startOfMonth.toISOString())
+      .then(({ count, error }) => {
+        if (error) throw error
+        return count || 0
+      }),
+    admin
+      .from('reports')
+      .select('id', { count: 'exact', head: true })
+      .eq('status', 'pending')
       .then(({ count, error }) => {
         if (error) throw error
         return count || 0
@@ -105,6 +114,7 @@ export async function getDashboardStats() {
     total_views: totalViews,
     downloads_today: downloadsToday,
     downloads_this_month: downloadsThisMonth,
+    pending_reports: pendingReports,
     popular_games: popularGames,
     latest_games: latestGames,
     latest_guides: latestGuides,

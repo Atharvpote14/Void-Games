@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import {
   Download,
   Eye,
+  Flag,
   Folder,
   Gamepad2,
   Library,
@@ -89,6 +90,7 @@ function AdminDashboard() {
       downloadsToday: data.downloads_today,
       downloadsMonth: data.downloads_this_month,
       views: data.total_views,
+      pendingReports: data.pending_reports,
     }
   }, [data])
 
@@ -171,6 +173,13 @@ function AdminDashboard() {
           label="Collections"
           value={formatNumber(stats?.collections)}
           loading={loading}
+        />
+        <StatCard
+          icon={Flag}
+          label="Pending Reports"
+          value={formatNumber(stats?.pendingReports)}
+          loading={loading}
+          accent="danger"
         />
       </div>
 

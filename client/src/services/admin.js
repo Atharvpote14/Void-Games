@@ -138,3 +138,71 @@ export async function deleteAdminFix(fixId) {
   const response = await api.delete(ENDPOINTS.ADMIN.FIX_BY_ID(fixId))
   return response.data
 }
+
+export async function getAdminUsers(params = {}) {
+  const response = await api.get(ENDPOINTS.ADMIN.USERS, { params })
+  return response.data
+}
+
+export async function getAdminUser(userId) {
+  const response = await api.get(ENDPOINTS.ADMIN.USER_BY_ID(userId))
+  return response.data
+}
+
+export async function updateAdminUser(userId, payload) {
+  const response = await api.patch(ENDPOINTS.ADMIN.USER_BY_ID(userId), payload)
+  return response.data
+}
+
+export async function deleteAdminUser(userId) {
+  const response = await api.delete(ENDPOINTS.ADMIN.USER_BY_ID(userId))
+  return response.data
+}
+
+export async function getAdminReports(params = {}) {
+  const response = await api.get(ENDPOINTS.ADMIN.REPORTS, { params })
+  return response.data
+}
+
+export async function getAdminReport(reportId) {
+  const response = await api.get(ENDPOINTS.ADMIN.REPORT_BY_ID(reportId))
+  return response.data
+}
+
+export async function updateAdminReportStatus(reportId, status) {
+  const response = await api.patch(ENDPOINTS.ADMIN.REPORT_BY_ID(reportId), { status })
+  return response.data
+}
+
+export async function deleteAdminReport(reportId) {
+  const response = await api.delete(ENDPOINTS.ADMIN.REPORT_BY_ID(reportId))
+  return response.data
+}
+
+export async function getAdminAnalytics(params = {}) {
+  const response = await api.get(ENDPOINTS.ADMIN.ANALYTICS, { params })
+  return response.data
+}
+
+export async function getAdminUnbanRequests(params = {}) {
+  const response = await api.get(ENDPOINTS.ADMIN.UNBAN_REQUESTS, { params })
+  return response.data
+}
+
+export async function getAdminUnbanRequest(requestId) {
+  const response = await api.get(ENDPOINTS.ADMIN.UNBAN_REQUEST_BY_ID(requestId))
+  return response.data
+}
+
+export async function reviewAdminUnbanRequest(requestId, payload) {
+  const response = await api.patch(
+    ENDPOINTS.ADMIN.UNBAN_REQUEST_BY_ID(requestId),
+    payload
+  )
+  return response.data
+}
+
+export async function deleteAdminUnbanRequest(requestId) {
+  const response = await api.delete(ENDPOINTS.ADMIN.UNBAN_REQUEST_BY_ID(requestId))
+  return response.data
+}

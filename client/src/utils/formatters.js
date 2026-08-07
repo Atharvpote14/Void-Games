@@ -11,11 +11,11 @@ export function formatDate(value, options = {}) {
   if (!value) return ''
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return ''
+  const { dateStyle, timeStyle, ...rest } = options
+  const hasStyle = Boolean(dateStyle || timeStyle)
   return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    ...options,
+    ...(hasStyle ? { dateStyle, timeStyle } : { year: 'numeric', month: 'short', day: 'numeric' }),
+    ...rest,
   }).format(date)
 }
 

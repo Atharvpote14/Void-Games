@@ -27,7 +27,14 @@ export function AuthProvider({ children }) {
       const profile = exchange
         ? await loginWithAccessToken(session.access_token)
         : await fetchMe()
-      setUser(profile)
+      const sessionMeta = session.user?.user_metadata || {}
+      const sessionAvatar =
+        sessionMeta.avatar_url || sessionMeta.picture || null
+      setUser(
+        profile?.avatar
+          ? profile
+          : { ...(profile || {}), avatar: sessionAvatar }
+      )
     } catch {
       setUser(null)
     }

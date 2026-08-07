@@ -12,6 +12,7 @@ function toProfile(row) {
     email: row.email,
     avatar: row.avatar,
     role: row.role,
+    is_banned: row.is_banned ?? false,
     bio: row.bio,
     country: row.country,
     created_at: row.created_at,
@@ -22,15 +23,26 @@ function toProfile(row) {
 export async function upsertProfileFromAuthUser(authUser) {
   const admin = getSupabaseAdmin()
   const meta = authUser.user_metadata || {}
+  const identity = authUser.identities?.[0]?.identity_data || {}
 
   const payload = {
     id: authUser.id,
-    google_id: meta.google_id || meta.sub || null,
-    name: meta.full_name || meta.name || authUser.email?.split('@')[0] || '',
+    google_id: meta.google_id || meta.sub || identity.sub || null,
     email: authUser.email || null,
-    avatar: meta.avatar_url || meta.picture || null,
     updated_at: new Date().toISOString(),
   }
+
+  const avatar =
+    meta.avatar_url || meta.picture || identity.avatar_url || identity.picture
+  if (avatar) payload.avatar = avatar
+
+  const name =
+    meta.full_name ||
+    meta.name ||
+    identity.full_name ||
+    identity.name ||
+    authUser.email?.split('@')[0]
+  if (name) payload.name = name
 
   const { data, error } = await admin
     .from('users')
