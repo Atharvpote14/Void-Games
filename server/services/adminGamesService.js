@@ -162,7 +162,13 @@ export async function createAdminGame(input) {
 
   if (error) throw error
 
-  await replaceGameChildren(data.id, { screenshots, download_links, tags, collection_ids })
+  await replaceGameChildren(data.id, {
+    screenshots,
+    download_links,
+    tags,
+    collection_ids,
+    defaultFileSize: payload.size_bytes || undefined,
+  })
   return getAdminGame(data.id)
 }
 
@@ -194,13 +200,17 @@ export async function updateAdminGame(gameId, input) {
       download_links: download_links || [],
       tags: tags || [],
       collection_ids: collection_ids || [],
+      defaultFileSize: payload.size_bytes || undefined,
     })
   }
 
   return getAdminGame(gameId)
 }
 
-async function replaceGameChildren(gameId, { screenshots, download_links, tags, collection_ids }) {
+async function replaceGameChildren(
+  gameId,
+  { screenshots, download_links, tags, collection_ids, defaultFileSize }
+) {
   const admin = getSupabaseAdmin()
   const results = await Promise.all([
     admin.from('screenshots').delete().eq('game_id', gameId),
@@ -232,7 +242,7 @@ async function replaceGameChildren(gameId, { screenshots, download_links, tags, 
           provider: link.provider || 'Terabox',
           mirror_name: link.mirror_name || '',
           download_url: link.download_url,
-          file_size: link.file_size || 0,
+          file_size: link.file_size || defaultFileSize || 0,
           password: link.password || '',
           is_active: link.is_active ?? true,
           sort_order: link.sort_order ?? index,

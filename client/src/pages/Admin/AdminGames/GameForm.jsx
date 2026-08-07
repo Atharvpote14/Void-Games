@@ -178,8 +178,24 @@ function GameFormFields({ initialGame, isEditing, gameId }) {
     })
   }
 
+  const handleSizeChange = (value) => {
+    setForm((prev) => {
+      const download_links = prev.download_links.map((link) => ({
+        ...link,
+        size_gb: value,
+      }))
+      return { ...prev, size_gb: value, download_links }
+    })
+  }
+
   const addLink = () => {
-    setForm((prev) => ({ ...prev, download_links: [...prev.download_links, EMPTY_LINK] }))
+    setForm((prev) => ({
+      ...prev,
+      download_links: [
+        ...prev.download_links,
+        { ...EMPTY_LINK, size_gb: prev.size_gb || '' },
+      ],
+    }))
   }
 
   const removeLink = (index) => {
@@ -261,7 +277,7 @@ function GameFormFields({ initialGame, isEditing, gameId }) {
           provider: link.provider,
           mirror_name: link.mirror_name.trim(),
           download_url: link.download_url.trim(),
-          file_size: gbToBytes(link.size_gb),
+          file_size: gbToBytes(form.size_gb || link.size_gb),
           password: link.password.trim(),
           is_active: link.is_active,
         })),
@@ -358,8 +374,9 @@ function GameFormFields({ initialGame, isEditing, gameId }) {
               min="0"
               step="0.01"
               value={form.size_gb}
-              onChange={(event) => setField('size_gb', event.target.value)}
+              onChange={(event) => handleSizeChange(event.target.value)}
               placeholder="e.g. 112.5"
+              hint="Applies to the game and every mirror below."
             />
           </div>
           <Select
@@ -525,9 +542,11 @@ function GameFormFields({ initialGame, isEditing, gameId }) {
                   type="number"
                   min="0"
                   step="0.01"
-                  value={link.size_gb}
-                  onChange={(event) => updateLink(index, 'size_gb', event.target.value)}
+                  value={form.size_gb || ''}
+                  onChange={(event) => handleSizeChange(event.target.value)}
                   placeholder="e.g. 52.3"
+                  disabled
+                  hint="Synced from game size above."
                 />
               </div>
               <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
