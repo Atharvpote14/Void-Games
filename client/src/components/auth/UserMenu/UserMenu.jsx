@@ -63,7 +63,7 @@ function UserMenu() {
               exit={{ opacity: 0, y: 8, scale: 0.97 }}
               transition={{ duration: 0.2 }}
               role="menu"
-              className="absolute right-0 z-50 mt-2 w-60 overflow-hidden rounded-card border border-border-default bg-void-card shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+              className="fixed left-1/2 top-20 z-50 w-60 max-w-[calc(100vw-2rem)] -translate-x-1/2 overflow-hidden rounded-card border border-border-default bg-void-card shadow-[0_20px_50px_rgba(0,0,0,0.5)] md:absolute md:left-auto md:right-0 md:top-auto md:mt-2 md:max-w-none md:translate-x-0"
             >
               <div className="flex items-center gap-3 border-b border-border-default p-4">
                 <Avatar src={user.avatar} name={user.name} size="md" />
