@@ -33,6 +33,7 @@ function toArticle(row, { fix = false } = {}) {
       problem: row.problem,
       symptoms: row.symptoms,
       solution: row.solution,
+      links: row.links || [],
     }
   }
   return {

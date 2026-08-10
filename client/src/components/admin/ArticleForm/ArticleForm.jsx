@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react'
+import { Link2, Plus, Trash2 } from 'lucide-react'
 import Button from '@/components/buttons/Button/Button'
 import TextInput from '@/components/inputs/TextInput/TextInput'
 import TextArea from '@/components/inputs/TextArea/TextArea'
@@ -35,7 +36,7 @@ function buildEmptyForm(kind) {
   if (kind === 'guide') {
     return { ...base, author: 'Void Games Team', content: '' }
   }
-  return { ...base, problem: '', symptoms: '', solution: '' }
+  return { ...base, problem: '', symptoms: '', solution: '', links: [] }
 }
 
 function fillFromArticle(kind, article) {
@@ -61,6 +62,7 @@ function fillFromArticle(kind, article) {
     problem: article.problem || '',
     symptoms: article.symptoms || '',
     solution: article.solution || '',
+    links: Array.isArray(article.links) ? article.links : [],
   }
 }
 
@@ -101,6 +103,26 @@ function ArticleForm({ kind, article, open = false, onSave }) {
     setField('game_id', gameId)
     setField('game_title', game?.title || '')
     setField('game_slug', game?.slug || '')
+  }
+
+  const handleLinkChange = (index, field, value) => {
+    setForm((prev) => {
+      const links = prev.links.map((link, i) =>
+        i === index ? { ...link, [field]: value } : link
+      )
+      return { ...prev, links }
+    })
+  }
+
+  const addLink = () => {
+    setForm((prev) => ({ ...prev, links: [...prev.links, { label: '', url: '' }] }))
+  }
+
+  const removeLink = (index) => {
+    setForm((prev) => ({
+      ...prev,
+      links: prev.links.filter((_, i) => i !== index),
+    }))
   }
 
   const validate = () => {
@@ -241,6 +263,57 @@ function ArticleForm({ kind, article, open = false, onSave }) {
               'Step-by-step fix.\n\n1. First step\n2. Second step\n\nUse blank lines between sections.'
             }
           />
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <Link2 className="size-4.5 text-primary" />
+              <h3 className="font-display text-sm font-bold tracking-wide text-text-primary uppercase">
+                Optional Links
+              </h3>
+            </div>
+            <p className="text-xs text-text-muted">
+              Attach download links or useful resources. Users will see them as
+              buttons on the fix page.
+            </p>
+            <div className="flex flex-col gap-3">
+              {form.links.map((link, index) => (
+                <div key={index} className="flex items-end gap-2">
+                  <TextInput
+                    label="Label"
+                    value={link.label}
+                    onChange={(event) =>
+                      handleLinkChange(index, 'label', event.target.value)
+                    }
+                    placeholder="e.g. Download fix pack"
+                    className="w-2/5"
+                  />
+                  <TextInput
+                    label="URL"
+                    value={link.url}
+                    onChange={(event) =>
+                      handleLinkChange(index, 'url', event.target.value)
+                    }
+                    placeholder="https://..."
+                    className="flex-1"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeLink(index)}
+                    aria-label="Remove link"
+                    title="Remove link"
+                    className="grid size-11 shrink-0 cursor-pointer place-items-center rounded-input border border-border-default text-text-muted transition-colors hover:border-danger/50 hover:text-danger"
+                  >
+                    <Trash2 className="size-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div>
+              <Button type="button" variant="ghost" size="sm" onClick={addLink}>
+                <Plus className="size-4" />
+                Add Link
+              </Button>
+            </div>
+          </div>
         </>
       )}
 

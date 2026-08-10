@@ -180,8 +180,23 @@ export function validateGuideInput(body = {}) {
 
 export function validateFixInput(body = {}) {
   const base = validateArticleInput(body)
+  // fix_articles has no is_featured column — the admin form sends it.
+  delete base.is_featured
   base.problem = optionalText(body.problem, 'Problem', 5000)
   base.symptoms = optionalText(body.symptoms, 'Symptoms', 10000)
   base.solution = requireText(body.solution, 'Solution', 50000)
+  base.links = Array.isArray(body.links)
+    ? body.links
+        .map((link) => {
+          const url = optionalUrl(link?.url, 'Link URL')
+          if (!url) return null
+          return {
+            label: optionalText(link?.label, 'Link label', 120) || 'Download',
+            url,
+          }
+        })
+        .filter(Boolean)
+        .slice(0, 20)
+    : []
   return base
 }

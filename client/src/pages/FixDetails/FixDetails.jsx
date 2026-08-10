@@ -5,6 +5,7 @@ import {
   CalendarDays,
   CheckCircle2,
   ClipboardList,
+  Download,
   Eye,
   ListChecks,
   Wrench,
@@ -169,6 +170,28 @@ function FixDetails() {
               </h2>
               <SolutionSteps fix={fix} />
             </div>
+            {Array.isArray(fix.links) && fix.links.length > 0 && (
+              <div className="rounded-card border border-border-default bg-void-card p-6 md:p-8">
+                <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold text-text-primary">
+                  <Download className="size-5 text-primary" />
+                  Downloads & Resources
+                </h2>
+                <div className="flex flex-wrap gap-3">
+                  {fix.links.map((link, index) => (
+                    <a
+                      key={index}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-btn bg-btn-gradient px-4 py-2.5 text-sm font-semibold text-white shadow-btn transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
+                    >
+                      <Download className="size-4" />
+                      {link.label || 'Download'}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
             <div className="flex items-start gap-3 rounded-card border border-success/30 bg-success/10 p-4">
               <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-success" />
               <p className="text-sm leading-relaxed text-text-secondary">
