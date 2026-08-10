@@ -1,11 +1,12 @@
 import { useCallback, useState } from 'react'
-import { Link2, Plus, Trash2 } from 'lucide-react'
+import { Link2, ListOrdered, Plus, Trash2 } from 'lucide-react'
 import Button from '@/components/buttons/Button/Button'
 import TextInput from '@/components/inputs/TextInput/TextInput'
 import TextArea from '@/components/inputs/TextArea/TextArea'
 import Select from '@/components/inputs/Select/Select'
 import Toggle from '@/components/inputs/Toggle/Toggle'
 import { slugify } from '@/utils/formatters'
+import { parseArticleBlocks } from '@/utils/content'
 import useFetch from '@/hooks/useFetch'
 import { getAdminGamePicker } from '@/services/admin'
 
@@ -36,7 +37,32 @@ function buildEmptyForm(kind) {
   if (kind === 'guide') {
     return { ...base, author: 'Void Games Team', content: '' }
   }
-  return { ...base, problem: '', symptoms: '', solution: '', links: [] }
+  return { ...base, problem: '', symptoms: '', steps: [''], links: [] }
+}
+
+function solutionToSteps(solution) {
+  const text = String(solution || '').trim()
+  if (!text) return ['']
+
+  const steps = []
+  for (const block of parseArticleBlocks(text)) {
+    if (block.type === 'ordered') steps.push(...block.items)
+    else if (block.type === 'heading') steps.push(`## ${block.text}`)
+    else if (block.type === 'list') steps.push(block.items.join(' '))
+    else steps.push(block.text)
+  }
+  return steps.length ? steps : [text]
+}
+
+function stepsToSolution(steps) {
+  const blocks = []
+  let number = 1
+  for (const step of steps) {
+    const text = String(step || '').trim().replace(/\s*\n\s*/g, ' ')
+    if (!text) continue
+    blocks.push(text.startsWith('## ') ? text : `${number++}. ${text}`)
+  }
+  return blocks.join('\n\n')
 }
 
 function fillFromArticle(kind, article) {
@@ -61,14 +87,16 @@ function fillFromArticle(kind, article) {
     ...base,
     problem: article.problem || '',
     symptoms: article.symptoms || '',
-    solution: article.solution || '',
+    steps: solutionToSteps(article.solution),
     links: Array.isArray(article.links) ? article.links : [],
   }
 }
 
 function ArticleForm({ kind, article, open = false, onSave }) {
-  const [form, setForm] = useState(() => buildEmptyForm(kind))
-  const [slugTouched, setSlugTouched] = useState(false)
+  const [form, setForm] = useState(() =>
+    open && article ? fillFromArticle(kind, article) : buildEmptyForm(kind)
+  )
+  const [slugTouched, setSlugTouched] = useState(Boolean(open && article))
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [formKey, setFormKey] = useState({ kind, article, open })
@@ -125,10 +153,31 @@ function ArticleForm({ kind, article, open = false, onSave }) {
     }))
   }
 
+  const handleStepChange = (index, value) => {
+    setForm((prev) => ({
+      ...prev,
+      steps: prev.steps.map((step, i) => (i === index ? value : step)),
+    }))
+  }
+
+  const addStep = () => {
+    setForm((prev) => ({ ...prev, steps: [...prev.steps, ''] }))
+  }
+
+  const removeStep = (index) => {
+    setForm((prev) => ({
+      ...prev,
+      steps: prev.steps.filter((_, i) => i !== index),
+    }))
+  }
+
   const validate = () => {
     if (!form.title.trim()) return 'Title is required'
-    const required = kind === 'guide' ? form.content : form.solution
-    if (!required.trim()) return `${ARTICLE_FIELDS[kind].requiredLabel} is required`
+    if (kind === 'guide') {
+      if (!form.content.trim()) return 'Content is required'
+      return ''
+    }
+    if (!form.steps.some((step) => String(step).trim())) return 'Solution is required'
     return ''
   }
 
@@ -143,13 +192,15 @@ function ArticleForm({ kind, article, open = false, onSave }) {
     setSubmitting(true)
     setError('')
     try {
+      const { steps, ...rest } = form
       await onSave({
-        ...form,
+        ...rest,
         title: form.title.trim(),
         slug: form.slug.trim() || slugify(form.title),
         game_id: form.game_id || null,
         game_title: form.game_title.trim(),
         game_slug: form.game_slug.trim(),
+        solution: kind === 'guide' ? undefined : stepsToSolution(steps),
       })
     } catch (err) {
       setError(err.message)
@@ -253,16 +304,51 @@ function ArticleForm({ kind, article, open = false, onSave }) {
             onChange={(event) => setField('symptoms', event.target.value)}
             placeholder="What does the user see or experience?"
           />
-          <TextArea
-            label="Solution"
-            required
-            rows={10}
-            value={form.solution}
-            onChange={(event) => setField('solution', event.target.value)}
-            placeholder={
-              'Step-by-step fix.\n\n1. First step\n2. Second step\n\nUse blank lines between sections.'
-            }
-          />
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <ListOrdered className="size-4.5 text-primary" />
+              <h3 className="font-display text-sm font-bold tracking-wide text-text-primary uppercase">
+                Solution Steps
+              </h3>
+            </div>
+            <p className="text-xs text-text-muted">
+              Add each fix step individually. Steps are shown numbered on the fix
+              page. Lines starting with `## ` are rendered as section headings.
+            </p>
+            <div className="flex flex-col gap-3">
+              {form.steps.map((step, index) => (
+                <div key={index} className="flex items-start gap-2">
+                  <span className="mt-2.5 grid size-7 shrink-0 place-items-center rounded-full bg-primary/15 text-sm font-bold text-primary">
+                    {index + 1}
+                  </span>
+                  <TextArea
+                    rows={2}
+                    value={step}
+                    onChange={(event) =>
+                      handleStepChange(index, event.target.value)
+                    }
+                    placeholder={`Step ${index + 1}`}
+                    className="flex-1"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeStep(index)}
+                    aria-label="Remove step"
+                    title="Remove step"
+                    className="mt-2 grid size-11 shrink-0 cursor-pointer place-items-center rounded-input border border-border-default text-text-muted transition-colors hover:border-danger/50 hover:text-danger"
+                  >
+                    <Trash2 className="size-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div>
+              <Button type="button" variant="ghost" size="sm" onClick={addStep}>
+                <Plus className="size-4" />
+                Add Step
+              </Button>
+            </div>
+          </div>
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2">
               <Link2 className="size-4.5 text-primary" />
