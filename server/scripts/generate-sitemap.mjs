@@ -40,6 +40,7 @@ const staticUrls = [
   { loc: '/games', priority: '0.9', changefreq: 'daily' },
   { loc: '/guides', priority: '0.8', changefreq: 'weekly' },
   { loc: '/fixes', priority: '0.8', changefreq: 'weekly' },
+  { loc: '/steam-free-games', priority: '0.6', changefreq: 'weekly' },
   { loc: '/search', priority: '0.4', changefreq: 'monthly' },
 ]
 
