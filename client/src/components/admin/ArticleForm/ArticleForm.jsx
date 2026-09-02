@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link2, ListOrdered, Plus, Trash2 } from 'lucide-react'
 import Button from '@/components/buttons/Button/Button'
 import TextInput from '@/components/inputs/TextInput/TextInput'
@@ -9,6 +9,7 @@ import { slugify } from '@/utils/formatters'
 import { parseArticleBlocks } from '@/utils/content'
 import useFetch from '@/hooks/useFetch'
 import { getAdminGamePicker } from '@/services/admin'
+import { useFormPersistence } from '@/hooks/useFormPersistence'
 
 const ARTICLE_FIELDS = {
   guide: {
@@ -100,6 +101,18 @@ function ArticleForm({ kind, article, open = false, onSave }) {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [formKey, setFormKey] = useState({ kind, article, open })
+
+  const { persist, clear } = useFormPersistence({
+    kind,
+    article,
+    open,
+    initialForm: form,
+    onFormChange: setForm,
+  })
+
+  useEffect(() => {
+    persist(form)
+  }, [form, persist])
 
   if (
     open !== formKey.open ||
@@ -202,6 +215,7 @@ function ArticleForm({ kind, article, open = false, onSave }) {
         game_slug: form.game_slug.trim(),
         solution: kind === 'guide' ? undefined : stepsToSolution(steps),
       })
+      clear()
     } catch (err) {
       setError(err.message)
     } finally {

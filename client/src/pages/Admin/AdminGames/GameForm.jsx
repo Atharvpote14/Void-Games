@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft, Plus, Save, Trash2 } from 'lucide-react'
 import AdminPageHeader from '@/components/admin/AdminPageHeader/AdminPageHeader'
@@ -14,6 +14,7 @@ import PageLoader from '@/components/loading/PageLoader/PageLoader'
 import { slugify } from '@/utils/formatters'
 import useFetch from '@/hooks/useFetch'
 import usePageMeta from '@/hooks/usePageMeta'
+import { useFormPersistence } from '@/hooks/useFormPersistence'
 import {
   createAdminGame,
   getAdminCategories,
@@ -122,6 +123,18 @@ function GameFormFields({ initialGame, isEditing, gameId }) {
   const [slugTouched, setSlugTouched] = useState(Boolean(initialGame))
   const [submitting, setSubmitting] = useState(false)
   const [formError, setFormError] = useState('')
+
+  const { persist, clear } = useFormPersistence({
+    kind: 'game',
+    article: initialGame,
+    open: true,
+    initialForm: form,
+    onFormChange: setForm,
+  })
+
+  useEffect(() => {
+    persist(form)
+  }, [form, persist])
 
   const { data: categoriesData } = useFetch(getAdminCategories)
   const categories = useMemo(
@@ -308,6 +321,7 @@ function GameFormFields({ initialGame, isEditing, gameId }) {
       } else {
         await createAdminGame(payload)
       }
+      clear()
       navigate('/admin/games')
     } catch (err) {
       setFormError(err.message)
