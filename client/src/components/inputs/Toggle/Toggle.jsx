@@ -24,14 +24,21 @@ const Toggle = forwardRef(function Toggle(
         id={inputId}
         type="checkbox"
         role="switch"
-        className="peer sr-only"
+        className="peer absolute opacity-0 pointer-events-none h-6 w-11"
         {...props}
       />
       <span
         aria-hidden="true"
-        className="relative h-6 w-11 shrink-0 rounded-full border border-border-default bg-void-card transition-colors duration-300 peer-checked:border-primary peer-checked:bg-primary peer-focus-visible:outline-2 peer-focus-visible:outline-primary"
+        className={cn(
+          'relative h-6 w-11 shrink-0 rounded-full border border-border-default bg-void-card transition-colors duration-300',
+          'peer-checked:border-primary peer-checked:bg-primary',
+          'peer-focus-visible:outline-2 peer-focus-visible:outline-primary'
+        )}
       >
-        <span className="absolute top-0.5 left-0.5 size-4.5 rounded-full bg-text-secondary transition-transform duration-300 peer-checked:translate-x-6 peer-checked:bg-white" />
+        <span className={cn(
+          'absolute top-0.5 left-0.5 size-4.5 rounded-full bg-text-secondary transition-transform duration-300',
+          'peer-checked:translate-x-6 peer-checked:bg-white'
+        )} />
       </span>
     </label>
   )

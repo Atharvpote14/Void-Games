@@ -111,9 +111,10 @@ function HeroSlide({ game }) {
           className="absolute inset-0 size-full object-cover object-center"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-void-bg/95 via-void-bg/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-void-bg/95 via-void-bg/40 to-transparent" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(108,99,255,0.12),transparent_70%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_100%_100%,rgba(0,229,255,0.06),transparent_60%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
         <div className="absolute inset-0 border-t border-b border-white/5 opacity-30" />
       </div>
 
@@ -136,24 +137,24 @@ function HeroSlide({ game }) {
 
           <motion.div variants={slideLeft} className="flex flex-wrap items-center gap-1.5">
             {game.version && (
-              <span className="badge badge-primary px-3 py-1 text-xs">
+              <span className="badge badge-primary px-3 py-1 text-xs shadow-lg">
                 {game.version.startsWith('v') ? game.version : `v${game.version}`}
               </span>
             )}
-            <span className="badge badge-secondary text-void-bg px-3 py-1 text-xs">PC</span>
+            <span className="badge badge-secondary text-void-bg px-3 py-1 text-xs shadow-lg">PC</span>
             {game.publisher && (
-              <span className="badge badge-secondary text-void-bg px-3 py-1 text-xs">{game.publisher}</span>
+              <span className="badge badge-secondary text-void-bg px-3 py-1 text-xs shadow-lg">{game.publisher}</span>
             )}
             {year && (
-              <span className="badge badge-neutral px-3 py-1 text-xs">{year}</span>
+              <span className="badge badge-neutral px-3 py-1 text-xs shadow-lg">{year}</span>
             )}
-            <span className="badge badge-neutral px-3 py-1 text-xs">CSF</span>
+            <span className="badge badge-neutral px-3 py-1 text-xs shadow-lg">CSF</span>
           </motion.div>
 
           {game.short_description && (
             <motion.p
               variants={fade}
-              className="line-clamp-3 max-w-[640px] text-base leading-relaxed text-text-secondary md:text-lg"
+              className="line-clamp-3 max-w-[640px] text-base leading-relaxed md:text-lg text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
             >
               {game.short_description}
             </motion.p>
