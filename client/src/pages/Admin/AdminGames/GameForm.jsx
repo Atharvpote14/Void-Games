@@ -42,11 +42,6 @@ function gbToBytes(gb) {
   return Number.isFinite(value) && value > 0 ? Math.round(value * 1024 ** 3) : 0
 }
 
-function requirementsToJson(section) {
-  const entries = Object.entries(section || {})
-  return entries.length ? JSON.stringify(Object.fromEntries(entries), null, 2) : ''
-}
-
 function jsonToRequirements(json) {
   if (!json?.trim()) return {}
   try {
@@ -58,6 +53,18 @@ function jsonToRequirements(json) {
 }
 
 function initForm(game) {
+  // Ensure system_requirements is properly converted to JSON strings
+  // to prevent "Objects are not valid as a React child" error
+  const safeRequirementsToJson = (section) => {
+    if (!section || typeof section !== 'object') return ''
+    try {
+      const entries = Object.entries(section)
+      return entries.length ? JSON.stringify(Object.fromEntries(entries), null, 2) : ''
+    } catch {
+      return ''
+    }
+  }
+
   return {
     title: game?.title || '',
     slug: game?.slug || '',
@@ -77,8 +84,8 @@ function initForm(game) {
     featuresText: (game?.features || []).join(', '),
     tagsText: (game?.tags || []).join(', '),
     installation_instructions: game?.installation_instructions || '',
-    minRequirementsJson: requirementsToJson(game?.system_requirements?.minimum),
-    recRequirementsJson: requirementsToJson(game?.system_requirements?.recommended),
+    minRequirementsJson: safeRequirementsToJson(game?.system_requirements?.minimum),
+    recRequirementsJson: safeRequirementsToJson(game?.system_requirements?.recommended),
     is_featured: Boolean(game?.is_featured),
     is_trending: Boolean(game?.is_trending),
     is_active: game?.is_active !== false,
