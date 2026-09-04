@@ -24,10 +24,10 @@ function Pagination({ page, totalPages, onChange, className }) {
 
   const pageButtonClass = (isActive) =>
     cn(
-      'grid size-10 cursor-pointer place-items-center rounded-btn border text-sm font-medium transition-all duration-300',
+      'grid size-10 cursor-pointer place-items-center rounded-btn border text-sm font-medium transition-all duration-200',
       isActive
-        ? 'border-primary bg-primary/15 text-primary shadow-btn'
-        : 'border-border-default bg-void-card text-text-secondary hover:border-border-hover hover:text-text-primary'
+        ? 'border-primary bg-primary/15 text-primary shadow-btn-primary'
+        : 'border-border-subtle bg-premium-card text-text-secondary hover:border-primary/50 hover:text-text-primary'
     )
 
   return (
@@ -40,7 +40,12 @@ function Pagination({ page, totalPages, onChange, className }) {
         onClick={() => onChange(page - 1)}
         disabled={page <= 1}
         aria-label="Previous page"
-        className={cn(pageButtonClass(false), 'disabled:pointer-events-none disabled:opacity-40')}
+        className={cn(
+          'grid size-10 cursor-pointer place-items-center rounded-btn border border-border-subtle bg-premium-card text-text-secondary',
+          'hover:border-primary/50 hover:text-text-primary',
+          'disabled:pointer-events-none disabled:opacity-40',
+          'transition-all duration-200'
+        )}
       >
         <ChevronLeft className="size-4.5" />
       </button>
@@ -72,7 +77,12 @@ function Pagination({ page, totalPages, onChange, className }) {
         onClick={() => onChange(page + 1)}
         disabled={page >= totalPages}
         aria-label="Next page"
-        className={cn(pageButtonClass(false), 'disabled:pointer-events-none disabled:opacity-40')}
+        className={cn(
+          'grid size-10 cursor-pointer place-items-center rounded-btn border border-border-subtle bg-premium-card text-text-secondary',
+          'hover:border-primary/50 hover:text-text-primary',
+          'disabled:pointer-events-none disabled:opacity-40',
+          'transition-all duration-200'
+        )}
       >
         <ChevronRight className="size-4.5" />
       </button>

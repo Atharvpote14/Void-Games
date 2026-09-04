@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Download, ExternalLink, KeyRound, HardDrive } from 'lucide-react'
+import { Download, ExternalLink, KeyRound, HardDrive, Flag } from 'lucide-react'
 import Button from '@/components/buttons/Button/Button'
 import Badge from '@/components/common/Badge/Badge'
 import { Spinner } from '@/components/common/Spinner/Spinner'
@@ -8,19 +8,20 @@ import { getDownloadRedirectUrl, startDownload } from '@/services/downloads'
 import { useAuth } from '@/hooks/useAuth'
 import { addDownloadRecord } from '@/services/users'
 import { formatBytes } from '@/utils/formatters'
+import { cn } from '@/utils/cn'
 
 const PROVIDER_COLORS = {
-  Terabox: '#2EA8FF',
-  Pixeldrain: '#7B61FF',
-  GoFile: '#22C55E',
-  MEGA: '#EF4444',
+  Terabox: '#6C63FF',
+  Pixeldrain: '#00E5FF',
+  GoFile: '#00C896',
+  MEGA: '#FF4D6D',
   'Google Drive': '#FFC857',
-  MediaFire: '#F59E0B',
+  MediaFire: '#FFB800',
 }
 
-function DownloadMirrorCard({ mirror, loading, onDownload, gameSize }) {
+function DownloadMirrorCard({ mirror, loading, onDownload, gameSize, index }) {
   const [passwordOpen, setPasswordOpen] = useState(false)
-  const color = PROVIDER_COLORS[mirror.provider] || '#2EA8FF'
+  const color = PROVIDER_COLORS[mirror.provider] || '#6C63FF'
 
   const handleClick = () => {
     if (mirror.password) {
@@ -36,12 +37,23 @@ function DownloadMirrorCard({ mirror, loading, onDownload, gameSize }) {
         type="button"
         onClick={handleClick}
         disabled={loading}
-        className="group flex w-full cursor-pointer items-center justify-between gap-4 rounded-card border border-border-default bg-void-card p-4 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-border-hover hover:shadow-card disabled:pointer-events-none disabled:opacity-60"
+        className={cn(
+          'group flex w-full cursor-pointer items-center justify-between gap-4 rounded-card border p-4 text-left transition-all duration-300',
+          'hover:-translate-y-0.5 hover:shadow-card-hover',
+          'disabled:pointer-events-none disabled:opacity-60',
+          'border-border-subtle bg-premium-card'
+        )}
+        style={{
+          borderLeft: `3px solid ${color}`,
+        }}
       >
         <div className="flex items-center gap-4">
           <div
-            className="grid size-11 shrink-0 place-items-center rounded-xl border bg-white/5 transition-transform duration-300 group-hover:scale-110"
-            style={{ borderColor: `${color}66` }}
+            className={cn(
+              'grid size-11 shrink-0 place-items-center rounded-xl border transition-transform duration-300 group-hover:scale-110',
+              'bg-white/5'
+            )}
+            style={{ borderColor: `${color}40` }}
           >
             {loading ? (
               <Spinner size="sm" style={{ color }} />
@@ -49,12 +61,14 @@ function DownloadMirrorCard({ mirror, loading, onDownload, gameSize }) {
               <Download className="size-5" style={{ color }} />
             )}
           </div>
-          <div className="flex flex-col gap-1">
-            <span className="font-semibold text-text-primary">
+          <div className="flex flex-col gap-1 min-w-0">
+            <span className="font-semibold text-text-primary truncate">
               {mirror.mirror_name || mirror.provider}
             </span>
-            <span className="flex items-center gap-2 text-xs text-text-muted">
-              <Badge tone="neutral">{mirror.provider}</Badge>
+            <span className="flex flex-wrap items-center gap-2 text-xs text-text-muted">
+              <Badge tone="primary" style={{ background: `${color}20`, color, borderColor: `${color}40` }}>
+                {mirror.provider}
+              </Badge>
               {(gameSize || mirror.file_size) && (
                 <span className="inline-flex items-center gap-1">
                   <HardDrive className="size-3" />
@@ -66,6 +80,11 @@ function DownloadMirrorCard({ mirror, loading, onDownload, gameSize }) {
                   <KeyRound className="size-3" />
                   Password required
                 </span>
+              )}
+              {index === 0 && (
+                <Badge tone="success" className="ml-1">
+                  Recommended
+                </Badge>
               )}
             </span>
           </div>
@@ -81,9 +100,9 @@ function DownloadMirrorCard({ mirror, loading, onDownload, gameSize }) {
         size="sm"
       >
         <div className="flex flex-col gap-4">
-          <div className="flex items-center justify-between rounded-input border border-border-default bg-void-bg px-4 py-3">
+          <div className="flex items-center justify-between rounded-input border border-border-subtle bg-void-bg-secondary px-4 py-3">
             <span className="text-sm text-text-muted">Password</span>
-            <code className="rounded-lg bg-white/5 px-3 py-1 font-mono text-sm text-gold">
+            <code className={cn('rounded-lg px-3 py-1 font-mono text-sm', 'bg-primary/10 text-primary')}>
               {mirror.password}
             </code>
           </div>
@@ -91,7 +110,7 @@ function DownloadMirrorCard({ mirror, loading, onDownload, gameSize }) {
             Copy this password to extract the file after downloading. The
             password is usually case-sensitive.
           </p>
-          <Button onClick={() => onDownload(mirror)} className="w-full">
+          <Button onClick={() => onDownload(mirror)} className="w-full gap-2">
             <ExternalLink className="size-4" />
             Continue to Download
           </Button>
@@ -107,7 +126,7 @@ function DownloadSection({ gameId, game, mirrors = [] }) {
 
   if (mirrors.length === 0) {
     return (
-      <div className="rounded-card border border-dashed border-border-default bg-void-card/50 p-8 text-center text-sm text-text-muted">
+      <div className="rounded-card border border-dashed border-border-subtle bg-premium-card/50 p-8 text-center text-sm text-text-muted">
         Download mirrors are not available for this game yet.
       </div>
     )
@@ -131,20 +150,19 @@ function DownloadSection({ gameId, game, mirrors = [] }) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="font-display text-xl font-bold text-text-primary">
-          Download Mirrors
-        </h2>
+        <h2 className="heading-5">Download Mirrors</h2>
         <Badge tone="primary">
           {mirrors.length} mirror{mirrors.length > 1 ? 's' : ''}
         </Badge>
       </div>
-      {mirrors.map((mirror) => (
+      {mirrors.map((mirror, index) => (
         <DownloadMirrorCard
           key={mirror.id}
           mirror={mirror}
           loading={downloadingId === mirror.id}
           onDownload={handleDownload}
           gameSize={game?.game_size}
+          index={index}
         />
       ))}
       <p className="text-xs text-text-muted">
@@ -156,4 +174,3 @@ function DownloadSection({ gameId, game, mirrors = [] }) {
 }
 
 export default DownloadSection
-

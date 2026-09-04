@@ -7,6 +7,6 @@ export const SOCIAL_LINKS = {
   DISCORD: '',
   REDDIT: '',
   TELEGRAM: '',
-  YOUTUBE: '',
+  YOUTUBE: 'https://www.youtube.com/@Atharvbhai14',
 }
 export const CONTACT_EMAIL = 'support@voidgames.example.com'

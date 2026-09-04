@@ -9,8 +9,9 @@ import { SITE_TAGLINE } from '@/constants/site'
 
 function Footer() {
   return (
-    <footer className="border-t border-border-default bg-void-footer">
-      <Container className="py-14 md:py-18">
+    <footer className="border-t border-border-subtle bg-void-footer relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,rgba(108,99,255,0.06),transparent_70%)]" aria-hidden="true" />
+      <Container className="relative py-14 md:py-18">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1.6fr]">
           <div className="flex max-w-sm flex-col gap-5">
             <Logo />

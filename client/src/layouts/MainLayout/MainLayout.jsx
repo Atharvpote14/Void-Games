@@ -5,6 +5,7 @@ import ScrollToTop from '@/components/common/ScrollToTop/ScrollToTop'
 import ScrollToTopButton from '@/components/buttons/ScrollToTopButton/ScrollToTopButton'
 import Banned from '@/pages/Banned/Banned'
 import { useAuth } from '@/hooks/useAuth'
+import WelcomeScreen from '@/components/welcome/WelcomeScreen'
 
 function MainLayout() {
   const { user } = useAuth()
@@ -14,7 +15,8 @@ function MainLayout() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-void-bg">
+    <div className="flex min-h-screen flex-col bg-void-bg relative">
+      <WelcomeScreen />
       <ScrollToTop />
       <Navbar />
       <main className="flex-1">

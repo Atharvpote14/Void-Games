@@ -1,16 +1,19 @@
+import { cn } from '@/utils/cn'
+
 function CategoryChips({ categories, active, onSelect }) {
   if (!categories || categories.length === 0) return null
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
       <button
         type="button"
         onClick={() => onSelect('')}
-        className={`cursor-pointer rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
+        className={cn(
+          'badge rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200',
           !active
-            ? 'border-primary bg-primary text-white'
-            : 'border-border-default bg-white/5 text-text-secondary hover:border-border-hover hover:text-text-primary'
-        }`}
+            ? 'badge-primary'
+            : 'badge-neutral'
+        )}
       >
         All
       </button>
@@ -19,19 +22,19 @@ function CategoryChips({ categories, active, onSelect }) {
           key={category.name}
           type="button"
           onClick={() => onSelect(category.name)}
-          className={`cursor-pointer rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
+          className={cn(
+            'badge rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200',
             active === category.name
-              ? 'border-primary bg-primary text-white'
-              : 'border-border-default bg-white/5 text-text-secondary hover:border-border-hover hover:text-text-primary'
-          }`}
+              ? 'badge-primary'
+              : 'badge-neutral'
+          )}
         >
           {category.name}
           {typeof category.count === 'number' && (
-            <span
-              className={`ml-1.5 text-xs ${
-                active === category.name ? 'text-white/70' : 'text-text-muted'
-              }`}
-            >
+            <span className={cn(
+              'ml-1.5 text-xs',
+              active === category.name ? 'text-white/70' : 'text-text-muted'
+            )}>
               {category.count}
             </span>
           )}

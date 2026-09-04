@@ -4,10 +4,7 @@ function Skeleton({ className, ...props }) {
   return (
     <div
       aria-hidden="true"
-      className={cn(
-        'animate-pulse rounded-lg bg-void-card/70 border border-border-default',
-        className
-      )}
+      className={cn('skeleton rounded-card', className)}
       {...props}
     />
   )

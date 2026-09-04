@@ -8,7 +8,11 @@ function SortDropdown({ value, onChange, options, className }) {
         value={value}
         onChange={(event) => onChange(event.target.value)}
         aria-label="Sort games"
-        className="h-10 w-full cursor-pointer appearance-none rounded-input border border-border-default bg-void-card pr-9 pl-3.5 text-sm text-text-secondary outline-none transition-colors duration-200 focus:border-primary sm:w-auto"
+        className={cn(
+          'input h-11 w-full cursor-pointer appearance-none pr-10',
+          'focus:border-primary focus:shadow-[0_0_0_3px_rgba(108,99,255,0.2)]',
+          'sm:w-auto'
+        )}
       >
         {options.map((option) => (
           <option key={option.value} value={option.value} className="bg-void-card">
@@ -16,7 +20,7 @@ function SortDropdown({ value, onChange, options, className }) {
           </option>
         ))}
       </select>
-      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-text-muted" />
+      <ChevronDown className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-text-muted" />
     </div>
   )
 }

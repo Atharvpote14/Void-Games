@@ -134,16 +134,23 @@ function BrowseGames() {
 
     return (
       <>
-        <Grid cols={4}>
-          {games.map((game) => (
-            <GameCard key={game.id} game={game} />
-          ))}
-        </Grid>
+        <div className="flex flex-col gap-4 md:gap-6 mb-4" role="status" aria-live="polite">
+          <p className="text-sm text-text-muted">
+            Showing {games.length} of {data?.total || data?.total_count || games.length} games
+            {query && <span> for &ldquo;{query}&rdquo;</span>}
+            {category && <span> in {activeCategory?.name}</span>}
+          </p>
+          <Grid cols={4}>
+            {games.map((game) => (
+              <GameCard key={game.id} game={game} />
+            ))}
+          </Grid>
+        </div>
         <Pagination
           page={page}
           totalPages={totalPages}
           onChange={(nextPage) => updateParams({ page: String(nextPage) })}
-          className="mt-12"
+          className="mt-8"
         />
       </>
     )
@@ -151,25 +158,23 @@ function BrowseGames() {
 
   return (
     <PageWrapper>
-      <Container className="flex flex-col gap-8 py-8 md:py-12">
-        <div className="flex flex-col gap-3">
+      <Container className="flex flex-col gap-8 py-8 md:py-12 animate-fade-in">
+        <div className="flex flex-col gap-3 space-y-stack">
           <Breadcrumb items={breadcrumbItems} />
-          <h1 className="font-display text-[28px] font-extrabold text-text-primary md:text-[42px] md:leading-tight">
-            Browse Games
-          </h1>
-          <p className="max-w-2xl text-sm text-text-muted md:text-base">
+          <h1 className="heading-2">Browse Games</h1>
+          <p className="max-w-2xl text-body">
             Explore the full library of games with details, guides, fixes, and
             download mirrors.
           </p>
         </div>
 
-        <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col items-stretch gap-4 md:flex-row md:items-center md:justify-between">
           <SearchInput
             value={searchInput}
             onChange={(event) => setSearchInput(event.target.value)}
             onSearch={handleSearch}
             className="w-full md:max-w-md"
-            placeholder="Search games..."
+            placeholder="Search games... ⌘K"
           />
           <div className="flex items-center gap-3">
             <span className="text-sm text-text-muted">Sort by</span>
@@ -182,14 +187,14 @@ function BrowseGames() {
         </div>
 
         {hasActiveFilters && (
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 animate-slide-down">
             {query && (
               <button
                 type="button"
                 onClick={() => updateParams({ q: '' })}
-                className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary transition-colors hover:bg-primary/20"
+                className="badge badge-primary gap-1.5"
               >
-                “{query}”
+                &ldquo;{query}&rdquo;
                 <X className="size-3" />
               </button>
             )}
@@ -197,7 +202,7 @@ function BrowseGames() {
               <button
                 type="button"
                 onClick={() => updateParams({ category: '' })}
-                className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-secondary/30 bg-secondary/10 px-3 py-1 text-xs font-medium text-secondary transition-colors hover:bg-secondary/20"
+                className="badge badge-secondary gap-1.5"
               >
                 {activeCategory.name}
                 <X className="size-3" />
@@ -207,7 +212,7 @@ function BrowseGames() {
               <button
                 type="button"
                 onClick={() => updateParams({ sort: 'featured' })}
-                className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-border-default bg-white/5 px-3 py-1 text-xs font-medium text-text-secondary transition-colors hover:text-text-primary"
+                className="badge badge-neutral gap-1.5"
               >
                 {SORT_OPTIONS.find((option) => option.value === sort)?.label}
                 <X className="size-3" />
@@ -216,14 +221,14 @@ function BrowseGames() {
           </div>
         )}
 
-        <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
+        <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
           <FilterSidebar
             onClear={handleClearFilters}
             hasActiveFilters={hasActiveFilters}
-            className="h-fit lg:sticky lg:top-24"
+            className="h-fit lg:sticky lg:top-24 animate-fade-in"
           >
             <FilterGroup title="Categories">
-              <div className="flex max-h-72 flex-col gap-1 overflow-y-auto pr-1">
+              <div className="flex max-h-72 flex-col gap-1 overflow-y-auto pr-1 scrollbar-hide">
                 {categoriesLoading ? (
                   <p className="px-3 py-2 text-sm text-text-muted">Loading...</p>
                 ) : (

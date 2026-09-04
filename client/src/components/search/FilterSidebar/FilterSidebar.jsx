@@ -19,15 +19,20 @@ function FilterOption({ label, count, active, onClick }) {
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        'flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-left text-sm transition-colors duration-200',
+        'flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-left text-sm transition-all duration-200',
         active
-          ? 'bg-primary/10 text-primary'
+          ? 'bg-primary/10 text-primary border border-primary/20'
           : 'text-text-secondary hover:bg-white/5 hover:text-text-primary'
       )}
     >
       <span className="truncate">{label}</span>
       {count !== undefined && (
-        <span className="ml-2 shrink-0 text-xs text-text-disabled">{count}</span>
+        <span className={cn(
+          'ml-2 shrink-0 text-xs font-medium',
+          active ? 'text-primary' : 'text-text-disabled'
+        )}>
+          {count}
+        </span>
       )}
     </button>
   )
@@ -43,7 +48,7 @@ function FilterSidebar({
   return (
     <aside
       className={cn(
-        'flex flex-col gap-6 rounded-card border border-border-default bg-void-card p-5',
+        'flex flex-col gap-6 rounded-card border border-border-subtle bg-premium-card p-5 glass',
         className
       )}
     >

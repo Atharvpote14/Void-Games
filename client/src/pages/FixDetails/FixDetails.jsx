@@ -24,6 +24,7 @@ import usePageMeta from '@/hooks/usePageMeta'
 import { getFixBySlug } from '@/services/fixes'
 import { parseArticleBlocks } from '@/utils/content'
 import { formatDate, formatNumber } from '@/utils/formatters'
+import { cn } from '@/utils/cn'
 
 function SolutionSteps({ fix }) {
   const blocks = useMemo(
@@ -37,7 +38,10 @@ function SolutionSteps({ fix }) {
     <div className="flex flex-col gap-6">
       {steps.map((step, index) => (
         <div key={index} className="flex gap-4">
-          <span className="grid size-9 shrink-0 place-items-center rounded-full bg-primary/10 font-display text-sm font-bold text-primary">
+          <span className={cn(
+            'grid size-9 shrink-0 place-items-center rounded-full font-display text-sm font-bold',
+            'bg-primary/10 text-primary'
+          )}>
             {index + 1}
           </span>
           <div className="flex flex-col gap-3 pt-1.5">
@@ -64,9 +68,9 @@ function SolutionSteps({ fix }) {
 function InfoCard({ icon: Icon, tone, title, content }) {
   if (!content) return null
   return (
-    <div className="rounded-card border border-border-default bg-void-card p-5">
+    <div className="card p-5 animate-slide-up">
       <h2 className="mb-3 flex items-center gap-2 font-display text-sm font-bold text-text-primary">
-        <Icon className={`size-4 ${tone}`} />
+        <Icon className={cn('size-4', tone)} />
         {title}
       </h2>
       <p className="leading-relaxed text-text-secondary">{content}</p>
@@ -95,10 +99,10 @@ function FixDetails() {
     return (
       <PageWrapper>
         <Container className="flex flex-col gap-8 py-8 md:py-12">
-          <Skeleton className="h-5 w-56" />
-          <Skeleton className="h-10 w-3/4 max-w-xl" />
-          <Skeleton className="h-40 w-full rounded-card" />
-          <Skeleton className="h-64 w-full rounded-card" />
+          <Skeleton className="h-5 w-56 animate-fade-in" />
+          <Skeleton className="h-10 w-3/4 max-w-xl animate-fade-in" style={{ animationDelay: '100ms' }} />
+          <Skeleton className="h-40 w-full rounded-card animate-fade-in" style={{ animationDelay: '200ms' }} />
+          <Skeleton className="h-64 w-full rounded-card animate-fade-in" style={{ animationDelay: '300ms' }} />
         </Container>
       </PageWrapper>
     )
@@ -120,7 +124,7 @@ function FixDetails() {
 
   return (
     <PageWrapper>
-      <Container className="flex flex-col gap-8 py-8 md:py-12">
+      <Container className="flex flex-col gap-8 py-8 md:py-12 animate-fade-in">
         <Breadcrumb
           items={[
             { label: 'Home', path: '/' },
@@ -129,15 +133,13 @@ function FixDetails() {
           ]}
         />
 
-        <header className="flex flex-col gap-4">
+        <header className="flex flex-col gap-4 space-y-stack">
           <div className="flex flex-wrap items-center gap-2">
-            <Badge tone="warning">Fix</Badge>
+            <Badge tone="primary">Fix</Badge>
             {fix.category && <Badge tone="secondary">{fix.category}</Badge>}
           </div>
-          <h1 className="max-w-3xl font-display text-[28px] leading-tight font-extrabold text-text-primary md:text-[40px]">
-            {fix.title}
-          </h1>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-text-muted">
+          <h1 className="heading-2 max-w-3xl">{fix.title}</h1>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-text-muted">
             <span className="inline-flex items-center gap-1.5">
               <CalendarDays className="size-4" />
               {formatDate(fix.created_at)}
@@ -163,7 +165,7 @@ function FixDetails() {
               title="Symptoms"
               content={fix.symptoms}
             />
-            <div className="rounded-card border border-border-default bg-void-card p-6 md:p-8">
+            <div className="card p-6 md:p-8 animate-slide-up">
               <h2 className="mb-6 flex items-center gap-2 font-display text-xl font-bold text-text-primary">
                 <ListChecks className="size-5 text-primary" />
                 Step-by-Step Solution
@@ -171,7 +173,7 @@ function FixDetails() {
               <SolutionSteps fix={fix} />
             </div>
             {Array.isArray(fix.links) && fix.links.length > 0 && (
-              <div className="rounded-card border border-border-default bg-void-card p-6 md:p-8">
+              <div className="card p-6 md:p-8 animate-slide-up">
                 <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold text-text-primary">
                   <Download className="size-5 text-primary" />
                   Downloads & Resources
@@ -183,7 +185,7 @@ function FixDetails() {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-btn bg-btn-gradient px-4 py-2.5 text-sm font-semibold text-white shadow-btn transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
+                      className="btn-primary gap-2"
                     >
                       <Download className="size-4" />
                       {link.label || 'Download'}
@@ -192,7 +194,7 @@ function FixDetails() {
                 </div>
               </div>
             )}
-            <div className="flex items-start gap-3 rounded-card border border-success/30 bg-success/10 p-4">
+            <div className="flex items-start gap-3 rounded-card border border-success/30 bg-success/10 p-4 animate-slide-up">
               <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-success" />
               <p className="text-sm leading-relaxed text-text-secondary">
                 Still having issues? Check the related fixes below, or revisit
@@ -204,9 +206,9 @@ function FixDetails() {
 
           <aside className="flex flex-col gap-6">
             {fix.game_slug && (
-              <div className="rounded-card border border-border-default bg-void-card p-5">
+              <div className="card p-5 animate-slide-up">
                 <h2 className="mb-2 flex items-center gap-2 font-display text-sm font-bold text-text-primary">
-                  <Wrench className="size-4 text-warning" />
+                  <Wrench className="size-4 text-primary" />
                   Related Game
                 </h2>
                 <p className="mb-3 text-sm text-text-muted">{fix.game_title}</p>
@@ -218,7 +220,7 @@ function FixDetails() {
                 </Link>
               </div>
             )}
-            <div className="rounded-card border border-warning/30 bg-warning/10 p-5">
+            <div className="card border-warning/30 bg-warning/10 p-5 animate-slide-up">
               <h2 className="mb-2 flex items-center gap-2 font-display text-sm font-bold text-text-primary">
                 <AlertTriangle className="size-4 text-warning" />
                 Before You Try
@@ -233,7 +235,7 @@ function FixDetails() {
         </div>
 
         {fix.related && fix.related.length > 0 && (
-          <section className="flex flex-col gap-6">
+          <section className="flex flex-col gap-6 animate-slide-up">
             <SectionHeading title="Related Fixes" />
             <Grid cols={4}>
               {fix.related.map((related) => (

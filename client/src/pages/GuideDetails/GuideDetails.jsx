@@ -23,6 +23,7 @@ import usePageMeta from '@/hooks/usePageMeta'
 import { getGuideBySlug } from '@/services/guides'
 import { parseArticleBlocks, extractHeadings } from '@/utils/content'
 import { formatDate, formatNumber } from '@/utils/formatters'
+import { cn } from '@/utils/cn'
 
 function slugify(text) {
   return text
@@ -33,14 +34,14 @@ function slugify(text) {
 
 function ArticleBlocks({ blocks }) {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="prose prose-invert max-w-none flex flex-col gap-6">
       {blocks.map((block, index) => {
         if (block.type === 'heading') {
           return (
             <h2
               key={`${block.text}-${index}`}
               id={slugify(block.text)}
-              className="scroll-mt-24 pt-2 font-display text-2xl font-bold text-text-primary"
+              className="scroll-mt-24 pt-2 font-display text-2xl md:text-3xl font-bold text-text-primary border-b border-border-subtle pb-2"
             >
               {block.text}
             </h2>
@@ -50,7 +51,7 @@ function ArticleBlocks({ blocks }) {
           return (
             <ul
               key={index}
-              className="flex flex-col gap-2 pl-5 text-text-secondary"
+              className="flex flex-col gap-2 pl-6 text-text-secondary"
             >
               {block.items.map((item, itemIndex) => (
                 <li key={itemIndex} className="list-disc marker:text-primary">
@@ -68,7 +69,10 @@ function ArticleBlocks({ blocks }) {
             >
               {block.items.map((item, itemIndex) => (
                 <li key={itemIndex} className="flex gap-3">
-                  <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                  <span className={cn(
+                    'mt-0.5 grid size-6 shrink-0 place-items-center rounded-full text-xs font-bold',
+                    'bg-primary/10 text-primary'
+                  )}>
                     {itemIndex + 1}
                   </span>
                   <span className="pt-0.5">{item}</span>
@@ -78,7 +82,7 @@ function ArticleBlocks({ blocks }) {
           )
         }
         return (
-          <p key={index} className="leading-relaxed text-text-secondary">
+          <p key={index} className="leading-relaxed text-text-secondary text-base md:text-lg">
             {block.text}
           </p>
         )
@@ -114,10 +118,10 @@ function GuideDetails() {
     return (
       <PageWrapper>
         <Container className="flex flex-col gap-8 py-8 md:py-12">
-          <Skeleton className="h-5 w-56" />
-          <Skeleton className="h-10 w-3/4 max-w-xl" />
-          <Skeleton className="aspect-video w-full rounded-card" />
-          <Skeleton className="h-64 w-full rounded-card" />
+          <Skeleton className="h-5 w-56 animate-fade-in" />
+          <Skeleton className="h-10 w-3/4 max-w-xl animate-fade-in" style={{ animationDelay: '100ms' }} />
+          <Skeleton className="aspect-video w-full rounded-card animate-fade-in" style={{ animationDelay: '200ms' }} />
+          <Skeleton className="h-64 w-full rounded-card animate-fade-in" style={{ animationDelay: '300ms' }} />
         </Container>
       </PageWrapper>
     )
@@ -139,7 +143,7 @@ function GuideDetails() {
 
   return (
     <PageWrapper>
-      <Container className="flex flex-col gap-8 py-8 md:py-12">
+      <Container className="flex flex-col gap-8 py-8 md:py-12 animate-fade-in">
         <Breadcrumb
           items={[
             { label: 'Home', path: '/' },
@@ -148,15 +152,13 @@ function GuideDetails() {
           ]}
         />
 
-        <header className="flex flex-col gap-4">
+        <header className="flex flex-col gap-4 space-y-stack">
           <div className="flex flex-wrap items-center gap-2">
-            {guide.category && <Badge tone="secondary">{guide.category}</Badge>}
-            {guide.is_featured && <Badge tone="primary">Featured</Badge>}
+            {guide.category && <Badge tone="primary">{guide.category}</Badge>}
+            {guide.is_featured && <Badge tone="secondary">Featured</Badge>}
           </div>
-          <h1 className="max-w-3xl font-display text-[28px] leading-tight font-extrabold text-text-primary md:text-[40px]">
-            {guide.title}
-          </h1>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-text-muted">
+          <h1 className="heading-2 max-w-3xl">{guide.title}</h1>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-text-muted">
             <span className="inline-flex items-center gap-1.5">
               <UserRound className="size-4" />
               {guide.author}
@@ -177,7 +179,7 @@ function GuideDetails() {
         </header>
 
         {guide.thumbnail && (
-          <div className="overflow-hidden rounded-card border border-border-default">
+          <div className="overflow-hidden rounded-card border border-border-subtle animate-slide-up" style={{ animationDelay: '300ms' }}>
             <LazyImage
               src={guide.thumbnail}
               alt={guide.title}
@@ -187,18 +189,18 @@ function GuideDetails() {
         )}
 
         <div className="grid gap-10 lg:grid-cols-[1fr_280px]">
-          <article className="min-w-0 rounded-card border border-border-default bg-void-card p-6 md:p-10">
+          <article className="min-w-0 card p-6 md:p-10 animate-slide-up" style={{ animationDelay: '400ms' }}>
             <ArticleBlocks blocks={blocks} />
           </article>
 
           <aside className="flex flex-col gap-6">
             {headings.length > 0 && (
-              <nav className="sticky top-24 rounded-card border border-border-default bg-void-card p-5">
+              <nav className="sticky top-24 card p-5 animate-slide-up" style={{ animationDelay: '500ms' }}>
                 <h2 className="mb-4 flex items-center gap-2 font-display text-sm font-bold text-text-primary">
                   <ListOrdered className="size-4 text-primary" />
                   Table of Contents
                 </h2>
-                <ul className="flex flex-col gap-2 border-l border-border-default">
+                <ul className="flex flex-col gap-2 border-l border-border-subtle">
                   {headings.map((heading) => (
                     <li key={heading.text}>
                       <a
@@ -214,7 +216,7 @@ function GuideDetails() {
             )}
 
             {guide.game_slug && (
-              <div className="rounded-card border border-border-default bg-void-card p-5">
+              <div className="card p-5 animate-slide-up" style={{ animationDelay: '600ms' }}>
                 <h2 className="mb-2 flex items-center gap-2 font-display text-sm font-bold text-text-primary">
                   <BookOpen className="size-4 text-primary" />
                   Related Game
@@ -232,7 +234,7 @@ function GuideDetails() {
         </div>
 
         {guide.related && guide.related.length > 0 && (
-          <section className="flex flex-col gap-6">
+          <section className="flex flex-col gap-6 animate-slide-up" style={{ animationDelay: '700ms' }}>
             <SectionHeading title="Related Guides" />
             <Grid cols={4}>
               {guide.related.map((related) => (
