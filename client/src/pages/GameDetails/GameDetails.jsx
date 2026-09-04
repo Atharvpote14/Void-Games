@@ -124,26 +124,27 @@ function ScreenshotLightbox({ screenshots, index, onClose }) {
 }
 
 function RequirementsBlock({ title, items }) {
-  if (!items || items.length === 0) return null
+  if (!items || !Array.isArray(items) || items.length === 0) return null
   return (
     <div className="card p-5">
       <h3 className="mb-4 font-display text-base font-bold text-text-primary">
         {title}
       </h3>
       <ul className="flex flex-col gap-2.5">
-        {items.map((item) => {
+        {items.map((item, index) => {
+          if (!item || typeof item !== 'object' || !item.label) return null
           const Icon = getRequirementIcon(item.label)
           return (
             <li
-              key={item.label}
+              key={item.label ?? index}
               className="flex items-center justify-between gap-4 text-sm"
             >
               <span className="flex items-center gap-2 shrink-0 text-text-muted">
                 <Icon className="size-4 text-primary/70" aria-hidden="true" />
-                {item.label}
+                {String(item.label)}
               </span>
               <span className="text-right text-text-secondary font-mono">
-                {item.value}
+                {item.value != null ? String(item.value) : '—'}
               </span>
             </li>
           )
@@ -240,8 +241,14 @@ function GameDetails() {
   const requirements = useMemo(() => {
     const raw = game?.system_requirements
     if (!raw || typeof raw !== 'object') return { minimum: [], recommended: [] }
-    const map = (block) =>
-      Object.entries(block || {}).map(([label, value]) => ({ label, value }))
+    const map = (block) => {
+      if (!block || typeof block !== 'object') return []
+      try {
+        return Object.entries(block).map(([label, value]) => ({ label, value }))
+      } catch {
+        return []
+      }
+    }
     return {
       minimum: map(raw.minimum),
       recommended: map(raw.recommended),
