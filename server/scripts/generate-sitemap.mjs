@@ -4,7 +4,7 @@ import { writeFile, mkdir } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 
-const SITE_URL = process.env.SITE_URL || 'https://the-void-games.vercel.app'
+const SITE_URL = process.env.SITE_URL || 'https://www.voidgames.dedyn.io'
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
