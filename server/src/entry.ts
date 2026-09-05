@@ -28,9 +28,9 @@ app.use('*', logger())
 app.use('*', prettyJSON())
 app.use('*', cors({
   origin: (origin: string, c) => {
-    const allowed = c.env.CLIENT_ORIGINS.split(',').map((o: string) => o.trim())
+    const allowed = (c.env.CLIENT_ORIGINS || '').split(',').map((o: string) => o.trim()).filter(Boolean)
     if (!origin || allowed.includes(origin)) return origin
-    return allowed[0]
+    return allowed[0] || origin
   },
   credentials: true,
   allowHeaders: ['Content-Type', 'Authorization'],
@@ -38,8 +38,12 @@ app.use('*', cors({
   maxAge: 86400,
 }))
 
-// Initialize Supabase client
+// Health check (no auth/supabase needed)
+app.get('/health', c => c.json({ ok: true, timestamp: new Date().toISOString() }))
+
+// Initialize Supabase client (skip for health)
 app.use('*', async (c, next) => {
+  if (c.req.path === '/health') return next()
   const { createClient } = await import('@supabase/supabase-js')
   const supabase = createClient(c.env.SUPABASE_URL, c.env.SUPABASE_SERVICE_ROLE_KEY, {
     auth: { persistSession: false, autoRefreshToken: false },
@@ -47,9 +51,6 @@ app.use('*', async (c, next) => {
   c.set('supabase', supabase)
   await next()
 })
-
-// Health check
-app.get('/health', c => c.json({ ok: true, timestamp: new Date().toISOString() }))
 
 // API routes
 app.route('/api/v1/auth', authRoutes)
