@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Download, ExternalLink, KeyRound, HardDrive, Flag } from 'lucide-react'
+import { Download, ExternalLink, KeyRound, HardDrive, Flag, Copy, Check } from 'lucide-react'
 import Button from '@/components/buttons/Button/Button'
 import Badge from '@/components/common/Badge/Badge'
 import { Spinner } from '@/components/common/Spinner/Spinner'
@@ -9,6 +9,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { addDownloadRecord } from '@/services/users'
 import { formatBytes } from '@/utils/formatters'
 import { cn } from '@/utils/cn'
+import toast from 'react-hot-toast'
 
 const PROVIDER_COLORS = {
   Terabox: '#6C63FF',
@@ -21,7 +22,15 @@ const PROVIDER_COLORS = {
 
 function DownloadMirrorCard({ mirror, loading, onDownload, gameSize, index }) {
   const [passwordOpen, setPasswordOpen] = useState(false)
+  const [copied, setCopied] = useState(false)
   const color = PROVIDER_COLORS[mirror.provider] || '#6C63FF'
+
+  const copyPassword = () => {
+    navigator.clipboard.writeText(mirror.password)
+    setCopied(true)
+    toast.success('Password copied to clipboard!')
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   const handleClick = () => {
     if (mirror.password) {
@@ -96,19 +105,33 @@ function DownloadMirrorCard({ mirror, loading, onDownload, gameSize, index }) {
         open={passwordOpen}
         onClose={() => setPasswordOpen(false)}
         title="Extraction Password"
-        description={`${mirror.mirror_name || mirror.provider} requires a password`}
+        description={`${mirror.mirror_name || mirror.provider} file extracting requires a password`}
         size="sm"
       >
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between rounded-input border border-border-subtle bg-void-bg-secondary px-4 py-3">
             <span className="text-sm text-text-muted">Password</span>
-            <code className={cn('rounded-lg px-3 py-1 font-mono text-sm', 'bg-primary/10 text-primary')}>
-              {mirror.password}
-            </code>
+            <div className="flex items-center gap-3">
+              <code className={cn('rounded-lg px-3 py-1 font-mono text-sm', 'bg-primary/10 text-primary')}>
+                {copied ? 'COPIED!' : 'PASS 👉'}
+              </code>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={copyPassword}
+                className="gap-1.5"
+                aria-label={copied ? 'Copied' : 'Copy password'}
+              >
+                {copied ? (
+                  <Check className="size-4 text-success" />
+                ) : (
+                  <Copy className="size-4" />
+                )}
+              </Button>
+            </div>
           </div>
           <p className="text-xs text-text-muted">
-            Copy this password to extract the file after downloading. The
-            password is usually case-sensitive.
+            Click to copy the password. The password is usually case-sensitive.
           </p>
           <Button onClick={() => onDownload(mirror)} className="w-full gap-2">
             <ExternalLink className="size-4" />
