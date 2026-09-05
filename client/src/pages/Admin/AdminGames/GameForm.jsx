@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft, Plus, Save, Trash2 } from 'lucide-react'
+import toast from 'react-hot-toast'
 import AdminPageHeader from '@/components/admin/AdminPageHeader/AdminPageHeader'
 import Button from '@/components/buttons/Button/Button'
 import TextInput from '@/components/inputs/TextInput/TextInput'
@@ -325,8 +326,10 @@ function GameFormFields({ initialGame, isEditing, gameId }) {
     try {
       if (isEditing) {
         await updateAdminGame(gameId, payload)
+        toast.success('Game updated successfully!')
       } else {
         await createAdminGame(payload)
+        toast.success('Game created successfully!')
       }
       clear()
       navigate('/admin/games')

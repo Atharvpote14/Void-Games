@@ -125,6 +125,20 @@ function ScreenshotLightbox({ screenshots, index, onClose }) {
 
 function RequirementsBlock({ title, items }) {
   if (!items || !Array.isArray(items) || items.length === 0) return null
+
+  function renderValue(value) {
+    if (Array.isArray(value)) {
+      return (
+        <ul className="list-disc list-inside text-xs text-text-secondary mt-1 space-y-1">
+          {value.map((v, i) => (
+            <li key={i} className="text-text-secondary">{String(v)}</li>
+          ))}
+        </ul>
+      )
+    }
+    return <span className="text-right text-text-secondary font-mono">{String(value)}</span>
+  }
+
   return (
     <div className="card p-5">
       <h3 className="mb-4 font-display text-base font-bold text-text-primary">
@@ -137,15 +151,13 @@ function RequirementsBlock({ title, items }) {
           return (
             <li
               key={item.label ?? index}
-              className="flex items-center justify-between gap-4 text-sm"
+              className="flex items-start justify-between gap-4 text-sm"
             >
               <span className="flex items-center gap-2 shrink-0 text-text-muted">
                 <Icon className="size-4 text-primary/70" aria-hidden="true" />
                 {String(item.label)}
               </span>
-              <span className="text-right text-text-secondary font-mono">
-                {item.value != null ? String(item.value) : '—'}
-              </span>
+              {renderValue(item.value)}
             </li>
           )
         })}
