@@ -4,6 +4,15 @@ import { prettyJSON } from 'hono/pretty-json'
 import { logger } from 'hono/logger'
 import { HTTPException } from 'hono/http-exception'
 import { authRoutes } from './routes/auth.js'
+import { gamesRoutes } from './routes/games.js'
+import { fixesRoutes } from './routes/fixes.js'
+import { guidesRoutes } from './routes/guides.js'
+import { categoriesRoutes } from './routes/categories.js'
+import { collectionsRoutes } from './routes/collections.js'
+import { searchRoutes } from './routes/search.js'
+import { usersRoutes } from './routes/users.js'
+import { steamFreeRoutes } from './routes/steamFree.js'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
 type Env = {
   NODE_ENV: string
@@ -16,7 +25,7 @@ type Env = {
 }
 
 type Variables = {
-  supabase: any
+  supabase: SupabaseClient<any, 'public', any>
   user: any
   accessToken: string
 }
@@ -54,6 +63,14 @@ app.use('*', async (c, next) => {
 
 // API routes
 app.route('/api/v1/auth', authRoutes)
+app.route('/api/v1/games', gamesRoutes)
+app.route('/api/v1/fixes', fixesRoutes)
+app.route('/api/v1/guides', guidesRoutes)
+app.route('/api/v1/categories', categoriesRoutes)
+app.route('/api/v1/collections', collectionsRoutes)
+app.route('/api/v1/search', searchRoutes)
+app.route('/api/v1/users', usersRoutes)
+app.route('/api/v1/steam-free', steamFreeRoutes)
 
 // 404 handler
 app.notFound(c => c.json({ success: false, message: 'Not found' }, 404))
