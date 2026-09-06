@@ -14,7 +14,7 @@ export async function listGuides(supabase: SupabaseAdmin, query: Record<string, 
 
   switch (sort) {
     case 'trending':
-      queryBuilder = queryBuilder.order('view_count', { ascending: false })
+      queryBuilder = queryBuilder.order('created_at', { ascending: false })
       break
     default:
       queryBuilder = queryBuilder.order('created_at', { ascending: false })
@@ -39,7 +39,7 @@ export async function getGuideBySlug(supabase: SupabaseAdmin, slug: string, opti
   if (!data) return null
 
   if (options.incrementViews) {
-    await supabase.rpc('increment_guide_views', { guide_slug: slug })
+    supabase.rpc('increment_guide_views', { guide_slug: slug })
   }
 
   return data

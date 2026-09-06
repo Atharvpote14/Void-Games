@@ -32,7 +32,7 @@ export async function listGames(supabase: SupabaseAdmin, query: Record<string, a
 
   switch (sort) {
     case 'trending':
-      queryBuilder = queryBuilder.order('view_count', { ascending: false })
+      queryBuilder = queryBuilder.order('created_at', { ascending: false })
       break
     case 'popular':
       queryBuilder = queryBuilder.order('downloads', { ascending: false })
@@ -63,7 +63,7 @@ export async function getGameBySlug(supabase: SupabaseAdmin, slug: string, optio
   if (!data) return null
 
   if (options.incrementViews) {
-    await supabase.rpc('increment_game_views', { game_slug: slug })
+    supabase.rpc('increment_game_views', { game_slug: slug })
   }
 
   return data

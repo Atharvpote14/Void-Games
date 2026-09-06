@@ -14,7 +14,7 @@ export async function listFixes(supabase: SupabaseAdmin, query: Record<string, a
 
   switch (sort) {
     case 'trending':
-      queryBuilder = queryBuilder.order('view_count', { ascending: false })
+      queryBuilder = queryBuilder.order('created_at', { ascending: false })
       break
     default:
       queryBuilder = queryBuilder.order('created_at', { ascending: false })
@@ -39,7 +39,7 @@ export async function getFixBySlug(supabase: SupabaseAdmin, slug: string, option
   if (!data) return null
 
   if (options.incrementViews) {
-    await supabase.rpc('increment_fix_views', { fix_slug: slug })
+    supabase.rpc('increment_fix_views', { fix_slug: slug })
   }
 
   return data
