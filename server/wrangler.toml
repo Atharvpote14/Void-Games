@@ -1,3 +1,6 @@
 name = "void-games-api"
 main = "src/entry.ts"
 compatibility_date = "2024-01-01"
+
+[observability]
+logs = { enabled = true, invocation_logs = true }
