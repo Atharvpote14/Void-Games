@@ -31,7 +31,10 @@ export async function getCommentsByGame(supabase: SupabaseAdmin, gameId: string)
       .eq('status', 'approved')
       .order('created_at', { ascending: false })
 
-    if (error) throw error
+    if (error) {
+      console.warn('getCommentsByGame error:', { gameId, error: error.message })
+      return []
+    }
 
     const rows = data || []
     const byId: Record<string, any> = {}
@@ -52,7 +55,7 @@ export async function getCommentsByGame(supabase: SupabaseAdmin, gameId: string)
     return comments
   } catch (err) {
     console.error('getCommentsByGame error:', { gameId, error: err instanceof Error ? err.message : String(err) })
-    throw err
+    return []
   }
 }
 

@@ -8,7 +8,11 @@ export async function getRatingSummary(supabase: SupabaseAdmin, gameId: string) 
       .select('user_id, rating')
       .eq('game_id', gameId)
 
-    if (error) throw error
+    if (error) {
+      // If table doesn't exist or other error, return empty result instead of throwing
+      console.warn('getRatingSummary error:', { gameId, error: error.message })
+      return { average_rating: 0, rating_count: 0, user_rating: null }
+    }
 
     const rows = data || []
     const sum = rows.reduce((acc, row) => acc + (row.rating || 0), 0)
@@ -21,7 +25,7 @@ export async function getRatingSummary(supabase: SupabaseAdmin, gameId: string) 
     }
   } catch (err) {
     console.error('getRatingSummary error:', { gameId, error: err instanceof Error ? err.message : String(err) })
-    throw err
+    return { average_rating: 0, rating_count: 0, user_rating: null }
   }
 }
 
