@@ -2,21 +2,26 @@ import type { SupabaseAdmin } from '../config/supabase.js'
 import { ApiError } from '../utils/ApiError.js'
 
 export async function getRatingSummary(supabase: SupabaseAdmin, gameId: string) {
-  const { data, error } = await supabase
-    .from('ratings')
-    .select('user_id, rating')
-    .eq('game_id', gameId)
+  try {
+    const { data, error } = await supabase
+      .from('ratings')
+      .select('user_id, rating')
+      .eq('game_id', gameId)
 
-  if (error) throw error
+    if (error) throw error
 
-  const rows = data || []
-  const sum = rows.reduce((acc, row) => acc + row.rating, 0)
-  const average = rows.length > 0 ? Number((sum / rows.length).toFixed(1)) : 0
+    const rows = data || []
+    const sum = rows.reduce((acc, row) => acc + (row.rating || 0), 0)
+    const average = rows.length > 0 ? Number((sum / rows.length).toFixed(1)) : 0
 
-  return {
-    average_rating: average,
-    rating_count: rows.length,
-    user_rating: null,
+    return {
+      average_rating: average,
+      rating_count: rows.length,
+      user_rating: null,
+    }
+  } catch (err) {
+    console.error('getRatingSummary error:', { gameId, error: err instanceof Error ? err.message : String(err) })
+    throw err
   }
 }
 
@@ -25,23 +30,28 @@ export async function rateGame(supabase: SupabaseAdmin, gameId: string, userId: 
     throw new ApiError(400, 'Rating must be between 1 and 5')
   }
 
-  const { data: game, error: gameError } = await supabase
-    .from('games')
-    .select('id')
-    .eq('id', gameId)
-    .maybeSingle()
+  try {
+    const { data: game, error: gameError } = await supabase
+      .from('games')
+      .select('id')
+      .eq('id', gameId)
+      .maybeSingle()
 
-  if (gameError) throw gameError
-  if (!game) throw new ApiError(404, 'Game not found')
+    if (gameError) throw gameError
+    if (!game) throw new ApiError(404, 'Game not found')
 
-  const { error } = await supabase
-    .from('ratings')
-    .upsert(
-      { game_id: gameId, user_id: userId, rating },
-      { onConflict: 'game_id,user_id' }
-    )
+    const { error } = await supabase
+      .from('ratings')
+      .upsert(
+        { game_id: gameId, user_id: userId, rating },
+        { onConflict: 'game_id,user_id' }
+      )
 
-  if (error) throw error
+    if (error) throw error
 
-  return getRatingSummary(supabase, gameId)
+    return getRatingSummary(supabase, gameId)
+  } catch (err) {
+    console.error('rateGame error:', { gameId, userId, rating, error: err instanceof Error ? err.message : String(err) })
+    throw err
+  }
 }

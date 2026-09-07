@@ -81,7 +81,12 @@ app.notFound(c => c.json({ success: false, message: 'Not found' }, 404))
 
 // Error handler
 app.onError((err, c) => {
-  console.error('Error:', err)
+  console.error('Error:', {
+    message: err instanceof Error ? err.message : String(err),
+    stack: err instanceof Error ? err.stack : undefined,
+    path: c.req.path,
+    method: c.req.method,
+  })
   if (err instanceof Response) return err
   if (err instanceof HTTPException) return c.json({ success: false, message: err.message }, err.status)
   if (err instanceof Error) return c.json({ success: false, message: err.message }, 500)
