@@ -3,7 +3,7 @@ import type { SupabaseAdmin } from '../config/supabase.js'
 export async function listFixes(supabase: SupabaseAdmin, query: Record<string, any>) {
   const { page: pageParam = 1, limit: limitParam = 12, sort = 'latest', search, category } = query
 
-  let queryBuilder = supabase.from('fixes').select('*', { count: 'exact' })
+  let queryBuilder = supabase.from('fix_articles').select('*', { count: 'exact' })
 
   if (search) {
     queryBuilder = queryBuilder.or(`title.ilike.%${search}%,problem.ilike.%${search}%`)
@@ -20,22 +20,28 @@ export async function listFixes(supabase: SupabaseAdmin, query: Record<string, a
       queryBuilder = queryBuilder.order('created_at', { ascending: false })
   }
 
-  const pageNum = Number(pageParam)
-  const limitNum = Number(limitParam)
+  const pageNum = Number(pageParam) || 1
+  const limitNum = Number(limitParam) || 12
   const from = (pageNum - 1) * limitNum
   const to = from + limitNum - 1
 
   queryBuilder = queryBuilder.range(from, to)
 
   const { data, error, count } = await queryBuilder
-  if (error) throw error
+  if (error) {
+    console.warn('listFixes error:', error.message)
+    return { fixes: [], total: 0, totalPages: 0 }
+  }
 
   return { fixes: data || [], total: count || 0, totalPages: Math.ceil((count || 0) / limitNum) }
 }
 
 export async function getFixBySlug(supabase: SupabaseAdmin, slug: string, options: { incrementViews?: boolean } = {}) {
-  const { data, error } = await supabase.from('fixes').select('*').eq('slug', slug).maybeSingle()
-  if (error) throw error
+  const { data, error } = await supabase.from('fix_articles').select('*').eq('slug', slug).maybeSingle()
+  if (error) {
+    console.warn('getFixBySlug error:', error.message)
+    return null
+  }
   if (!data) return null
 
   if (options.incrementViews) {
@@ -48,18 +54,24 @@ export async function getFixBySlug(supabase: SupabaseAdmin, slug: string, option
 export async function getRelatedFixes(supabase: SupabaseAdmin, fix: any) {
   if (!fix.category) return []
   const { data, error } = await supabase
-    .from('fixes')
+    .from('fix_articles')
     .select('*')
     .eq('category', fix.category)
     .neq('id', fix.id)
     .limit(4)
-  if (error) throw error
+  if (error) {
+    console.warn('getRelatedFixes error:', error.message)
+    return []
+  }
   return data || []
 }
 
 export async function getFixCategories(supabase: SupabaseAdmin) {
-  const { data, error } = await supabase.from('fixes').select('category').not('category', 'is', null)
-  if (error) throw error
-  const categories = [...new Set(data.map((d) => d.category).filter(Boolean))]
+  const { data, error } = await supabase.from('fix_articles').select('category').not('category', 'is', null)
+  if (error) {
+    console.warn('getFixCategories error:', error.message)
+    return []
+  }
+  const categories = [...new Set((data || []).map((d: any) => d.category).filter(Boolean))]
   return categories
 }

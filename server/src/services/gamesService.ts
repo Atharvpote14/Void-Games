@@ -57,6 +57,44 @@ export async function listGames(supabase: SupabaseAdmin, query: Record<string, a
   return { games: data || [], total: count || 0, totalPages: Math.ceil((count || 0) / limitNum) }
 }
 
+async function populateGameDetails(supabase: SupabaseAdmin, game: any) {
+  if (!game) return null
+
+  const [screenshotsRes, linksRes] = await Promise.all([
+    supabase
+      .from('screenshots')
+      .select('image_url, position')
+      .eq('game_id', game.id)
+      .order('position', { ascending: true }),
+    supabase
+      .from('download_links')
+      .select('id, provider, mirror_name, file_size, password, is_active, sort_order')
+      .eq('game_id', game.id)
+      .eq('is_active', true)
+      .order('sort_order', { ascending: true }),
+  ])
+
+  game.screenshots = (screenshotsRes.data || []).map((shot: any) => ({
+    url: shot.image_url,
+  }))
+
+  const mirrors = (linksRes.data || []).map((link: any) => ({
+    id: link.id,
+    provider: link.provider,
+    mirror_name: link.mirror_name,
+    file_size: link.file_size,
+    password: link.password,
+  }))
+
+  game.download_links = mirrors
+  game.mirrors = mirrors
+  if (game.size_bytes && !game.game_size) {
+    game.game_size = game.size_bytes
+  }
+
+  return game
+}
+
 export async function getGameBySlug(supabase: SupabaseAdmin, slug: string, options: { incrementViews?: boolean } = {}) {
   const { data, error } = await supabase.from('games').select('*').eq('slug', slug).maybeSingle()
   if (error) throw error
@@ -66,7 +104,7 @@ export async function getGameBySlug(supabase: SupabaseAdmin, slug: string, optio
     supabase.rpc('increment_game_views', { game_slug: slug })
   }
 
-  return data
+  return populateGameDetails(supabase, data)
 }
 
 export async function getGameById(supabase: SupabaseAdmin, id: string, options: { incrementViews?: boolean } = {}) {
@@ -78,7 +116,7 @@ export async function getGameById(supabase: SupabaseAdmin, id: string, options: 
     supabase.rpc('increment_game_views', { game_slug: data.slug })
   }
 
-  return data
+  return populateGameDetails(supabase, data)
 }
 
 export async function getRelatedGames(supabase: SupabaseAdmin, gameId: string, genreId: string | null, limit = 4) {

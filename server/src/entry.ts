@@ -15,6 +15,7 @@ import { usersRoutes } from './routes/users.js'
 import { steamFreeRoutes } from './routes/steamFree.js'
 import { commentsRoutes } from './routes/comments.js'
 import { ratingsRoutes } from './routes/ratings.js'
+import { downloadsRoutes } from './routes/downloads.js'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 type Env = {
@@ -76,6 +77,8 @@ app.route('/api/v1/users', usersRoutes)
 app.route('/api/v1/steam-free', steamFreeRoutes)
 app.route('/api/v1/comments', commentsRoutes)
 app.route('/api/v1/ratings', ratingsRoutes)
+app.route('/api/v1/download', downloadsRoutes)
+app.route('/api/v1/downloads', downloadsRoutes)
 
 // 404 handler
 app.notFound(c => c.json({ success: false, message: 'Not found' }, 404))
