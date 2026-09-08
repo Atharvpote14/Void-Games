@@ -1,4 +1,4 @@
-import { Hono } from 'hono'
+import { createRouter } from '../types.js'
 import { authenticate } from '../middleware/auth.js'
 import {
   getProfile,
@@ -12,7 +12,7 @@ import {
   clearDownloadHistory,
 } from '../controllers/usersController.js'
 
-export const usersRoutes = new Hono()
+export const usersRoutes = createRouter()
 
 usersRoutes.use('*', authenticate)
 

@@ -3,22 +3,19 @@ import { ApiError } from '../utils/ApiError.js'
 
 export async function getRatingSummary(supabase: SupabaseAdmin, gameId: string) {
   try {
-    // First check if game exists
-    const { data: game, error: gameError } = await supabase
-      .from('games')
-      .select('id')
-      .eq('id', gameId)
-      .maybeSingle()
-
-    if (gameError) throw gameError
-    if (!game) {
-      return { average_rating: 0, rating_count: 0, user_rating: null }
+    let targetGameId = gameId
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(gameId)
+    if (!isUuid) {
+      const { data: game } = await supabase.from('games').select('id').eq('slug', gameId).maybeSingle()
+      if (game?.id) {
+        targetGameId = game.id
+      }
     }
 
     const { data, error } = await supabase
       .from('ratings')
       .select('user_id, rating')
-      .eq('game_id', gameId)
+      .eq('game_id', targetGameId)
 
     if (error) {
       console.warn('getRatingSummary ratings table error:', { gameId, error: error.message, code: error.code, details: error.details, hint: error.hint })

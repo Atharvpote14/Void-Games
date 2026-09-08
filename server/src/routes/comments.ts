@@ -1,9 +1,9 @@
-import { app } from '../types.js'
+import { createRouter } from '../types.js'
 import { getCommentsByGame, addComment, updateComment, deleteComment } from '../services/commentsService.js'
 import { ApiError } from '../utils/ApiError.js'
 import { authenticate, blockBanned } from '../middleware/auth.js'
 
-export const commentsRoutes = app
+export const commentsRoutes = createRouter()
 
 commentsRoutes.get('/:gameId', async (c) => {
   const supabase = c.get('supabase')

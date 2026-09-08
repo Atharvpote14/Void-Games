@@ -1,4 +1,5 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
+import { Hono } from 'hono'
 
 export type AppVariables = {
   supabase: SupabaseClient<any, 'public', any>
@@ -16,6 +17,6 @@ export type AppEnv = {
   CLIENT_URL: string
 }
 
-import { Hono } from 'hono'
+export type AppContext = { Bindings: AppEnv; Variables: AppVariables }
 
-export const app = new Hono<{ Bindings: AppEnv; Variables: AppVariables }>()
+export const createRouter = () => new Hono<AppContext>()

@@ -24,22 +24,19 @@ function toComment(row: any) {
 
 export async function getCommentsByGame(supabase: SupabaseAdmin, gameId: string) {
   try {
-    // First check if game exists
-    const { data: game, error: gameError } = await supabase
-      .from('games')
-      .select('id')
-      .eq('id', gameId)
-      .maybeSingle()
-
-    if (gameError) throw gameError
-    if (!game) {
-      return []
+    let targetGameId = gameId
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(gameId)
+    if (!isUuid) {
+      const { data: game } = await supabase.from('games').select('id').eq('slug', gameId).maybeSingle()
+      if (game?.id) {
+        targetGameId = game.id
+      }
     }
 
     const { data, error } = await supabase
       .from('comments')
       .select('*, user:users(id, name, username, avatar)')
-      .eq('game_id', gameId)
+      .eq('game_id', targetGameId)
       .eq('status', 'approved')
       .order('created_at', { ascending: false })
 

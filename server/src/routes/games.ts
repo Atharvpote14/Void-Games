@@ -1,8 +1,8 @@
-import { app } from '../types.js'
-import { listGames, getGameBySlug, getRelatedGames } from '../services/gamesService.js'
+import { createRouter } from '../types.js'
+import { listGames, getGameBySlug, getGameById, getRelatedGames } from '../services/gamesService.js'
 import { ApiError } from '../utils/ApiError.js'
 
-export const gamesRoutes = app
+export const gamesRoutes = createRouter()
 
 gamesRoutes.get('/trending', async (c) => {
   const supabase = c.get('supabase')
@@ -58,6 +58,23 @@ gamesRoutes.get('/recommended', async (c) => {
     success: true,
     message: 'Recommended games fetched successfully',
     data: { games: result.games },
+  })
+})
+
+gamesRoutes.get('/id/:id', async (c) => {
+  const supabase = c.get('supabase')
+  const id = c.req.param('id')
+  const page_size = c.req.query('page_size') ? Number(c.req.query('page_size')) : 4
+
+  const game = await getGameById(supabase, id, { incrementViews: true })
+  if (!game) throw new ApiError(404, 'Game not found')
+
+  const related = await getRelatedGames(supabase, game.id, game.genre_id, 4)
+
+  return c.json({
+    success: true,
+    message: 'Game fetched successfully',
+    data: { ...game, related },
   })
 })
 

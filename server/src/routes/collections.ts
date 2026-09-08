@@ -1,9 +1,9 @@
-import { app } from '../types.js'
+import { createRouter } from '../types.js'
 import { listCollections, getCollectionBySlug } from '../services/collectionsService.js'
 import { getGamesByCollection } from '../services/gamesService.js'
 import { ApiError } from '../utils/ApiError.js'
 
-export const collectionsRoutes = app
+export const collectionsRoutes = createRouter()
 
 collectionsRoutes.get('/:slug', async (c) => {
   const supabase = c.get('supabase')

@@ -1,7 +1,7 @@
-import { app } from '../types.js'
+import { createRouter } from '../types.js'
 import { searchGames } from '../services/searchService.js'
 
-export const searchRoutes = app
+export const searchRoutes = createRouter()
 
 searchRoutes.get('/', async (c) => {
   const supabase = c.get('supabase')

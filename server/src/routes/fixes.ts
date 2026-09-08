@@ -1,8 +1,8 @@
-import { app } from '../types.js'
+import { createRouter } from '../types.js'
 import { listFixes, getFixBySlug, getRelatedFixes, getFixCategories } from '../services/fixesService.js'
 import { ApiError } from '../utils/ApiError.js'
 
-export const fixesRoutes = app
+export const fixesRoutes = createRouter()
 
 fixesRoutes.get('/categories', async (c) => {
   const supabase = c.get('supabase')

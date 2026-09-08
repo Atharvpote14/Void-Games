@@ -1,9 +1,9 @@
-import { app } from '../types.js'
+import { createRouter } from '../types.js'
 import { getRatingSummary, rateGame } from '../services/ratingsService.js'
 import { ApiError } from '../utils/ApiError.js'
 import { authenticate, blockBanned } from '../middleware/auth.js'
 
-export const ratingsRoutes = app
+export const ratingsRoutes = createRouter()
 
 ratingsRoutes.get('/:gameId', async (c) => {
   const supabase = c.get('supabase')

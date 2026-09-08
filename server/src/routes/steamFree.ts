@@ -1,7 +1,7 @@
-import { app } from '../types.js'
+import { createRouter } from '../types.js'
 import { getSteamFreeContent } from '../services/steamFreeService.js'
 
-export const steamFreeRoutes = app
+export const steamFreeRoutes = createRouter()
 
 steamFreeRoutes.get('/', async (c) => {
   const supabase = c.get('supabase')

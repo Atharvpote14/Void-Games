@@ -3,6 +3,7 @@ import { cors } from 'hono/cors'
 import { prettyJSON } from 'hono/pretty-json'
 import { logger } from 'hono/logger'
 import { HTTPException } from 'hono/http-exception'
+import { ApiError } from './utils/ApiError.js'
 import { authRoutes } from './routes/auth.js'
 import { gamesRoutes } from './routes/games.js'
 import { fixesRoutes } from './routes/fixes.js'
@@ -89,6 +90,7 @@ app.onError((err, c) => {
   })
   if (err instanceof Response) return err
   if (err instanceof HTTPException) return c.json({ success: false, message: err.message }, err.status)
+  if (err instanceof ApiError) return c.json({ success: false, message: err.message, ...(err.data ? { data: err.data } : {}) }, err.statusCode as any)
   if (err instanceof Error) return c.json({ success: false, message: err.message }, 500)
   return c.json({ success: false, message: 'Internal server error' }, 500)
 })

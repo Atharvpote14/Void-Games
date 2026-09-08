@@ -69,6 +69,18 @@ export async function getGameBySlug(supabase: SupabaseAdmin, slug: string, optio
   return data
 }
 
+export async function getGameById(supabase: SupabaseAdmin, id: string, options: { incrementViews?: boolean } = {}) {
+  const { data, error } = await supabase.from('games').select('*').eq('id', id).maybeSingle()
+  if (error) throw error
+  if (!data) return null
+
+  if (options.incrementViews) {
+    supabase.rpc('increment_game_views', { game_slug: data.slug })
+  }
+
+  return data
+}
+
 export async function getRelatedGames(supabase: SupabaseAdmin, gameId: string, genreId: string | null, limit = 4) {
   if (!genreId) return []
   const { data, error } = await supabase
