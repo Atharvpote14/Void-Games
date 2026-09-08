@@ -24,6 +24,18 @@ function toComment(row: any) {
 
 export async function getCommentsByGame(supabase: SupabaseAdmin, gameId: string) {
   try {
+    // First check if game exists
+    const { data: game, error: gameError } = await supabase
+      .from('games')
+      .select('id')
+      .eq('id', gameId)
+      .maybeSingle()
+
+    if (gameError) throw gameError
+    if (!game) {
+      return []
+    }
+
     const { data, error } = await supabase
       .from('comments')
       .select('*, user:users(id, name, username, avatar)')
@@ -32,7 +44,7 @@ export async function getCommentsByGame(supabase: SupabaseAdmin, gameId: string)
       .order('created_at', { ascending: false })
 
     if (error) {
-      console.warn('getCommentsByGame error:', { gameId, error: error.message })
+      console.warn('getCommentsByGame comments table error:', { gameId, error: error.message, code: error.code, details: error.details, hint: error.hint })
       return []
     }
 
@@ -54,7 +66,7 @@ export async function getCommentsByGame(supabase: SupabaseAdmin, gameId: string)
 
     return comments
   } catch (err) {
-    console.error('getCommentsByGame error:', { gameId, error: err instanceof Error ? err.message : String(err) })
+    console.error('getCommentsByGame error:', { gameId, error: err instanceof Error ? err.message : String(err), stack: err instanceof Error ? err.stack : undefined })
     return []
   }
 }

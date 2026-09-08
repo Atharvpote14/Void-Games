@@ -3,14 +3,25 @@ import { ApiError } from '../utils/ApiError.js'
 
 export async function getRatingSummary(supabase: SupabaseAdmin, gameId: string) {
   try {
+    // First check if game exists
+    const { data: game, error: gameError } = await supabase
+      .from('games')
+      .select('id')
+      .eq('id', gameId)
+      .maybeSingle()
+
+    if (gameError) throw gameError
+    if (!game) {
+      return { average_rating: 0, rating_count: 0, user_rating: null }
+    }
+
     const { data, error } = await supabase
       .from('ratings')
       .select('user_id, rating')
       .eq('game_id', gameId)
 
     if (error) {
-      // If table doesn't exist or other error, return empty result instead of throwing
-      console.warn('getRatingSummary error:', { gameId, error: error.message })
+      console.warn('getRatingSummary ratings table error:', { gameId, error: error.message, code: error.code, details: error.details, hint: error.hint })
       return { average_rating: 0, rating_count: 0, user_rating: null }
     }
 
@@ -24,7 +35,7 @@ export async function getRatingSummary(supabase: SupabaseAdmin, gameId: string) 
       user_rating: null,
     }
   } catch (err) {
-    console.error('getRatingSummary error:', { gameId, error: err instanceof Error ? err.message : String(err) })
+    console.error('getRatingSummary error:', { gameId, error: err instanceof Error ? err.message : String(err), stack: err instanceof Error ? err.stack : undefined })
     return { average_rating: 0, rating_count: 0, user_rating: null }
   }
 }
