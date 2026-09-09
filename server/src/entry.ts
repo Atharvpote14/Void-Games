@@ -5,6 +5,7 @@ import { logger } from 'hono/logger'
 import { HTTPException } from 'hono/http-exception'
 import { ApiError } from './utils/ApiError.js'
 import { authRoutes } from './routes/auth.js'
+import { adminRoutes } from './routes/admin.js' // Added admin routes import
 import { gamesRoutes } from './routes/games.js'
 import { fixesRoutes } from './routes/fixes.js'
 import { guidesRoutes } from './routes/guides.js'
@@ -67,6 +68,7 @@ app.use('*', async (c, next) => {
 
 // API routes
 app.route('/api/v1/auth', authRoutes)
+app.route('/api/v1/admin', adminRoutes) // Added admin routes
 app.route('/api/v1/games', gamesRoutes)
 app.route('/api/v1/fixes', fixesRoutes)
 app.route('/api/v1/guides', guidesRoutes)
