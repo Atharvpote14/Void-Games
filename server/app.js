@@ -33,15 +33,17 @@ app.use('/api/v1', apiRateLimiter)
 app.use('/api/v1', routes)
 
 // Serve static client files in production
-if (env.NODE_ENV === 'production') {
-  const __filename = fileURLToPath(import.meta.url)
-  const __dirname = path.dirname(__filename)
-  const clientDist = path.resolve(__dirname, '..', 'client', 'dist')
-  app.use(express.static(clientDist))
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(clientDist, 'index.html'))
-  })
-}
+// Serve the built client assets (assumes `client/dist` contains the build output)
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const clientDist = path.resolve(__dirname, '..', 'client', 'dist')
+app.use(express.static(clientDist))
+
+// Fallback: serve index.html for any non-API route (including /admin/*)
+app.use((req, res) => {
+  // Serve the SPA entry point for any non-API request
+  res.sendFile(path.join(clientDist, 'index.html'))
+})
 
 app.use(notFound)
 app.use(errorHandler)
