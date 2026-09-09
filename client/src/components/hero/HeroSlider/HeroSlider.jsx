@@ -11,6 +11,11 @@ import {
   Search,
   ArrowRight,
   ExternalLink,
+  Monitor,
+  Building2,
+  Calendar,
+  Shield,
+  Calendar as CalendarIcon,
 } from 'lucide-react'
 import Button from '@/components/buttons/Button/Button'
 import Container from '@/layouts/Container/Container'
@@ -135,20 +140,32 @@ function HeroSlide({ game }) {
             />
           ) : null}
 
-          <motion.div variants={slideLeft} className="flex flex-wrap items-center gap-1.5">
+          <motion.div variants={slideLeft} className="flex flex-wrap items-center gap-2">
             {game.version && (
-              <span className="badge badge-primary px-3 py-1 text-xs shadow-lg">
+              <span className="inline-flex items-center gap-1.5 rounded-lg bg-primary/20 border border-primary/30 px-3 py-1.5 text-xs font-medium text-primary shadow-sm backdrop-blur-sm">
                 {game.version.startsWith('v') ? game.version : `v${game.version}`}
               </span>
             )}
-            <span className="badge badge-secondary text-void-bg px-3 py-1 text-xs shadow-lg">PC</span>
+            <span className="inline-flex items-center gap-1.5 rounded-lg bg-secondary/20 border border-secondary/30 px-3 py-1.5 text-xs font-medium text-secondary shadow-sm backdrop-blur-sm">
+              <Monitor className="size-3" aria-hidden="true" />
+              PC
+            </span>
             {game.publisher && (
-              <span className="badge badge-secondary text-void-bg px-3 py-1 text-xs shadow-lg">{game.publisher}</span>
+              <span className="inline-flex items-center gap-1.5 rounded-lg bg-purple/20 border border-purple/30 px-3 py-1.5 text-xs font-medium text-purple shadow-sm backdrop-blur-sm truncate max-w-[200px]">
+                <Building2 className="size-3" aria-hidden="true" />
+                {game.publisher}
+              </span>
             )}
             {year && (
-              <span className="badge badge-neutral px-3 py-1 text-xs shadow-lg">{year}</span>
+              <span className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 border border-white/20 px-3 py-1.5 text-xs font-medium text-white/90 shadow-sm backdrop-blur-sm">
+                <Calendar className="size-3" aria-hidden="true" />
+                {year}
+              </span>
             )}
-            <span className="badge badge-neutral px-3 py-1 text-xs shadow-lg">CSF</span>
+            <span className="inline-flex items-center gap-1.5 rounded-lg bg-cyan/20 border border-cyan/30 px-3 py-1.5 text-xs font-medium text-cyan shadow-sm backdrop-blur-sm">
+              <Shield className="size-3" aria-hidden="true" />
+              CSF
+            </span>
           </motion.div>
 
           {game.short_description && (
