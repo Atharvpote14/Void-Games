@@ -13,18 +13,18 @@ function NavbarSearch() {
   return (
     <div className="relative w-full max-w-[480px]">
       <Search className="absolute left-4 top-1/2 size-4.5 -translate-y-1/2 text-text-muted transition-colors group-has-[input:focus]:text-secondary" aria-hidden="true" />
-      <input
-        type="search"
-        placeholder="Search games, guides, fixes... ⌘K"
-        className="input w-full pl-12 pr-4 py-2.5 text-sm bg-void-card/80 placeholder:text-text-disabled"
-        aria-label="Search"
-        onKeyDown={(e) => {
-          if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-            e.preventDefault()
-            e.currentTarget.focus()
-          }
-        }}
-      />
+<input
+          type="search"
+          placeholder="Search games, guides, fixes... ⌘K"
+          className="input w-full pl-12 pr-4 py-2 text-sm bg-void-card/80 placeholder:text-text-disabled"
+          aria-label="Search"
+          onKeyDown={(e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+              e.preventDefault()
+              e.currentTarget.focus()
+            }
+          }}
+        />
       <kbd className="hidden absolute right-3 top-1/2 -translate-y-1/2 text-[10px] px-1.5 py-0.5 rounded text-text-disabled uppercase md:inline-flex">
         ⌘K
       </kbd>
@@ -42,7 +42,7 @@ function NavbarMenu({ className, onNavigate }) {
           onClick={onNavigate}
           className={({ isActive }) =>
             cn(
-              'relative rounded-btn px-4 py-2.5 text-sm font-medium tracking-wide uppercase transition-all duration-300',
+              'relative rounded-btn px-3 py-1.5 text-xs font-medium tracking-wide uppercase transition-all duration-300',
               'before:absolute before:inset-x-[20%] before:bottom-0 before:h-[2px] before:rounded-full before:bg-primary before:scale-x-0 before:origin-left before:transition-transform before:duration-300',
               isActive
                 ? 'text-text-primary before:scale-x-100'
@@ -78,7 +78,7 @@ function Navbar() {
             : 'border-transparent bg-transparent'
         )}
       >
-        <Container className="flex h-16 items-center justify-between gap-4 md:h-[72px]">
+        <Container className="flex h-14 items-center justify-between gap-4 md:h-[60px]">
           <div className="flex items-center gap-3">
             <IconButton
               label="Open menu"
