@@ -1,4 +1,4 @@
-import { getSupabaseAdmin } from '../config/supabase.js'
+import { getSupabaseAdmin } from '../config/supabase'
 import { ApiError } from '../utils/ApiError.js'
 import { validateUuid } from '../validations/userValidation.js'
 

@@ -1,4 +1,4 @@
-import { getSupabaseAdmin } from '../config/supabase.js'
+import { getSupabaseAdmin } from '../config/supabase'
 
 async function sumColumn(table, column) {
   const admin = getSupabaseAdmin()

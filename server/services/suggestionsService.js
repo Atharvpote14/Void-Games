@@ -1,4 +1,4 @@
-import { getSupabaseAdmin } from '../config/supabase.js'
+import { getSupabaseAdmin } from '../config/supabase'
 import { ApiError } from '../utils/ApiError.js'
 
 export const SUGGESTION_STATUSES = ['pending', 'approved', 'rejected']
