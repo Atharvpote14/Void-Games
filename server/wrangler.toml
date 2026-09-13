@@ -3,5 +3,8 @@ main = "src/entry.ts"
 compatibility_date = "2026-09-09"
 compatibility_flags = ["nodejs_compat"]
 
+[vars]
+CLIENT_ORIGINS = "http://localhost:5173,https://www.voidgames.dedyn.io"
+
 [observability]
 logs = { enabled = true, invocation_logs = true }
