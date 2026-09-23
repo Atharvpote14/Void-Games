@@ -58,11 +58,20 @@ app.get('/health', c => c.json({ ok: true, timestamp: new Date().toISOString() }
 // Initialize Supabase client (skip for health)
 app.use('*', async (c, next) => {
   if (c.req.path === '/health') return next()
+  if (c.env) {
+    if (c.env.SUPABASE_URL && !process.env.SUPABASE_URL) process.env.SUPABASE_URL = c.env.SUPABASE_URL
+    if (c.env.SUPABASE_SERVICE_ROLE_KEY && !process.env.SUPABASE_SERVICE_ROLE_KEY) process.env.SUPABASE_SERVICE_ROLE_KEY = c.env.SUPABASE_SERVICE_ROLE_KEY
+    if (c.env.JWT_SECRET && !process.env.JWT_SECRET) process.env.JWT_SECRET = c.env.JWT_SECRET
+  }
   const { createClient } = await import('@supabase/supabase-js')
   const supabase = createClient(c.env.SUPABASE_URL, c.env.SUPABASE_SERVICE_ROLE_KEY, {
     auth: { persistSession: false, autoRefreshToken: false },
   })
   c.set('supabase', supabase)
+  const { setSupabaseAdminClient } = await import('../config/supabase.js')
+  if (setSupabaseAdminClient) {
+    setSupabaseAdminClient(supabase)
+  }
   await next()
 })
 

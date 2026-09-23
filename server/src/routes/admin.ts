@@ -65,6 +65,17 @@ import {
   updateSteamFreeStep,
   deleteSteamFreeStep,
 } from '../../services/adminSteamFreeService.js';
+import {
+  validateGameInput,
+  validateScreenshotInput,
+  validateDownloadLinkInput,
+  validateTagInput,
+  validateCollectionGameIds,
+  validateCategoryInput,
+  validateCollectionInput,
+  validateGuideInput,
+  validateFixInput,
+} from '../../validations/adminValidation.js';
 
 export const adminRoutes = new Hono();
 
@@ -90,92 +101,150 @@ adminRoutes.get('/games', async (c) => {
   return c.json({ success: true, data: result });
 });
 
-adminRoutes.get('/games/:id', async (c) => {
+const handleGetGame = async (c: any) => {
   const { id } = c.req.param();
   const result = await getAdminGame(id);
   return c.json({ success: true, data: result });
-});
+};
+adminRoutes.get('/games/:id', handleGetGame);
+adminRoutes.get('/game/:id', handleGetGame);
 
-adminRoutes.post('/games', async (c) => {
+const handleCreateGame = async (c: any) => {
   const body = await c.req.json();
-  const result = await createAdminGame(body);
-  return c.json({ success: true, data: result });
-});
+  const game: any = validateGameInput(body);
+  game.screenshots = validateScreenshotInput(body);
+  game.download_links = (body.download_links || []).map(validateDownloadLinkInput);
+  game.tags = validateTagInput(body);
+  game.collection_ids = validateCollectionGameIds(body.collection_ids);
+  const result = await createAdminGame(game);
+  return c.json({ success: true, data: result }, 201);
+};
+adminRoutes.post('/games', handleCreateGame);
+adminRoutes.post('/game', handleCreateGame);
 
-adminRoutes.patch('/games/:id', async (c) => {
+const handleUpdateGame = async (c: any) => {
   const { id } = c.req.param();
   const body = await c.req.json();
-  const result = await updateAdminGame(id, body);
+  const game: any = validateGameInput(body);
+  if (body.screenshots !== undefined) game.screenshots = validateScreenshotInput(body);
+  if (body.download_links !== undefined) game.download_links = body.download_links.map(validateDownloadLinkInput);
+  if (body.tags !== undefined) game.tags = validateTagInput(body);
+  if (body.collection_ids !== undefined) game.collection_ids = validateCollectionGameIds(body.collection_ids);
+  const result = await updateAdminGame(id, game);
   return c.json({ success: true, data: result });
-});
+};
+adminRoutes.patch('/games/:id', handleUpdateGame);
+adminRoutes.put('/games/:id', handleUpdateGame);
+adminRoutes.patch('/game/:id', handleUpdateGame);
+adminRoutes.put('/game/:id', handleUpdateGame);
 
-adminRoutes.delete('/games/:id', async (c) => {
+const handleDeleteGame = async (c: any) => {
   const { id } = c.req.param();
   await deleteAdminGame(id);
   return c.json({ success: true, message: 'Game deleted' });
-});
+};
+adminRoutes.delete('/games/:id', handleDeleteGame);
+adminRoutes.delete('/game/:id', handleDeleteGame);
 
 /* Categories */
-adminRoutes.get('/categories', async (c) => {
+const handleListCategories = async (c: any) => {
   const data = await listAdminCategories();
-  return c.json({ success: true, data });
-});
+  return c.json({ success: true, data: { categories: data } });
+};
+adminRoutes.get('/categories', handleListCategories);
+adminRoutes.get('/category', handleListCategories);
 
-adminRoutes.get('/categories/:id', async (c) => {
+const handleGetCategory = async (c: any) => {
   const { id } = c.req.param();
   const data = await getAdminCategory(id);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.get('/categories/:id', handleGetCategory);
+adminRoutes.get('/category/:id', handleGetCategory);
 
-adminRoutes.post('/category', async (c) => {
+const handleCreateCategory = async (c: any) => {
   const body = await c.req.json();
-  const data = await createAdminCategory(body);
-  return c.json({ success: true, data });
-});
+  const clean = validateCategoryInput(body);
+  const data = await createAdminCategory(clean);
+  return c.json({ success: true, data }, 201);
+};
+adminRoutes.post('/category', handleCreateCategory);
+adminRoutes.post('/categories', handleCreateCategory);
 
-adminRoutes.patch('/category/:id', async (c) => {
+const handleUpdateCategory = async (c: any) => {
   const { id } = c.req.param();
   const body = await c.req.json();
-  const data = await updateAdminCategory(id, body);
+  const clean = validateCategoryInput(body);
+  const data = await updateAdminCategory(id, clean);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.patch('/category/:id', handleUpdateCategory);
+adminRoutes.put('/category/:id', handleUpdateCategory);
+adminRoutes.patch('/categories/:id', handleUpdateCategory);
+adminRoutes.put('/categories/:id', handleUpdateCategory);
 
-adminRoutes.delete('/category/:id', async (c) => {
+const handleDeleteCategory = async (c: any) => {
   const { id } = c.req.param();
   await deleteAdminCategory(id);
   return c.json({ success: true, message: 'Category deleted' });
-});
+};
+adminRoutes.delete('/category/:id', handleDeleteCategory);
+adminRoutes.delete('/categories/:id', handleDeleteCategory);
 
 /* Collections */
-adminRoutes.get('/collections', async (c) => {
+const handleListCollections = async (c: any) => {
   const data = await listAdminCollections();
-  return c.json({ success: true, data });
-});
+  return c.json({ success: true, data: { collections: data } });
+};
+adminRoutes.get('/collections', handleListCollections);
+adminRoutes.get('/collection', handleListCollections);
 
-adminRoutes.get('/collections/:id', async (c) => {
+const handleGetCollection = async (c: any) => {
   const { id } = c.req.param();
   const data = await getAdminCollection(id);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.get('/collections/:id', handleGetCollection);
+adminRoutes.get('/collection/:id', handleGetCollection);
 
-adminRoutes.post('/collection', async (c) => {
-  const { body, gameIds } = await c.req.json();
-  const data = await createAdminCollection(body, gameIds ?? []);
-  return c.json({ success: true, data });
-});
+const handleCreateCollection = async (c: any) => {
+  const payload = await c.req.json();
+  const clean = validateCollectionInput(payload.body || payload);
+  const rawGameIds = payload.game_ids ?? payload.gameIds ?? payload.body?.game_ids ?? payload.body?.gameIds ?? [];
+  const gameIds = validateCollectionGameIds(rawGameIds);
+  const data = await createAdminCollection(clean, gameIds);
+  return c.json({ success: true, data }, 201);
+};
+adminRoutes.post('/collection', handleCreateCollection);
+adminRoutes.post('/collections', handleCreateCollection);
 
-adminRoutes.patch('/collection/:id', async (c) => {
+const handleUpdateCollection = async (c: any) => {
   const { id } = c.req.param();
-  const { body, gameIds } = await c.req.json();
-  const data = await updateAdminCollection(id, body, gameIds);
+  const payload = await c.req.json();
+  const clean = validateCollectionInput(payload.body || payload);
+  const rawGameIds = payload.game_ids !== undefined
+    ? payload.game_ids
+    : (payload.gameIds !== undefined
+      ? payload.gameIds
+      : (payload.body?.game_ids !== undefined
+        ? payload.body.game_ids
+        : payload.body?.gameIds));
+  const gameIds = rawGameIds !== undefined ? validateCollectionGameIds(rawGameIds) : undefined;
+  const data = await updateAdminCollection(id, clean, gameIds);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.patch('/collection/:id', handleUpdateCollection);
+adminRoutes.put('/collection/:id', handleUpdateCollection);
+adminRoutes.patch('/collections/:id', handleUpdateCollection);
+adminRoutes.put('/collections/:id', handleUpdateCollection);
 
-adminRoutes.delete('/collection/:id', async (c) => {
+const handleDeleteCollection = async (c: any) => {
   const { id } = c.req.param();
   await deleteAdminCollection(id);
   return c.json({ success: true, message: 'Collection deleted' });
-});
+};
+adminRoutes.delete('/collection/:id', handleDeleteCollection);
+adminRoutes.delete('/collections/:id', handleDeleteCollection);
 
 /* Guides (articles) */
 adminRoutes.get('/guides', async (c) => {
@@ -183,30 +252,42 @@ adminRoutes.get('/guides', async (c) => {
   return c.json({ success: true, data: result });
 });
 
-adminRoutes.get('/guides/:id', async (c) => {
+const handleGetGuide = async (c: any) => {
   const { id } = c.req.param();
   const data = await getAdminGuide(id);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.get('/guides/:id', handleGetGuide);
+adminRoutes.get('/guide/:id', handleGetGuide);
 
-adminRoutes.post('/guide', async (c) => {
+const handleCreateGuide = async (c: any) => {
   const body = await c.req.json();
-  const data = await createAdminGuide(body);
-  return c.json({ success: true, data });
-});
+  const clean = validateGuideInput(body);
+  const data = await createAdminGuide(clean);
+  return c.json({ success: true, data }, 201);
+};
+adminRoutes.post('/guide', handleCreateGuide);
+adminRoutes.post('/guides', handleCreateGuide);
 
-adminRoutes.patch('/guide/:id', async (c) => {
+const handleUpdateGuide = async (c: any) => {
   const { id } = c.req.param();
   const body = await c.req.json();
-  const data = await updateAdminGuide(id, body);
+  const clean = validateGuideInput(body);
+  const data = await updateAdminGuide(id, clean);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.patch('/guide/:id', handleUpdateGuide);
+adminRoutes.put('/guide/:id', handleUpdateGuide);
+adminRoutes.patch('/guides/:id', handleUpdateGuide);
+adminRoutes.put('/guides/:id', handleUpdateGuide);
 
-adminRoutes.delete('/guide/:id', async (c) => {
+const handleDeleteGuide = async (c: any) => {
   const { id } = c.req.param();
   await deleteAdminArticle('guides', id);
   return c.json({ success: true, message: 'Guide deleted' });
-});
+};
+adminRoutes.delete('/guide/:id', handleDeleteGuide);
+adminRoutes.delete('/guides/:id', handleDeleteGuide);
 
 /* Fixes */
 adminRoutes.get('/fixes', async (c) => {
@@ -214,30 +295,42 @@ adminRoutes.get('/fixes', async (c) => {
   return c.json({ success: true, data: result });
 });
 
-adminRoutes.get('/fixes/:id', async (c) => {
+const handleGetFix = async (c: any) => {
   const { id } = c.req.param();
   const data = await getAdminFix(id);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.get('/fixes/:id', handleGetFix);
+adminRoutes.get('/fix/:id', handleGetFix);
 
-adminRoutes.post('/fix', async (c) => {
+const handleCreateFix = async (c: any) => {
   const body = await c.req.json();
-  const data = await createAdminFix(body);
-  return c.json({ success: true, data });
-});
+  const clean = validateFixInput(body);
+  const data = await createAdminFix(clean);
+  return c.json({ success: true, data }, 201);
+};
+adminRoutes.post('/fix', handleCreateFix);
+adminRoutes.post('/fixes', handleCreateFix);
 
-adminRoutes.patch('/fix/:id', async (c) => {
+const handleUpdateFix = async (c: any) => {
   const { id } = c.req.param();
   const body = await c.req.json();
-  const data = await updateAdminFix(id, body);
+  const clean = validateFixInput(body);
+  const data = await updateAdminFix(id, clean);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.patch('/fix/:id', handleUpdateFix);
+adminRoutes.put('/fix/:id', handleUpdateFix);
+adminRoutes.patch('/fixes/:id', handleUpdateFix);
+adminRoutes.put('/fixes/:id', handleUpdateFix);
 
-adminRoutes.delete('/fix/:id', async (c) => {
+const handleDeleteFix = async (c: any) => {
   const { id } = c.req.param();
   await deleteAdminArticle('fix_articles', id);
   return c.json({ success: true, message: 'Fix deleted' });
-});
+};
+adminRoutes.delete('/fix/:id', handleDeleteFix);
+adminRoutes.delete('/fixes/:id', handleDeleteFix);
 
 /* Users */
 adminRoutes.get('/users', async (c) => {
@@ -245,24 +338,35 @@ adminRoutes.get('/users', async (c) => {
   return c.json({ success: true, data: result });
 });
 
-adminRoutes.get('/users/:id', async (c) => {
+const handleGetUser = async (c: any) => {
   const { id } = c.req.param();
   const data = await getAdminUser(id);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.get('/users/:id', handleGetUser);
+adminRoutes.get('/user/:id', handleGetUser);
 
-adminRoutes.patch('/user/:id', async (c) => {
+const handleUpdateUser = async (c: any) => {
   const { id } = c.req.param();
   const body = await c.req.json();
-  const data = await updateAdminUser(id, body);
+  const clean: any = {};
+  if (body.role !== undefined) clean.role = body.role;
+  if (body.is_banned !== undefined) clean.is_banned = body.is_banned;
+  const data = await updateAdminUser(id, clean);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.patch('/user/:id', handleUpdateUser);
+adminRoutes.put('/user/:id', handleUpdateUser);
+adminRoutes.patch('/users/:id', handleUpdateUser);
+adminRoutes.put('/users/:id', handleUpdateUser);
 
-adminRoutes.delete('/user/:id', async (c) => {
+const handleDeleteUser = async (c: any) => {
   const { id } = c.req.param();
   await deleteAdminUser(id);
   return c.json({ success: true, message: 'User deleted' });
-});
+};
+adminRoutes.delete('/user/:id', handleDeleteUser);
+adminRoutes.delete('/users/:id', handleDeleteUser);
 
 /* Reports */
 adminRoutes.get('/reports', async (c) => {
@@ -270,24 +374,32 @@ adminRoutes.get('/reports', async (c) => {
   return c.json({ success: true, data: result });
 });
 
-adminRoutes.get('/reports/:id', async (c) => {
+const handleGetReport = async (c: any) => {
   const { id } = c.req.param();
   const data = await getAdminReport(id);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.get('/reports/:id', handleGetReport);
+adminRoutes.get('/report/:id', handleGetReport);
 
-adminRoutes.patch('/report/:id', async (c) => {
+const handleUpdateReport = async (c: any) => {
   const { id } = c.req.param();
-  const { status } = await c.req.json();
-  const data = await updateAdminReportStatus(id, status);
+  const body = await c.req.json();
+  const data = await updateAdminReportStatus(id, body.status);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.patch('/report/:id', handleUpdateReport);
+adminRoutes.put('/report/:id', handleUpdateReport);
+adminRoutes.patch('/reports/:id', handleUpdateReport);
+adminRoutes.put('/reports/:id', handleUpdateReport);
 
-adminRoutes.delete('/report/:id', async (c) => {
+const handleDeleteReport = async (c: any) => {
   const { id } = c.req.param();
   await deleteAdminReport(id);
   return c.json({ success: true, message: 'Report deleted' });
-});
+};
+adminRoutes.delete('/report/:id', handleDeleteReport);
+adminRoutes.delete('/reports/:id', handleDeleteReport);
 
 /* Unban Requests */
 adminRoutes.get('/unban-requests', async (c) => {
@@ -295,24 +407,33 @@ adminRoutes.get('/unban-requests', async (c) => {
   return c.json({ success: true, data: result });
 });
 
-adminRoutes.get('/unban-requests/:id', async (c) => {
+const handleGetUnbanRequest = async (c: any) => {
   const { id } = c.req.param();
   const data = await getAdminUnbanRequest(id);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.get('/unban-requests/:id', handleGetUnbanRequest);
+adminRoutes.get('/unban-request/:id', handleGetUnbanRequest);
 
-adminRoutes.patch('/unban-request/:id', async (c) => {
+const handleReviewUnbanRequest = async (c: any) => {
   const { id } = c.req.param();
   const body = await c.req.json();
-  const data = await reviewAdminUnbanRequest(id, body);
+  const adminNote = body.admin_note ?? body.adminNote ?? body.note;
+  const data = await reviewAdminUnbanRequest(id, { status: body.status, adminNote });
   return c.json({ success: true, data });
-});
+};
+adminRoutes.patch('/unban-request/:id', handleReviewUnbanRequest);
+adminRoutes.put('/unban-request/:id', handleReviewUnbanRequest);
+adminRoutes.patch('/unban-requests/:id', handleReviewUnbanRequest);
+adminRoutes.put('/unban-requests/:id', handleReviewUnbanRequest);
 
-adminRoutes.delete('/unban-request/:id', async (c) => {
+const handleDeleteUnbanRequest = async (c: any) => {
   const { id } = c.req.param();
   await deleteAdminUnbanRequest(id);
   return c.json({ success: true, message: 'Unban request deleted' });
-});
+};
+adminRoutes.delete('/unban-request/:id', handleDeleteUnbanRequest);
+adminRoutes.delete('/unban-requests/:id', handleDeleteUnbanRequest);
 
 /* Suggestions */
 adminRoutes.get('/suggestions', async (c) => {
@@ -320,25 +441,33 @@ adminRoutes.get('/suggestions', async (c) => {
   return c.json({ success: true, data: result });
 });
 
-adminRoutes.get('/suggestions/:id', async (c) => {
+const handleGetSuggestion = async (c: any) => {
   const { id } = c.req.param();
   const data = await getAdminSuggestion(id);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.get('/suggestions/:id', handleGetSuggestion);
+adminRoutes.get('/suggestion/:id', handleGetSuggestion);
 
-adminRoutes.patch('/suggestion/:id', async (c) => {
+const handleReviewSuggestion = async (c: any) => {
   const { id } = c.req.param();
   const body = await c.req.json();
-  // Expect body to contain { status, note }
-  const data = await reviewAdminSuggestion(id, body.status, body.note);
+  const note = body.admin_note ?? body.note ?? body.adminNote;
+  const data = await reviewAdminSuggestion(id, body.status, note);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.patch('/suggestion/:id', handleReviewSuggestion);
+adminRoutes.put('/suggestion/:id', handleReviewSuggestion);
+adminRoutes.patch('/suggestions/:id', handleReviewSuggestion);
+adminRoutes.put('/suggestions/:id', handleReviewSuggestion);
 
-adminRoutes.delete('/suggestion/:id', async (c) => {
+const handleDeleteSuggestion = async (c: any) => {
   const { id } = c.req.param();
   await deleteAdminSuggestion(id);
   return c.json({ success: true, message: 'Suggestion deleted' });
-});
+};
+adminRoutes.delete('/suggestion/:id', handleDeleteSuggestion);
+adminRoutes.delete('/suggestions/:id', handleDeleteSuggestion);
 
 /* Steam Free */
 adminRoutes.get('/steam-free', async (c) => {
@@ -346,29 +475,39 @@ adminRoutes.get('/steam-free', async (c) => {
   return c.json({ success: true, data });
 });
 
-adminRoutes.patch('/steam-free/video', async (c) => {
+const handleUpdateSteamFreeVideo = async (c: any) => {
   const { video_url } = await c.req.json();
   const data = await updateSteamFreeVideoUrl(video_url);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.patch('/steam-free/video', handleUpdateSteamFreeVideo);
+adminRoutes.put('/steam-free/video', handleUpdateSteamFreeVideo);
 
-adminRoutes.post('/steam-free/step', async (c) => {
+const handleCreateSteamFreeStep = async (c: any) => {
   const body = await c.req.json();
   const data = await createSteamFreeStep(body);
-  return c.json({ success: true, data });
-});
+  return c.json({ success: true, data }, 201);
+};
+adminRoutes.post('/steam-free/step', handleCreateSteamFreeStep);
+adminRoutes.post('/steam-free/steps', handleCreateSteamFreeStep);
 
-adminRoutes.patch('/steam-free/step/:id', async (c) => {
+const handleUpdateSteamFreeStep = async (c: any) => {
   const { id } = c.req.param();
   const body = await c.req.json();
   const data = await updateSteamFreeStep(id, body);
   return c.json({ success: true, data });
-});
+};
+adminRoutes.patch('/steam-free/step/:id', handleUpdateSteamFreeStep);
+adminRoutes.put('/steam-free/step/:id', handleUpdateSteamFreeStep);
+adminRoutes.patch('/steam-free/steps/:id', handleUpdateSteamFreeStep);
+adminRoutes.put('/steam-free/steps/:id', handleUpdateSteamFreeStep);
 
-adminRoutes.delete('/steam-free/step/:id', async (c) => {
+const handleDeleteSteamFreeStep = async (c: any) => {
   const { id } = c.req.param();
   await deleteSteamFreeStep(id);
   return c.json({ success: true, message: 'Step deleted' });
-});
+};
+adminRoutes.delete('/steam-free/step/:id', handleDeleteSteamFreeStep);
+adminRoutes.delete('/steam-free/steps/:id', handleDeleteSteamFreeStep);
 
 export default adminRoutes;
