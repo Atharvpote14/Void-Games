@@ -1,148 +1,111 @@
-import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-import MainLayout from '@/layouts/MainLayout/MainLayout'
 import NotFound from '@/pages/NotFound/NotFound'
 import ServerError from '@/pages/NotFound/ServerError'
 import LazyPage from '@/components/loading/LazyPage/LazyPage'
 import ProtectedRoute from '@/components/auth/ProtectedRoute/ProtectedRoute'
 import AdminRoute from '@/components/auth/AdminRoute/AdminRoute'
 import AdminLayout from '@/layouts/AdminLayout/AdminLayout'
+import MainLayout from '@/layouts/MainLayout/MainLayout'
+import RootLayout from '@/layouts/RootLayout/RootLayout'
 
-const Home = lazy(() => import('@/pages/Home/Home'))
-const BrowseGames = lazy(() => import('@/pages/BrowseGames/BrowseGames'))
-const SearchPage = lazy(() => import('@/pages/Search/Search'))
-const GameDetails = lazy(() => import('@/pages/GameDetails/GameDetails'))
-const Guides = lazy(() => import('@/pages/Guides/Guides'))
-const GuideDetails = lazy(() => import('@/pages/GuideDetails/GuideDetails'))
-const FixCenter = lazy(() => import('@/pages/FixCenter/FixCenter'))
-const FixDetails = lazy(() => import('@/pages/FixDetails/FixDetails'))
-const Login = lazy(() => import('@/pages/Login/Login'))
-const AuthCallback = lazy(() => import('@/pages/AuthCallback/AuthCallback'))
-const Profile = lazy(() => import('@/pages/Profile/Profile'))
-const Favorites = lazy(() => import('@/pages/Favorites/Favorites'))
-const DownloadHistory = lazy(() => import('@/pages/DownloadHistory/DownloadHistory'))
-const Settings = lazy(() => import('@/pages/Settings/Settings'))
-const SuggestGame = lazy(() => import('@/pages/SuggestGame/SuggestGame'))
-const SteamFreeGames = lazy(() => import('@/pages/SteamFreeGames/SteamFreeGames'))
-const AdminDashboard = lazy(() => import('@/pages/Admin/AdminDashboard/AdminDashboard'))
-const AdminGames = lazy(() => import('@/pages/Admin/AdminGames/AdminGames'))
-const GameForm = lazy(() => import('@/pages/Admin/AdminGames/GameForm'))
-const AdminCategories = lazy(() =>
-  import('@/pages/Admin/AdminCategories/AdminCategories')
-)
-const AdminCollections = lazy(() =>
-  import('@/pages/Admin/AdminCollections/AdminCollections')
-)
-const AdminGuides = lazy(() => import('@/pages/Admin/AdminGuides/AdminGuides'))
-const AdminFixes = lazy(() => import('@/pages/Admin/AdminFixes/AdminFixes'))
-const AdminUsers = lazy(() => import('@/pages/Admin/AdminUsers/AdminUsers'))
-const AdminReports = lazy(() => import('@/pages/Admin/AdminReports/AdminReports'))
-const AdminUnbanRequests = lazy(() =>
-  import('@/pages/Admin/AdminUnbanRequests/AdminUnbanRequests')
-)
-const AdminAnalytics = lazy(() =>
-  import('@/pages/Admin/AdminAnalytics/AdminAnalytics')
-)
-const AdminSuggestions = lazy(() =>
-  import('@/pages/Admin/AdminSuggestions/AdminSuggestions')
-)
-const AdminSteamFree = lazy(() =>
-  import('@/pages/Admin/AdminSteamFree/AdminSteamFree')
-)
+import Home from '@/pages/Home/Home'
+import BrowseGames from '@/pages/BrowseGames/BrowseGames'
+import SearchPage from '@/pages/Search/Search'
+import GameDetails from '@/pages/GameDetails/GameDetails'
+import Guides from '@/pages/Guides/Guides'
+import GuideDetails from '@/pages/GuideDetails/GuideDetails'
+import FixCenter from '@/pages/FixCenter/FixCenter'
+import FixDetails from '@/pages/FixDetails/FixDetails'
+import Login from '@/pages/Login/Login'
+import AuthCallback from '@/pages/AuthCallback/AuthCallback'
+import Profile from '@/pages/Profile/Profile'
+import Favorites from '@/pages/Favorites/Favorites'
+import DownloadHistory from '@/pages/DownloadHistory/DownloadHistory'
+import Settings from '@/pages/Settings/Settings'
+import SuggestGame from '@/pages/SuggestGame/SuggestGame'
+import SteamFreeGames from '@/pages/SteamFreeGames/SteamFreeGames'
+import AdminDashboard from '@/pages/Admin/AdminDashboard/AdminDashboard'
+import AdminGames from '@/pages/Admin/AdminGames/AdminGames'
+import GameForm from '@/pages/Admin/AdminGames/GameForm'
+import AdminCategories from '@/pages/Admin/AdminCategories/AdminCategories'
+import AdminCollections from '@/pages/Admin/AdminCollections/AdminCollections'
+import AdminGuides from '@/pages/Admin/AdminGuides/AdminGuides'
+import AdminFixes from '@/pages/Admin/AdminFixes/AdminFixes'
+import AdminUsers from '@/pages/Admin/AdminUsers/AdminUsers'
+import AdminReports from '@/pages/Admin/AdminReports/AdminReports'
+import AdminUnbanRequests from '@/pages/Admin/AdminUnbanRequests/AdminUnbanRequests'
+import AdminSuggestions from '@/pages/Admin/AdminSuggestions/AdminSuggestions'
+import AdminSteamFree from '@/pages/Admin/AdminSteamFree/AdminSteamFree'
+import AdminAnalytics from '@/pages/Admin/AdminAnalytics/AdminAnalytics'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout />,
+    element: <RootLayout />,
     errorElement: <ServerError />,
     children: [
       {
+        element: <MainLayout />,
+        children: [
+      {
         index: true,
         element: (
-          <LazyPage>
-            <Home />
-          </LazyPage>
+          <Home />
         ),
       },
       {
         path: 'games',
         element: (
-          <LazyPage>
-            <BrowseGames />
-          </LazyPage>
+          <BrowseGames />
         ),
       },
       {
         path: 'game/:slug',
         element: (
-          <LazyPage>
-            <GameDetails />
-          </LazyPage>
-        ),
-      },
-      {
-        path: 'guides',
-        element: (
-          <LazyPage>
-            <Guides />
-          </LazyPage>
+          <GameDetails />
         ),
       },
       {
         path: 'guide/:slug',
         element: (
-          <LazyPage>
-            <GuideDetails />
-          </LazyPage>
+          <GuideDetails />
         ),
       },
       {
         path: 'fixes',
         element: (
-          <LazyPage>
-            <FixCenter />
-          </LazyPage>
+          <FixCenter />
         ),
       },
       {
         path: 'fix/:slug',
         element: (
-          <LazyPage>
-            <FixDetails />
-          </LazyPage>
+          <FixDetails />
         ),
       },
       {
         path: 'search',
         element: (
-          <LazyPage>
-            <SearchPage />
-          </LazyPage>
+          <SearchPage />
         ),
       },
       {
         path: 'login',
         element: (
-          <LazyPage>
-            <Login />
-          </LazyPage>
+          <Login />
         ),
       },
       {
         path: 'auth/callback',
         element: (
-          <LazyPage>
-            <AuthCallback />
-          </LazyPage>
+          <AuthCallback />
         ),
       },
       {
         path: 'profile',
         element: (
           <ProtectedRoute>
-            <LazyPage>
-              <Profile />
-            </LazyPage>
+            <Profile />
           </ProtectedRoute>
         ),
       },
@@ -150,9 +113,7 @@ const router = createBrowserRouter([
         path: 'favorites',
         element: (
           <ProtectedRoute>
-            <LazyPage>
-              <Favorites />
-            </LazyPage>
+            <Favorites />
           </ProtectedRoute>
         ),
       },
@@ -160,9 +121,7 @@ const router = createBrowserRouter([
         path: 'downloads',
         element: (
           <ProtectedRoute>
-            <LazyPage>
-              <DownloadHistory />
-            </LazyPage>
+            <DownloadHistory />
           </ProtectedRoute>
         ),
       },
@@ -170,26 +129,20 @@ const router = createBrowserRouter([
         path: 'settings',
         element: (
           <ProtectedRoute>
-            <LazyPage>
-              <Settings />
-            </LazyPage>
+            <Settings />
           </ProtectedRoute>
         ),
       },
       {
         path: 'suggest',
         element: (
-          <LazyPage>
-            <SuggestGame />
-          </LazyPage>
+          <SuggestGame />
         ),
       },
       {
         path: 'steam-free-games',
         element: (
-          <LazyPage>
-            <SteamFreeGames />
-          </LazyPage>
+          <SteamFreeGames />
         ),
       },
       {
@@ -199,125 +152,106 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/admin',
+    path: 'admin',
     element: (
-      <AdminRoute>
-        <AdminLayout />
-      </AdminRoute>
+      <RootLayout>
+        <AdminRoute>
+          <AdminLayout />
+        </AdminRoute>
+      </RootLayout>
     ),
-    errorElement: <ServerError />,
-    children: [
-      {
-        index: true,
         element: (
-          <LazyPage>
-            <AdminDashboard />
-          </LazyPage>
+          <AdminRoute>
+            <AdminLayout />
+          </AdminRoute>
         ),
-      },
-      {
-        path: 'games',
-        element: (
-          <LazyPage>
-            <AdminGames />
-          </LazyPage>
-        ),
-      },
-      {
-        path: 'games/new',
-        element: (
-          <LazyPage>
-            <GameForm />
-          </LazyPage>
-        ),
-      },
-      {
-        path: 'games/:id/edit',
-        element: (
-          <LazyPage>
-            <GameForm />
-          </LazyPage>
-        ),
-      },
-      {
-        path: 'categories',
-        element: (
-          <LazyPage>
-            <AdminCategories />
-          </LazyPage>
-        ),
-      },
-      {
-        path: 'collections',
-        element: (
-          <LazyPage>
-            <AdminCollections />
-          </LazyPage>
-        ),
-      },
-      {
-        path: 'guides',
-        element: (
-          <LazyPage>
-            <AdminGuides />
-          </LazyPage>
-        ),
-      },
-      {
-        path: 'fixes',
-        element: (
-          <LazyPage>
-            <AdminFixes />
-          </LazyPage>
-        ),
-      },
-      {
-        path: 'users',
-        element: (
-          <LazyPage>
-            <AdminUsers />
-          </LazyPage>
-        ),
-      },
-      {
-        path: 'reports',
-        element: (
-          <LazyPage>
-            <AdminReports />
-          </LazyPage>
-        ),
-      },
-      {
-        path: 'unban-requests',
-        element: (
-          <LazyPage>
-            <AdminUnbanRequests />
-          </LazyPage>
-        ),
-      },
-      {
-        path: 'suggestions',
-        element: (
-          <LazyPage>
-            <AdminSuggestions />
-          </LazyPage>
-        ),
-      },
-      {
-        path: 'steam-free',
-        element: (
-          <LazyPage>
-            <AdminSteamFree />
-          </LazyPage>
-        ),
-      },
-      {
-        path: 'analytics',
-        element: (
-          <LazyPage>
-            <AdminAnalytics />
-          </LazyPage>
-        ),
+        errorElement: <ServerError />,
+        children: [
+          {
+            index: true,
+            element: (
+              <AdminDashboard />
+            ),
+          },
+          {
+            path: 'games',
+            element: (
+              <AdminGames />
+            ),
+          },
+          {
+            path: 'games/new',
+            element: (
+              <GameForm />
+            ),
+          },
+          {
+            path: 'games/:id/edit',
+            element: (
+              <GameForm />
+            ),
+          },
+          {
+            path: 'categories',
+            element: (
+              <AdminCategories />
+            ),
+          },
+          {
+            path: 'collections',
+            element: (
+              <AdminCollections />
+            ),
+          },
+          {
+            path: 'guides',
+            element: (
+              <AdminGuides />
+            ),
+          },
+          {
+            path: 'fixes',
+            element: (
+              <AdminFixes />
+            ),
+          },
+          {
+            path: 'users',
+            element: (
+              <AdminUsers />
+            ),
+          },
+          {
+            path: 'reports',
+            element: (
+              <AdminReports />
+            ),
+          },
+          {
+            path: 'unban-requests',
+            element: (
+              <AdminUnbanRequests />
+            ),
+          },
+          {
+            path: 'suggestions',
+            element: (
+              <AdminSuggestions />
+            ),
+          },
+          {
+            path: 'steam-free',
+            element: (
+              <AdminSteamFree />
+            ),
+          },
+          {
+            path: 'analytics',
+            element: (
+              <AdminAnalytics />
+            ),
+          },
+        ],
       },
     ],
   },

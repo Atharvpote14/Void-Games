@@ -10,26 +10,16 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  server: {
+    host: true,
+    port: 5175,
+  },
   build: {
     chunkSizeWarningLimit: 800,
     minify: 'esbuild',
     cssCodeSplit: true,
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-router')) return 'react'
-            if (id.includes('framer-motion')) return 'motion'
-            if (id.includes('@supabase')) return 'supabase'
-            if (id.includes('lucide')) return 'icons'
-            if (id.includes('date-fns') || id.includes('dayjs')) return 'datetime'
-            return 'vendor'
-          }
-          // Split admin pages into separate chunk
-          if (id.includes('/pages/Admin/')) return 'admin'
-          // Split auth-related pages
-          if (id.includes('/pages/Login') || id.includes('/pages/Profile') || id.includes('/pages/Settings')) return 'auth'
-        },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {

@@ -1,4 +1,4 @@
-import { getSupabaseAdmin } from '../config/supabase'
+import { getSupabaseAdmin } from '../config/supabase.js'
 import { ApiError } from '../utils/ApiError.js'
 
 export const SUGGESTION_STATUSES = ['pending', 'approved', 'rejected']
@@ -52,3 +52,4 @@ export async function createSuggestion(user, input) {
 
   return data
 }
+

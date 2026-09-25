@@ -69,7 +69,7 @@ function GameSection({
     }
 
     return (
-      <Grid cols={4}>
+      <Grid cols={4} className="grid-rows-[auto_1fr]">
         {games.map((game) => (
           <GameCard key={game.id} game={game} />
         ))}

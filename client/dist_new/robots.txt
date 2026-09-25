@@ -1,0 +1,18 @@
+# Robots.txt for Void Games
+User-agent: *
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /profile
+Disallow: /favorites
+Disallow: /downloads
+Disallow: /settings
+Disallow: /auth/
+Disallow: /login
+
+# Sitemap location
+Sitemap: https://www.voidgames.dedyn.io/sitemap.xml
+
+# Crawl-delay (optional, be respectful)
+Crawl-delay: 10

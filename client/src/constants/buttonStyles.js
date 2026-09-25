@@ -1,16 +1,16 @@
 export const BUTTON_VARIANTS = {
   primary:
-    'bg-btn-primary text-white shadow-btn-primary hover:shadow-btn-primary-hover',
+    'relative overflow-hidden bg-gradient-to-br from-gold via-gold-soft to-gold-deep text-void-deep shadow-[0_0_20px_rgba(212,175,100,0.35),0_4px_15px_rgba(212,175,100,0.2)] hover:shadow-[0_0_40px_rgba(212,175,100,0.5),0_8px_30px_rgba(212,175,100,0.3)] hover:-translate-y-1 active:translate-y-0 transition-all duration-300',
   secondary:
-    'bg-btn-secondary text-void-bg shadow-btn-secondary hover:shadow-glow-cyan',
+    'bg-void-card-elevated text-gold border border-gold/30 shadow-inner hover:bg-void-card-hover hover:border-gold/60 hover:text-gold-soft hover:-translate-y-1 transition-all duration-300',
   outline:
-    'border-2 border-border-subtle text-text-primary hover:border-primary hover:bg-primary/10',
+    'border border-white/15 bg-white/[0.03] text-text-primary backdrop-blur-sm hover:border-gold/60 hover:text-gold hover:bg-gold/[0.08] hover:-translate-y-1 transition-all duration-300',
   ghost:
-    'bg-transparent text-text-secondary hover:bg-white/5 hover:text-text-primary',
+    'bg-transparent text-text-secondary hover:bg-white/[0.08] hover:text-text-primary hover:-translate-y-0.5 transition-all duration-300',
   danger:
-    'border-2 border-danger/40 bg-danger/10 text-danger hover:bg-danger/20 hover:border-danger',
+    'border border-danger/50 bg-danger/15 text-danger hover:bg-danger/25 hover:border-danger/70 hover:-translate-y-0.5 transition-all duration-300',
   success:
-    'border-2 border-success/40 bg-success/10 text-success hover:bg-success/20 hover:border-success',
+    'border border-success/50 bg-success/15 text-success hover:bg-success/25 hover:border-success/70 hover:-translate-y-0.5 transition-all duration-300',
 }
 
 export const BUTTON_SIZES = {

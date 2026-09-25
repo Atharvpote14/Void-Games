@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Menu, Search, X } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { NAV_LINKS } from '@/constants/nav'
@@ -43,7 +43,7 @@ function NavbarMenu({ className, onNavigate }) {
           className={({ isActive }) =>
             cn(
               'relative rounded-btn px-3 py-1.5 text-xs font-medium tracking-wide uppercase transition-all duration-300',
-              'before:absolute before:inset-x-[20%] before:bottom-0 before:h-[2px] before:rounded-full before:bg-primary before:scale-x-0 before:origin-left before:transition-transform before:duration-300',
+              'before:absolute before:inset-x-[20%] before:bottom-0 before:h-[2px] before:rounded-full before:bg-gold before:scale-x-0 before:origin-left before:transition-transform before:duration-300',
               isActive
                 ? 'text-text-primary before:scale-x-100'
                 : 'text-text-secondary hover:text-text-primary hover:before:scale-x-100'
@@ -60,9 +60,22 @@ function NavbarMenu({ className, onNavigate }) {
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const lastScrollY = useRef(typeof window !== 'undefined' ? window.scrollY : 0)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 12)
+    const handleScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 12)
+      // leave threshold: hide when scrolling down past 120px; reveal when scrolling up
+      if (y > lastScrollY.current && y > 120) {
+        setHidden(true)
+      } else if (y < lastScrollY.current) {
+        setHidden(false)
+      }
+      lastScrollY.current = y
+    }
+    lastScrollY.current = window.scrollY
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
@@ -72,10 +85,11 @@ function Navbar() {
     <>
       <header
         className={cn(
-          'sticky top-0 z-40 border-b transition-all duration-300',
+          'fixed top-0 left-0 right-0 z-50 border-b transition-transform duration-300 ease-out will-change-transform',
           scrolled
-            ? 'border-border-subtle bg-void-navbar shadow-card glass-strong'
-            : 'border-transparent bg-transparent'
+            ? 'border-white/[0.08] bg-void-glass/95 shadow-[0_8px_30px_rgba(212,175,100,0.06)] backdrop-blur-3xl'
+            : 'border-transparent bg-gradient-to-b from-void-deep/80 to-transparent',
+          hidden ? '-translate-y-full' : 'translate-y-0'
         )}
       >
         <Container className="flex h-14 items-center justify-between gap-4 md:h-[60px]">

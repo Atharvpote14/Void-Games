@@ -1,47 +1,39 @@
-import Container from '@/layouts/Container/Container'
-import Logo from '@/components/common/Logo/Logo'
-import Newsletter from '@/components/footer/Newsletter/Newsletter'
-import FooterLinks from '@/components/footer/FooterLinks/FooterLinks'
-import FooterSocial from '@/components/footer/FooterSocial/FooterSocial'
-import FooterCopyright from '@/components/footer/FooterCopyright/FooterCopyright'
-import Divider from '@/layouts/Divider/Divider'
-import { SITE_TAGLINE } from '@/constants/site'
+import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
+import { cn } from '@/utils/cn';
 
-function Footer() {
+export default function LuxuryFooter() {
   return (
-    <footer className="border-t border-border-subtle bg-void-footer relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,rgba(108,99,255,0.06),transparent_70%)]" aria-hidden="true" />
-      <Container className="relative py-14 md:py-18">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_1.6fr]">
-          <div className="flex max-w-sm flex-col gap-5">
-            <Logo />
-            <p className="text-sm leading-relaxed text-text-muted">
-              {SITE_TAGLINE} — game information, system requirements, guides,
-              troubleshooting fixes, collections, and download mirrors, all in
-              one place.
-            </p>
-            <FooterSocial />
+    <footer className="relative overflow-hidden border-t border-white/[0.06] bg-void-surface">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(212,175,100,0.05),_transparent_60%)]" aria-hidden="true" />
+      <div className="relative mx-auto max-w-7xl px-6 py-16 md:py-20 lg:px-10">
+        <div className="grid gap-12 lg:grid-cols-4 lg:gap-16">
+          <div className="lg:col-span-2">
+            <h2 className="font-display text-3xl font-bold tracking-tight text-text-primary md:text-4xl">The definitive <span className="text-gold">gaming marketplace.</span></h2>
+            <p className="mt-4 max-w-lg text-text-secondary leading-relaxed">Curated downloads, premium guides, and a community built around exceptional games. No clutter. Only quality.</p>
           </div>
-          <FooterLinks className="justify-items-start sm:justify-items-end" />
-        </div>
-
-        <Divider className="my-10" />
-
-        <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:items-center">
           <div>
-            <h3 className="mb-1.5 font-display text-lg font-bold text-text-primary">
-              Join the newsletter
-            </h3>
-            <p className="mb-4 text-sm text-text-muted">
-              Get notified about new games, guides, and fixes.
-            </p>
-            <Newsletter className="max-w-md" />
+            <h3 className="font-editorial text-xs font-bold uppercase tracking-[0.15em] text-text-muted mb-4">Discover</h3>
+            <ul className="space-y-2.5 text-sm text-text-secondary">
+              {['Browse Games','Steam Free','Categories','Collections','Guides'].map(i => (
+                <li key={i}><Link to='/' className='hover:text-gold transition-colors'>{i}</Link></li>
+              ))}
+            </ul>
           </div>
-          <FooterCopyright className="lg:text-right" />
+          <div>
+            <h3 className="font-editorial text-xs font-bold uppercase tracking-[0.15em] text-text-muted mb-4">Platform</h3>
+            <ul className="space-y-2.5 text-sm text-text-secondary">
+              {['About','Contact','FAQ','Terms','Privacy'].map(i => (
+                <li key={i}><Link to='/' className='hover:text-gold transition-colors'>{i}</Link></li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </Container>
+        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-white/[0.06] pt-8 md:flex-row md:items-center">
+          <p className="text-xs text-text-muted">© 2026 Void Games. Premium gaming marketplace.</p>
+          <Link to='/' className="group inline-flex items-center gap-1.5 text-xs font-medium text-gold transition-colors hover:text-gold-soft">Top of page <ArrowUpRight className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></Link>
+        </div>
+      </div>
     </footer>
-  )
+  );
 }
-
-export default Footer

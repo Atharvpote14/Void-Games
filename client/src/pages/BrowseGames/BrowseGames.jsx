@@ -228,7 +228,7 @@ function BrowseGames() {
             className="h-fit lg:sticky lg:top-24 animate-fade-in"
           >
             <FilterGroup title="Categories">
-              <div className="flex max-h-72 flex-col gap-1 overflow-y-auto pr-1 scrollbar-hide">
+              <div className="flex max-h-72 flex-col gap-1 overflow-y-auto pr-1" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                 {categoriesLoading ? (
                   <p className="px-3 py-2 text-sm text-text-muted">Loading...</p>
                 ) : (

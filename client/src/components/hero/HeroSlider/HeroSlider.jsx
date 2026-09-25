@@ -62,17 +62,22 @@ function QuickLinks() {
         <Link
           key={to}
           to={to}
-          className="group flex items-center gap-3 rounded-card p-4 glass transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-btn-primary"
+          className="group flex items-center gap-3 rounded-card overflow-hidden p-3 sm:p-4 bg-gradient-to-br from-void-card/90 via-void-deep/80 to-void-card-elevated border border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_30px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/40 hover:shadow-[0_12px_40px_rgba(212,175,100,0.12),inset_0_1px_0_rgba(212,175,100,0.15)]"
           role="listitem"
         >
-          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-btn-primary text-white shadow-btn-primary">
+          <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-tr from-gold/25 to-gold-deep/40 border border-gold/20 text-gold shadow-[0_0_15px_rgba(212,175,100,0.25)] transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-[0_0_25px_rgba(212,175,100,0.45)] group-hover:brightness-110">
             <Icon className="size-5" />
           </span>
-          <span className="flex min-w-0 flex-col">
-            <span className="truncate text-sm font-semibold text-text-primary">{label}</span>
-            <span className="hidden text-xs text-text-muted lg:block">{description}</span>
+          <span className="min-w-0 flex-col gap-0.5 flex sm:hidden">
+            <span className="truncate text-xs font-display font-bold text-text-primary tracking-tight">{label}</span>
           </span>
-          <ArrowRight className="ml-auto hidden size-4 shrink-0 text-text-muted transition-all duration-300 group-hover:translate-x-1 group-hover:text-secondary lg:block" />
+          <span className="hidden sm:flex min-w-0 flex-col gap-0.5">
+            <span className="truncate text-sm sm:text-base font-display font-bold text-text-primary tracking-tight leading-tight">{label}</span>
+            <span className="truncate text-[11px] sm:text-xs text-gold/70 font-medium tracking-wide">{description}</span>
+          </span>
+          <span className="ml-auto hidden sm:flex size-8 sm:size-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/[0.08] text-text-secondary shadow-inner transition-all duration-300 group-hover:translate-x-1 group-hover:text-gold group-hover:border-gold/30 group-hover:bg-gradient-to-br group-hover:from-gold/10 group-hover:to-gold-deep/20">
+            <ArrowRight className="size-3.5 sm:size-4" />
+          </span>
         </Link>
       ))}
     </div>
@@ -110,17 +115,20 @@ function HeroSlide({ game }) {
           key={`bg-${game.id}`}
           src={background}
           alt=""
-          initial={{ opacity: 0, scale: 1.06 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-0 size-full object-cover object-center"
+          initial={{ opacity: 0, scale: 1.08 }}
+          animate={{ opacity: 1, scale: 1.12 }}
+          transition={{ duration: 8, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0 size-full object-cover object-center scale-[1.12] translate-x-[3%]"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-void-bg/95 via-void-bg/40 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(108,99,255,0.12),transparent_70%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_100%_100%,rgba(0,229,255,0.06),transparent_60%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-void-deep/95 via-void-deep/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-void-deep via-void-deep/50 to-void-deep/30" />
+        <div className="absolute left-0 top-0 bottom-0 w-[15%] bg-void-deep/70" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_20%,rgba(212,175,100,0.08),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_30%_at_80%_80%,rgba(212,175,100,0.05),transparent_60%)]" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
         <div className="absolute inset-0 border-t border-b border-white/5 opacity-30" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(7,11,20,0.75)_100%)]" />
       </div>
 
       <Container className="relative z-10 flex h-full items-center">
@@ -142,7 +150,7 @@ function HeroSlide({ game }) {
 
           <motion.div variants={slideLeft} className="flex flex-wrap items-center gap-2">
             {game.version && (
-              <span className="inline-flex items-center gap-1.5 rounded-lg bg-primary/20 border border-primary/30 px-3 py-1.5 text-xs font-medium text-primary shadow-sm backdrop-blur-sm">
+              <span className="inline-flex items-center gap-1.5 rounded-lg bg-gold/10 border border-gold/30 px-3 py-1.5 text-xs font-medium text-gold shadow-sm backdrop-blur-sm">
                 {game.version.startsWith('v') ? game.version : `v${game.version}`}
               </span>
             )}

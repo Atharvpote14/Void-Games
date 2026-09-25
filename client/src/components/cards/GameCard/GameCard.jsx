@@ -10,22 +10,23 @@ function GameCard({ game, priority = false }) {
     <Link
       to={`/game/${game.slug}`}
       className={cn(
-        'group block overflow-hidden rounded-card transition-all duration-400',
-        'bg-premium-card border border-border-subtle',
-        'hover:scale-[1.02] hover:border-primary/60 hover:shadow-card-hover',
+        'group relative block overflow-hidden rounded-card transition-all duration-500 h-full',
+        'bg-void-card-elevated border border-white/[0.08]',
+        'hover:scale-[1.03] hover:-translate-y-2 hover:border-gold/50',
+        'hover:shadow-[0_16px_50px_rgba(212,175,100,0.12),0_4px_12px_rgba(0,0,0,0.4)]',
         priority && 'lg:col-span-2 lg:row-span-2'
       )}
       aria-label={`View ${game.title}`}
     >
-      <div className="relative aspect-[3/4] overflow-hidden">
+      <div className="relative aspect-[4/5] overflow-hidden">
         <img
           src={game.cover_image}
           alt={game.title}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
-          className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-hover:brightness-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
         <div className="absolute right-2.5 bottom-2.5 left-2.5 flex flex-wrap items-center gap-1">
           {game.version && (
             <span className="badge badge-primary">{game.version}</span>
@@ -35,16 +36,18 @@ function GameCard({ game, priority = false }) {
           ) : null}
         </div>
       </div>
-      <div className="flex flex-col gap-1 p-3">
-        <h3 className="truncate text-base leading-snug font-bold text-text-primary sm:text-lg">
+      <div className="flex flex-col gap-2 p-4">
+        <h3 className="truncate text-lg leading-snug font-display font-bold text-text-primary tracking-tight">
           {game.title}
         </h3>
-        <p className="truncate text-xs text-text-muted">
-          {game.category?.name || game.genre?.name || game.genre || 'Game'}
-        </p>
-        <div className="mt-1.5 flex items-center justify-between pt-1.5 border-t border-border-subtle">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-xs font-medium text-gold/80 uppercase tracking-wide">{game.category?.name || game.genre?.name || game.genre || 'Game'}</span>
+          <span className="text-text-subtle">·</span>
+          <span className="text-xs text-text-muted">{game.publisher || 'Unknown'}</span>
+        </div>
+        <div className="mt-1 flex items-center justify-between pt-3 border-t border-white/[0.06]">
           <span className="inline-flex items-center gap-1 text-[11px] text-text-muted">
-            <Download className="size-3 text-primary" />
+            <Download className="size-3 text-gold-muted" />
             {formatCompactNumber(game.downloads)}
           </span>
           <span className="inline-flex items-center gap-0.5 text-[11px] text-text-secondary">

@@ -1,4 +1,4 @@
-import { getSupabaseAdmin } from '../config/supabase'
+import { getSupabaseAdmin } from '../config/supabase.js'
 
 function parseDays(query) {
   const days = Number.parseInt(query.days, 10)
