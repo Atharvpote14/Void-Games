@@ -110,7 +110,7 @@
 
 @layer base {
   * { border-color: var(--color-void-border-subtle); }
-  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-padding-top: 80px; }
   body {
     background-color: var(--color-void-deep);
     color: var(--color-text-primary);
