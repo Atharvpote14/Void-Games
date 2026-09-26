@@ -150,27 +150,27 @@ function HeroSlide({ game }) {
 
           <motion.div variants={slideLeft} className="flex flex-wrap items-center gap-2">
             {game.version && (
-              <span className="inline-flex items-center gap-1.5 rounded-lg bg-gold/10 border border-gold/30 px-3 py-1.5 text-xs font-medium text-gold shadow-sm backdrop-blur-sm">
+              <span className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/20 border border-emerald-400/40 px-3 py-1.5 text-xs font-medium text-emerald-300 shadow-sm backdrop-blur-sm">
                 {game.version.startsWith('v') ? game.version : `v${game.version}`}
               </span>
             )}
-            <span className="inline-flex items-center gap-1.5 rounded-lg bg-secondary/20 border border-secondary/30 px-3 py-1.5 text-xs font-medium text-secondary shadow-sm backdrop-blur-sm">
+            <span className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 border border-white/20 text-white/90 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
               <Monitor className="size-3" aria-hidden="true" />
               PC
             </span>
             {game.publisher && (
-              <span className="inline-flex items-center gap-1.5 rounded-lg bg-purple/20 border border-purple/30 px-3 py-1.5 text-xs font-medium text-purple shadow-sm backdrop-blur-sm truncate max-w-[200px]">
+              <span className="inline-flex items-center gap-1.5 rounded-lg bg-white/5 border border-white/10 px-3 py-1.5 text-xs font-medium text-white/70 truncate max-w-[200px]">
                 <Building2 className="size-3" aria-hidden="true" />
                 {game.publisher}
               </span>
             )}
             {year && (
-              <span className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 border border-white/20 px-3 py-1.5 text-xs font-medium text-white/90 shadow-sm backdrop-blur-sm">
+              <span className="inline-flex items-center gap-1.5 rounded-lg bg-amber-400/20 border border-amber-300/40 px-3 py-1.5 text-xs font-medium text-amber-200 shadow-sm backdrop-blur-sm">
                 <Calendar className="size-3" aria-hidden="true" />
                 {year}
               </span>
             )}
-            <span className="inline-flex items-center gap-1.5 rounded-lg bg-cyan/20 border border-cyan/30 px-3 py-1.5 text-xs font-medium text-cyan shadow-sm backdrop-blur-sm">
+            <span className="inline-flex items-center gap-1.5 rounded-lg bg-cyan-400/20 border border-cyan-300/40 px-3 py-1.5 text-xs font-medium text-cyan-200 shadow-sm backdrop-blur-sm">
               <Shield className="size-3" aria-hidden="true" />
               CSF
             </span>
@@ -179,7 +179,7 @@ function HeroSlide({ game }) {
           {game.short_description && (
             <motion.p
               variants={fade}
-              className="line-clamp-3 max-w-[640px] text-base leading-relaxed md:text-lg text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
+              className="line-clamp-3 max-w-[640px] text-base leading-relaxed text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
             >
               {game.short_description}
             </motion.p>
@@ -190,7 +190,7 @@ function HeroSlide({ game }) {
               to={`/game/${game.slug}#downloads`}
               size="lg"
               variant="primary"
-              className="gap-2"
+              className="gap-2 shadow-[0_0_20px_rgba(212,175,100,0.35)]"
             >
               <Download className="size-4.5" />
               Download Now
@@ -273,13 +273,13 @@ function HeroSlider({ games }) {
 
   return (
     <section aria-label="Featured games" className="bg-hero-gradient relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(108,99,255,0.06),transparent_70%)]" aria-hidden="true" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.08),transparent_70%)]" aria-hidden="true" />
       <Container className="py-3 sm:py-5">
         <div
           ref={heroRef}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          className="relative h-[360px] overflow-hidden sm:h-[400px] lg:h-[460px]"
+          className="relative h-[380px] overflow-hidden sm:h-[480px] lg:h-[480px] rounded-2xl shadow-2xl shadow-black/40"
         >
           <AnimatePresence mode="wait">
             <motion.div
