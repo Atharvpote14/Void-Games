@@ -27,7 +27,7 @@ function GameRow({ games, className }) {
         style={{ scrollbarWidth: 'none' }}
       >
         {games.map((game) => (
-          <div key={game.id} className="w-[140px] shrink-0 snap-start sm:w-[160px] md:w-[180px]">
+          <div key={game.id} className="w-[140px] shrink-0 snap-start sm:w-[160px] md:w-[190px]">
             <GameCard game={game} />
           </div>
         ))}
