@@ -10,15 +10,15 @@ function GameCard({ game, priority = false }) {
     <Link
       to={`/game/${game.slug}`}
       className={cn(
-        'group relative block overflow-hidden rounded-card transition-all duration-500 h-full',
+        'group relative block w-full overflow-hidden rounded-card transition-all duration-500 h-full',
         'bg-void-card-elevated border border-white/[0.08]',
-        'hover:scale-[1.03] hover:-translate-y-2 hover:border-gold/50',
-        'hover:shadow-[0_16px_50px_rgba(212,175,100,0.12),0_4px_12px_rgba(0,0,0,0.4)]',
+        'hover:scale-[1.05] hover:-translate-y-3 hover:border-gold/60',
+        'hover:shadow-[0_20px_60px_rgba(212,175,100,0.15),0_8px_30px_rgba(0,0,0,0.5)]',
         priority && 'lg:col-span-2 lg:row-span-2'
       )}
       aria-label={`View ${game.title}`}
     >
-      <div className="relative aspect-[4/5] overflow-hidden">
+      <div className="relative aspect-[16/10] overflow-hidden">
         <img
           src={game.cover_image}
           alt={game.title}
@@ -26,7 +26,7 @@ function GameCard({ game, priority = false }) {
           decoding="async"
           className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-hover:brightness-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
         <div className="absolute right-2.5 bottom-2.5 left-2.5 flex flex-wrap items-center gap-1">
           {game.version && (
             <span className="badge badge-primary">{game.version}</span>
@@ -36,8 +36,8 @@ function GameCard({ game, priority = false }) {
           ) : null}
         </div>
       </div>
-      <div className="flex flex-col gap-2 p-4">
-        <h3 className="truncate text-lg leading-snug font-display font-bold text-text-primary tracking-tight">
+      <div className="flex flex-col gap-2 p-3 w-full min-h-[108px]">
+        <h3 className="text-xs font-normal text-[#F4F1EA] tracking-tight">
           {game.title}
         </h3>
         <div className="flex items-center gap-2 flex-wrap">
