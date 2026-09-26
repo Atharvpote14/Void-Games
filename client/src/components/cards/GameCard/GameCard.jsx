@@ -8,13 +8,13 @@ function GameCard({ game, priority = false }) {
       className={cn(
         'group relative block w-full overflow-hidden rounded-card transition-all duration-300 h-full',
         'bg-void-card-elevated border border-white/[0.08]',
-        'hover:scale-[1.03] hover:-translate-y-1 hover:border-gold/60',
+        'hover:scale-[1.02] hover:-translate-y-0.5 hover:border-gold/60',
         'hover:shadow-[0_16px_40px_rgba(212,175,100,0.12),0_4px_12px_rgba(0,0,0,0.4)]',
         priority && 'lg:col-span-2 lg:row-span-2'
       )}
       aria-label={`View ${game.title}`}
     >
-      <div className="relative aspect-[3/4] overflow-hidden">
+      <div className="relative aspect-[4/5] overflow-hidden">
         <img
           src={game.cover_image}
           alt={game.title}
