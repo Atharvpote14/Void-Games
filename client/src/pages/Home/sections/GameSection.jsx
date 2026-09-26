@@ -69,7 +69,7 @@ function GameSection({
     }
 
     return (
-      <Grid cols={2} md:cols={3} lg:cols={4} xl:cols={5} className="justify-start">
+      <Grid cols={3} sm:cols={4} md:cols={5} lg:cols={6} xl:cols={6} className="justify-start">
         {games.map((game) => (
           <GameCard key={game.id} game={game} />
         ))}
