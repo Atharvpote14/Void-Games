@@ -14,7 +14,7 @@ function GameCard({ game, priority = false }) {
       )}
       aria-label={`View ${game.title}`}
     >
-      <div className="relative w-[110px] h-[140px] overflow-hidden">
+      <div className="relative aspect-[3/4] overflow-hidden">
         <img
           src={game.cover_image}
           alt={game.title}
