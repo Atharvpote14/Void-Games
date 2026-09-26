@@ -26,7 +26,7 @@ function GameCard({ game, priority = false }) {
 
         {/* Title only shows on hover */}
         <div className="absolute inset-x-0 bottom-0 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out pointer-events-none">
-          <div className="bg-gradient-to-t from-black/90 via-black/70 to-transparent p-3 pt-10">
+          <div className="bg-gradient-to-t from-black/90 via-black/70 to-transparent p-2.5 pt-8">
             <h3 className="text-sm font-display font-bold text-[#F4F1EA] tracking-tight truncate drop-shadow-lg">
               {game.title}
             </h3>
