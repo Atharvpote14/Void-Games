@@ -51,7 +51,7 @@ function HeroSection() {
   if (loading) {
     return (
       <div className="bg-hero-gradient">
-        <Skeleton className="h-[380px] w-full rounded-none border-0 bg-transparent sm:h-[440px] lg:h-[500px]" />
+        <Skeleton className="h-[520px] w-full rounded-none border-0 bg-transparent sm:h-[580px] lg:h-[620px]" />
       </div>
     )
   }

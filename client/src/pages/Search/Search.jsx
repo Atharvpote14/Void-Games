@@ -8,6 +8,8 @@ import TextInput from '@/components/inputs/TextInput/TextInput'
 import Button from '@/components/buttons/Button/Button'
 import Pagination from '@/components/search/Pagination/Pagination'
 import GameCard from '@/components/cards/GameCard/GameCard'
+import FixCard from '@/components/cards/FixCard/FixCard'
+import GuideCard from '@/components/cards/GuideCard/GuideCard'
 import GameCardSkeleton from '@/components/loading/GameCardSkeleton/GameCardSkeleton'
 import EmptyState from '@/components/common/EmptyState/EmptyState'
 import ErrorState from '@/components/common/ErrorState/ErrorState'
@@ -16,6 +18,20 @@ import usePageMeta from '@/hooks/usePageMeta'
 import { searchGames } from '@/services/search'
 
 const PAGE_SIZE = 12
+
+function SearchSection({ title, items, propName, card: Card }) {
+  if (!items || items.length === 0) return null
+  return (
+    <section className="flex flex-col gap-4">
+      <h2 className="font-display text-lg font-bold text-text-primary">{title}</h2>
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {items.map((item) => (
+          <Card key={item.id} {...{ [propName]: item }} />
+        ))}
+      </div>
+    </section>
+  )
+}
 
 function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -35,14 +51,15 @@ function SearchPage() {
   )
 
   usePageMeta({
-    title: query
-      ? `Search: ${query} – Void Games`
-      : 'Search – Void Games',
+    title: query ? `Search: ${query} – Void Games` : 'Search – Void Games',
     description: 'Search all PC games, guides and fixes on Void Games.',
   })
 
-  const games = data?.games ?? data?.results ?? []
-  const totalPages = Math.max(1, Math.ceil((data?.total_count ?? games.length) / PAGE_SIZE))
+  const games = data?.games ?? []
+  const guides = data?.guides ?? []
+  const fixes = data?.fixes ?? []
+  const resultCount = data?.total_count ?? data?.total ?? games.length + guides.length + fixes.length
+  const totalPages = Math.max(1, data?.totalPages ?? Math.ceil((resultCount || 0) / PAGE_SIZE))
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -55,6 +72,8 @@ function SearchPage() {
     setInput('')
     navigate('/search')
   }
+
+  const hasResults = games.length > 0 || guides.length > 0 || fixes.length > 0
 
   return (
     <PageWrapper>
@@ -69,7 +88,7 @@ function SearchPage() {
 
         <div className="flex flex-col gap-3">
           <h1 className="font-display text-2xl font-extrabold text-text-primary md:text-3xl">
-            Search Games
+            Search
           </h1>
           <form onSubmit={handleSubmit} className="flex max-w-2xl gap-2">
             <div className="relative flex-1">
@@ -100,25 +119,30 @@ function SearchPage() {
           <p className="text-sm text-text-muted">
             {loading
               ? `Searching for "${query}"...`
-              : `${data?.total_count ?? games.length} result${games.length === 1 ? '' : 's'} for "${query}"`}
+              : `${resultCount} result${resultCount === 1 ? '' : 's'} for "${query}"`}
           </p>
         )}
 
         {loading ? (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {Array.from({ length: 8 }, (_, index) => (
-              <GameCardSkeleton key={index} />
-            ))}
+          <div className="flex flex-col gap-8">
+            <div>
+              <div className="mb-4 h-5 w-24 rounded bg-white/5" />
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {Array.from({ length: 8 }, (_, index) => (
+                  <GameCardSkeleton key={index} />
+                ))}
+              </div>
+            </div>
           </div>
         ) : error ? (
           <ErrorState onRetry={refetch} />
-        ) : games.length === 0 ? (
+        ) : !hasResults ? (
           <EmptyState
             title={query ? 'No results found' : 'Start searching'}
             description={
               query
-                ? `Nothing matched "${query}". Try a different keyword.`
-                : 'Type a game name above to search the library.'
+                ? `Nothing matched "${query}" across games, guides and fixes. Try a different keyword.`
+                : 'Type a game, guide or fix name above to search the library.'
             }
             action={
               query && (
@@ -129,12 +153,10 @@ function SearchPage() {
             }
           />
         ) : (
-          <div className="flex flex-col gap-8">
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {games.map((game) => (
-                <GameCard key={game.id} game={game} />
-              ))}
-            </div>
+          <div className="flex flex-col gap-10">
+            <SearchSection title="Games" items={games} propName="game" card={GameCard} />
+            <SearchSection title="Guides" items={guides} propName="guide" card={GuideCard} />
+            <SearchSection title="Fixes" items={fixes} propName="fix" card={FixCard} />
             {totalPages > 1 && (
               <Pagination
                 page={page}

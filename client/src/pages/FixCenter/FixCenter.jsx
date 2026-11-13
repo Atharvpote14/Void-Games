@@ -159,7 +159,7 @@ function FixCenter() {
             onChange={(event) => setSearchInput(event.target.value)}
             onSearch={handleSearch}
             className="w-full md:max-w-md"
-            placeholder="Search problems, games, solutions... ⌘K"
+            placeholder="Search problems, games, solutions..."
           />
           <div className="flex items-center gap-3">
             <span className="text-sm text-text-muted">Sort by</span>

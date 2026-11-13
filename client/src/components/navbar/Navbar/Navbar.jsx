@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Menu, Search, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { NAV_LINKS } from '@/constants/nav'
 import Container from '@/layouts/Container/Container'
@@ -7,30 +7,8 @@ import Logo from '@/components/common/Logo/Logo'
 import NavbarActions from '@/components/navbar/NavbarActions/NavbarActions'
 import MobileNavbar from '@/components/navbar/MobileNavbar/MobileNavbar'
 import IconButton from '@/components/buttons/IconButton/IconButton'
+import NavbarSearch from '@/components/navbar/NavbarSearch/NavbarSearch'
 import { cn } from '@/utils/cn'
-
-function NavbarSearch() {
-  return (
-    <div className="relative w-full max-w-[480px]">
-      <Search className="absolute left-4 top-1/2 size-4.5 -translate-y-1/2 text-text-muted transition-colors group-has-[input:focus]:text-secondary" aria-hidden="true" />
-<input
-          type="search"
-          placeholder="Search games, guides, fixes... ⌘K"
-          className="input w-full pl-12 pr-4 py-2 text-sm bg-void-card/80 placeholder:text-text-disabled"
-          aria-label="Search"
-          onKeyDown={(e) => {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-              e.preventDefault()
-              e.currentTarget.focus()
-            }
-          }}
-        />
-      <kbd className="hidden absolute right-3 top-1/2 -translate-y-1/2 text-[10px] px-1.5 py-0.5 rounded text-text-disabled uppercase md:inline-flex">
-        ⌘K
-      </kbd>
-    </div>
-  )
-}
 
 function NavbarMenu({ className, onNavigate }) {
   return (

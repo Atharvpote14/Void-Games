@@ -15,7 +15,6 @@ import {
   Building2,
   Calendar,
   Shield,
-  Calendar as CalendarIcon,
 } from 'lucide-react'
 import Button from '@/components/buttons/Button/Button'
 import Container from '@/layouts/Container/Container'
@@ -49,33 +48,87 @@ const pop = {
 }
 
 const QUICK_LINKS = [
-  { to: '/steam-free-games', icon: Rocket, label: 'Steam Free Games', description: 'Get Steam games free' },
-  { to: '/guides', icon: BookOpen, label: 'Game Guides', description: 'Tips, tricks & walkthroughs' },
-  { to: '/fixes', icon: Wrench, label: 'Fix Center', description: 'Solutions for issues' },
-  { to: '/search', icon: Search, label: 'Search', description: 'Find any game instantly' },
+  {
+    to: '/steam-free-games',
+    icon: Rocket,
+    label: 'Steam Free Games',
+    description: 'Get Steam games free',
+    // vibrant blue with spreading circular glow
+    text: 'text-sky-300',
+    iconTile: 'border-sky-400/40 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.45),rgba(37,99,235,0.15)_60%,transparent_100%)] text-sky-300 shadow-[0_0_22px_rgba(56,189,248,0.35)]',
+    card: 'from-sky-500/15 via-blue-600/10 to-void-card-elevated border-sky-400/25 hover:border-sky-400/60 hover:shadow-[0_12px_40px_rgba(56,189,248,0.28)]',
+  },
+  {
+    to: '/guides',
+    icon: BookOpen,
+    label: 'Game Guides',
+    description: 'Tips, tricks & walkthroughs',
+    // light orange
+    text: 'text-orange-300',
+    iconTile: 'border-orange-400/40 bg-[radial-gradient(circle_at_center,rgba(251,146,60,0.5),rgba(234,88,12,0.16)_60%,transparent_100%)] text-orange-300 shadow-[0_0_22px_rgba(251,146,60,0.35)]',
+    card: 'from-orange-500/15 via-orange-600/10 to-void-card-elevated border-orange-400/25 hover:border-orange-400/60 hover:shadow-[0_12px_40px_rgba(251,146,60,0.28)]',
+  },
+  {
+    to: '/fixes',
+    icon: Wrench,
+    label: 'Fix Center',
+    description: 'Solutions for issues',
+    // vibrant green
+    text: 'text-emerald-300',
+    iconTile: 'border-emerald-400/40 bg-[radial-gradient(circle_at_center,rgba(52,211,153,0.5),rgba(16,185,129,0.16)_60%,transparent_100%)] text-emerald-300 shadow-[0_0_22px_rgba(52,211,153,0.35)]',
+    card: 'from-emerald-500/15 via-green-600/10 to-void-card-elevated border-emerald-400/25 hover:border-emerald-400/60 hover:shadow-[0_12px_40px_rgba(52,211,153,0.28)]',
+  },
+  {
+    to: '/search',
+    icon: Search,
+    label: 'Search',
+    description: 'Find any game instantly',
+    // light blue / cyan
+    text: 'text-cyan-200',
+    iconTile: 'border-cyan-300/40 bg-[radial-gradient(circle_at_center,rgba(103,232,249,0.5),rgba(34,211,238,0.16)_60%,transparent_100%)] text-cyan-200 shadow-[0_0_22px_rgba(103,232,249,0.35)]',
+    card: 'from-cyan-400/15 via-sky-600/10 to-void-card-elevated border-cyan-300/25 hover:border-cyan-300/60 hover:shadow-[0_12px_40px_rgba(103,232,249,0.28)]',
+  },
 ]
 
 function QuickLinks() {
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4" role="list" aria-label="Quick navigation">
-      {QUICK_LINKS.map(({ to, icon: Icon, label, description }) => (
+      {QUICK_LINKS.map(({ to, icon: Icon, label, description, text, iconTile, card }) => (
         <Link
           key={to}
           to={to}
-          className="group flex items-center gap-3 rounded-card overflow-hidden p-3 sm:p-4 bg-gradient-to-br from-void-card/90 via-void-deep/80 to-void-card-elevated border border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_30px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/40 hover:shadow-[0_12px_40px_rgba(212,175,100,0.12),inset_0_1px_0_rgba(212,175,100,0.15)]"
+          className={cn(
+            'group flex items-center gap-3 overflow-hidden rounded-card border bg-gradient-to-br p-3 sm:p-4',
+            'shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_8px_30px_rgba(0,0,0,0.4)]',
+            'transition-all duration-300 hover:-translate-y-1.5',
+            card
+          )}
           role="listitem"
         >
-          <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-tr from-gold/25 to-gold-deep/40 border border-gold/20 text-gold shadow-[0_0_15px_rgba(212,175,100,0.25)] transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-[0_0_25px_rgba(212,175,100,0.45)] group-hover:brightness-110">
+          <span
+            className={cn(
+              'grid size-12 shrink-0 place-items-center rounded-full border transition-all duration-300',
+              'group-hover:scale-110 group-hover:brightness-125',
+              iconTile
+            )}
+          >
             <Icon className="size-5" />
           </span>
-          <span className="min-w-0 flex-col gap-0.5 flex sm:hidden">
-            <span className="truncate text-xs font-display font-bold text-text-primary tracking-tight">{label}</span>
+          <span className="flex min-w-0 flex-col gap-0.5">
+            <span className={cn('truncate text-xs font-display font-bold tracking-tight text-text-primary sm:text-sm lg:text-base', text)}>
+              {label}
+            </span>
+            <span className="hidden truncate text-[11px] font-medium tracking-wide text-text-muted sm:block">
+              {description}
+            </span>
           </span>
-          <span className="hidden sm:flex min-w-0 flex-col gap-0.5">
-            <span className="truncate text-sm sm:text-base font-display font-bold text-text-primary tracking-tight leading-tight">{label}</span>
-            <span className="truncate text-[11px] sm:text-xs text-gold/70 font-medium tracking-wide">{description}</span>
-          </span>
-          <span className="ml-auto hidden sm:flex size-8 sm:size-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/[0.08] text-text-secondary shadow-inner transition-all duration-300 group-hover:translate-x-1 group-hover:text-gold group-hover:border-gold/30 group-hover:bg-gradient-to-br group-hover:from-gold/10 group-hover:to-gold-deep/20">
+          <span
+            className={cn(
+              'ml-auto hidden size-8 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 sm:flex sm:size-9',
+              'transition-all duration-300 group-hover:translate-x-1 group-hover:border-white/20 group-hover:bg-white/10',
+              text
+            )}
+          >
             <ArrowRight className="size-3.5 sm:size-4" />
           </span>
         </Link>
@@ -107,6 +160,7 @@ function HeroSlide({ game }) {
   const background = game.banner_image || game.cover_image
   const year = getYear(game)
   const logo = game.logo_image
+  const title = game.title
 
   return (
     <>
@@ -137,40 +191,47 @@ function HeroSlide({ game }) {
           variants={stagger}
           initial="hidden"
           animate="show"
-          className="flex w-full flex-col items-start gap-4 pb-16 sm:pb-20 md:gap-5 max-w-5xl"
+          className="flex w-full flex-col items-start gap-3 pb-14 sm:gap-4 sm:pb-20 md:gap-5 max-w-5xl"
         >
           {logo ? (
             <motion.img
               variants={fadeUp}
               src={logo}
               alt={`${game.title} logo`}
-              className="w-[220px] md:w-[280px] lg:w-[320px] drop-shadow-[0_12px_40px_rgba(0,0,0,0.7)] filter grayscale-10 opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
+              className="max-h-[56px] w-auto max-w-[150px] object-contain object-left drop-shadow-[0_12px_40px_rgba(0,0,0,0.7)] filter grayscale-10 opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-500 sm:max-h-[96px] sm:max-w-[280px] lg:max-h-[120px] lg:max-w-[340px]"
             />
-          ) : null}
+          ) : (
+            <motion.h1
+              variants={fadeUp}
+              className="line-clamp-2 max-w-[800px] font-display text-2xl font-extrabold leading-[1.05] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)] sm:text-4xl lg:text-5xl"
+            >
+              {title}
+            </motion.h1>
+          )}
 
           <motion.div variants={slideLeft} className="flex flex-wrap items-center gap-2">
             {game.version && (
-              <span className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/20 border border-emerald-400/40 px-3 py-1.5 text-xs font-medium text-emerald-300 shadow-sm backdrop-blur-sm">
+              <span className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/20 border border-emerald-400/40 px-2.5 py-1 text-xs font-medium text-emerald-300 shadow-sm backdrop-blur-sm sm:px-3 sm:py-1.5">
                 {game.version.startsWith('v') ? game.version : `v${game.version}`}
               </span>
             )}
-            <span className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 border border-white/20 text-white/90 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+            <span className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 border border-white/20 text-white/90 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] px-2.5 py-1 text-xs font-medium sm:px-3 sm:py-1.5">
               <Monitor className="size-3" aria-hidden="true" />
               PC
             </span>
             {game.publisher && (
-              <span className="inline-flex items-center gap-1.5 rounded-lg bg-white/5 border border-white/10 px-3 py-1.5 text-xs font-medium text-white/70 truncate max-w-[200px]">
+              <span className="hidden items-center gap-1.5 rounded-lg bg-white/5 border border-white/10 px-3 py-1.5 text-xs font-medium text-white/70 truncate max-w-[200px] sm:inline-flex">
                 <Building2 className="size-3" aria-hidden="true" />
                 {game.publisher}
               </span>
             )}
             {year && (
-              <span className="inline-flex items-center gap-1.5 rounded-lg bg-amber-400/20 border border-amber-300/40 px-3 py-1.5 text-xs font-medium text-amber-200 shadow-sm backdrop-blur-sm">
+              <span className="hidden items-center gap-1.5 rounded-lg bg-amber-400/20 border border-amber-300/40 px-3 py-1.5 text-xs font-medium text-amber-200 shadow-sm backdrop-blur-sm sm:inline-flex">
                 <Calendar className="size-3" aria-hidden="true" />
                 {year}
               </span>
             )}
-            <span className="inline-flex items-center gap-1.5 rounded-lg bg-cyan-400/20 border border-cyan-300/40 px-3 py-1.5 text-xs font-medium text-cyan-200 shadow-sm backdrop-blur-sm">
+            <span className="hidden items-center gap-1.5 rounded-lg bg-cyan-400/20 border border-cyan-300/40 px-3 py-1.5 text-xs font-medium text-cyan-200 shadow-sm backdrop-blur-sm md:inline-flex">
               <Shield className="size-3" aria-hidden="true" />
               CSF
             </span>
@@ -179,7 +240,7 @@ function HeroSlide({ game }) {
           {game.short_description && (
             <motion.p
               variants={fade}
-              className="line-clamp-3 max-w-[640px] text-base leading-relaxed text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
+              className="line-clamp-2 max-w-[640px] text-sm leading-relaxed text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:line-clamp-3 sm:text-base"
             >
               {game.short_description}
             </motion.p>
@@ -279,7 +340,7 @@ function HeroSlider({ games }) {
           ref={heroRef}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          className="relative h-[380px] overflow-hidden sm:h-[480px] lg:h-[480px] rounded-2xl shadow-2xl shadow-black/40"
+          className="relative h-[520px] overflow-hidden sm:h-[580px] lg:h-[518px] rounded-2xl shadow-2xl shadow-black/40"
         >
           <AnimatePresence mode="wait">
             <motion.div
