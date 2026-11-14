@@ -30,7 +30,7 @@ function Drawer({
 
   const isRight = side === 'right'
 
-  return createPortal(
+  const drawerContent = (
     <AnimatePresence>
       {open && (
         <div className="fixed inset-0 z-50" role="dialog" aria-modal="true">
@@ -48,7 +48,7 @@ function Drawer({
             exit={{ x: isRight ? '100%' : '-100%' }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
             className={cn(
-              'absolute top-0 flex h-full w-full max-w-sm flex-col border-border bg-surface shadow-card-hover',
+              'fixed top-0 flex h-full w-full max-w-[85vw] md:max-w-sm flex-col border-border bg-surface shadow-card-hover',
               isRight ? 'right-0 border-l' : 'left-0 border-r',
               className
             )}
@@ -70,9 +70,12 @@ function Drawer({
           </motion.aside>
         </div>
       )}
-    </AnimatePresence>,
-    document.body
+    </AnimatePresence>
   )
+
+  if (typeof window === 'undefined') return null
+
+  return createPortal(drawerContent, document.body)
 }
 
 export default Drawer
