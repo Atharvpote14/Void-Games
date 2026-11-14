@@ -12,7 +12,7 @@ import { cn } from '@/utils/cn'
 
 function NavbarMenu({ className, onNavigate }) {
   return (
-    <nav aria-label="Main navigation" className={cn('flex items-center gap-0.5', className)}>
+    <nav aria-label="Main navigation" className={cn('flex items-center gap-1', className)}>
       {NAV_LINKS.map((link) => (
         <NavLink
           key={link.path}
@@ -20,11 +20,10 @@ function NavbarMenu({ className, onNavigate }) {
           onClick={onNavigate}
           className={({ isActive }) =>
             cn(
-              'relative rounded-btn px-3 py-1.5 text-xs font-medium tracking-wide uppercase transition-all duration-300',
-              'before:absolute before:inset-x-[20%] before:bottom-0 before:h-[2px] before:rounded-full before:bg-gold before:scale-x-0 before:origin-left before:transition-transform before:duration-300',
+              'relative rounded-md px-3 py-1.5 text-nav-link transition-colors duration-150',
               isActive
-                ? 'text-text-primary before:scale-x-100'
-                : 'text-text-secondary hover:text-text-primary hover:before:scale-x-100'
+                ? 'text-on-surface font-semibold'
+                : 'text-on-surface-muted hover:text-on-surface'
             )
           }
         >
@@ -45,7 +44,6 @@ function Navbar() {
     const handleScroll = () => {
       const y = window.scrollY
       setScrolled(y > 12)
-      // leave threshold: hide when scrolling down past 120px; reveal when scrolling up
       if (y > lastScrollY.current && y > 120) {
         setHidden(true)
       } else if (y < lastScrollY.current) {
@@ -65,8 +63,8 @@ function Navbar() {
         className={cn(
           'fixed top-0 left-0 right-0 z-50 border-b transition-transform duration-300 ease-out will-change-transform',
           scrolled
-            ? 'border-white/[0.08] bg-void-glass/95 shadow-[0_8px_30px_rgba(212,175,100,0.06)] backdrop-blur-3xl'
-            : 'border-transparent bg-gradient-to-b from-void-deep/80 to-transparent',
+            ? 'border-border bg-surface/95 backdrop-blur-xl shadow-card'
+            : 'border-transparent bg-neutral/80 backdrop-blur-xl',
           hidden ? '-translate-y-full' : 'translate-y-0'
         )}
       >
@@ -95,7 +93,7 @@ function Navbar() {
         </Container>
 
         {scrolled && (
-          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent animate-pulse-glow" aria-hidden="true" />
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent" aria-hidden="true" />
         )}
       </header>
 

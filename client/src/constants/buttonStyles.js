@@ -1,21 +1,21 @@
 export const BUTTON_VARIANTS = {
   primary:
-    'relative overflow-hidden bg-gradient-to-br from-gold via-gold-soft to-gold-deep text-void-deep shadow-[0_0_20px_rgba(212,175,100,0.35),0_4px_15px_rgba(212,175,100,0.2)] hover:shadow-[0_0_40px_rgba(212,175,100,0.5),0_8px_30px_rgba(212,175,100,0.3)] hover:-translate-y-1 active:translate-y-0 transition-all duration-300',
+    'inline-flex items-center justify-center gap-2 bg-primary text-on-surface font-semibold text-label-md rounded-btn h-11 px-6 transition-colors duration-150 hover:bg-primary-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-neutral disabled:opacity-50 disabled:cursor-not-allowed',
   secondary:
-    'bg-void-card-elevated text-gold border border-gold/30 shadow-inner hover:bg-void-card-hover hover:border-gold/60 hover:text-gold-soft hover:-translate-y-1 transition-all duration-300',
+    'inline-flex items-center justify-center gap-2 bg-transparent text-tertiary font-semibold text-label-md rounded-btn h-11 px-6 border border-border transition-colors duration-150 hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-neutral disabled:opacity-50 disabled:cursor-not-allowed',
   outline:
-    'border border-white/15 bg-white/[0.03] text-text-primary backdrop-blur-sm hover:border-gold/60 hover:text-gold hover:bg-gold/[0.08] hover:-translate-y-1 transition-all duration-300',
+    'inline-flex items-center justify-center gap-2 bg-transparent text-on-surface font-semibold text-label-md rounded-btn h-11 px-6 border-2 border-border transition-colors duration-150 hover:border-primary hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-neutral disabled:opacity-50 disabled:cursor-not-allowed',
   ghost:
-    'bg-transparent text-text-secondary hover:bg-white/[0.08] hover:text-text-primary hover:-translate-y-0.5 transition-all duration-300',
-  danger:
-    'border border-danger/50 bg-danger/15 text-danger hover:bg-danger/25 hover:border-danger/70 hover:-translate-y-0.5 transition-all duration-300',
+    'inline-flex items-center justify-center gap-2 bg-transparent text-on-surface-muted font-semibold text-label-md rounded-btn h-11 px-6 transition-colors duration-150 hover:text-on-surface hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-neutral disabled:opacity-50 disabled:cursor-not-allowed',
+  destructive:
+    'inline-flex items-center justify-center gap-2 bg-error/20 text-error font-semibold text-label-md rounded-btn h-11 px-6 border border-error/30 transition-colors duration-150 hover:bg-error/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error focus-visible:ring-offset-2 focus-visible:ring-offset-neutral disabled:opacity-50 disabled:cursor-not-allowed',
   success:
-    'border border-success/50 bg-success/15 text-success hover:bg-success/25 hover:border-success/70 hover:-translate-y-0.5 transition-all duration-300',
+    'inline-flex items-center justify-center gap-2 bg-success/20 text-success font-semibold text-label-md rounded-btn h-11 px-6 border border-success/30 transition-colors duration-150 hover:bg-success/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 focus-visible:ring-offset-neutral disabled:opacity-50 disabled:cursor-not-allowed',
 }
 
 export const BUTTON_SIZES = {
-  sm: 'h-9 gap-1.5 px-4 text-xs rounded-btn',
-  md: 'h-11 gap-2 px-6 text-sm rounded-btn',
-  lg: 'h-13 gap-2 px-8 text-base rounded-btn',
-  icon: 'size-10 p-0 rounded-btn',
+  sm: 'h-9 px-4 text-body-sm',
+  md: '',
+  lg: 'h-12 px-8 text-label-lg',
+  icon: 'h-11 w-11 p-0',
 }

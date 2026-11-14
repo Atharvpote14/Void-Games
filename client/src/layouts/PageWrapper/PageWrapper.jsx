@@ -7,7 +7,7 @@ function PageWrapper({ className, children, ...props }) {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
       className={cn('min-h-[60vh]', className)}
       {...props}
     >

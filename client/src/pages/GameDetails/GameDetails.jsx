@@ -129,35 +129,39 @@ function RequirementsBlock({ title, items }) {
   function renderValue(value) {
     if (Array.isArray(value)) {
       return (
-        <ul className="list-disc list-inside text-xs text-text-secondary mt-1 space-y-1">
+        <ul className="list-disc list-inside text-body-sm text-on-surface-muted mt-1 space-y-1">
           {value.map((v, i) => (
-            <li key={i} className="text-text-secondary">{String(v)}</li>
+            <li key={i} className="text-on-surface-muted">{String(v)}</li>
           ))}
         </ul>
       )
     }
-    return <span className="text-right text-text-secondary font-mono">{String(value)}</span>
+    return (
+      <span className="text-on-surface-muted font-mono text-body-sm break-words whitespace-normal overflow-wrap-anywhere">
+        {String(value)}
+      </span>
+    )
   }
 
   return (
-    <div className="card p-5">
-      <h3 className="mb-4 font-display text-base font-bold text-text-primary">
-        {title}
-      </h3>
-      <ul className="flex flex-col gap-2.5">
+    <div className="card p-4 min-w-0">
+      <h3 className="mb-3 font-semibold text-on-surface">{title}</h3>
+      <ul className="flex flex-col gap-2">
         {items.map((item, index) => {
           if (!item || typeof item !== 'object' || !item.label) return null
           const Icon = getRequirementIcon(item.label)
           return (
             <li
               key={item.label ?? index}
-              className="flex items-start justify-between gap-4 text-sm"
+              className="flex items-start gap-4 text-body-sm min-w-0"
             >
-              <span className="flex items-center gap-2 shrink-0 text-text-muted">
+              <span className="flex items-center gap-2 shrink-0 text-on-surface-muted">
                 <Icon className="size-4 text-primary/70" aria-hidden="true" />
                 {String(item.label)}
               </span>
-              {renderValue(item.value)}
+              <span className="flex-1 min-w-0 text-right">
+                {renderValue(item.value)}
+              </span>
             </li>
           )
         })}
@@ -539,15 +543,12 @@ function GameDetails() {
               requirements.recommended.length > 0) && (
               <section
                 aria-label="System requirements"
-                className="flex flex-col gap-4"
+                className="flex flex-col gap-3"
               >
-                <h2 className="heading-5">System Requirements</h2>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <h2 className="text-headline-sm font-semibold text-on-surface">System Requirements</h2>
+                <div className="flex flex-col gap-4 min-w-0">
                   <RequirementsBlock title="Minimum" items={requirements.minimum} />
-                  <RequirementsBlock
-                    title="Recommended"
-                    items={requirements.recommended}
-                  />
+                  <RequirementsBlock title="Recommended" items={requirements.recommended} />
                 </div>
               </section>
             )}

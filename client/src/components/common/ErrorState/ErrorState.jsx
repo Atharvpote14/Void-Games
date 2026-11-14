@@ -10,13 +10,13 @@ function ErrorState({
 }) {
   return (
     <div
-      className={`flex flex-col items-center gap-3 rounded-card border border-danger/30 bg-danger/5 px-6 text-center ${compact ? 'py-8' : 'py-16'}`}
+      className={`flex flex-col items-center gap-3 rounded-card border border-error/30 bg-error/5 px-6 text-center ${compact ? 'py-8' : 'py-16'}`}
     >
-      <div className="grid size-14 place-items-center rounded-2xl border border-danger/30 bg-danger/10">
-        <AlertTriangle className="size-6 text-danger" />
+      <div className="grid size-14 place-items-center rounded-xl border border-error/30 bg-error/10">
+        <AlertTriangle className="size-6 text-error" />
       </div>
-      <h3 className="font-display text-lg font-bold text-text-primary">{title}</h3>
-      <p className="max-w-sm text-sm text-text-muted">{description}</p>
+      <h3 className="text-headline-sm font-bold text-on-surface">{title}</h3>
+      <p className="max-w-sm text-body-sm text-on-surface-muted">{description}</p>
       {action}
       {onRetry && (
         <Button variant="outline" size="sm" onClick={onRetry} className="mt-2">

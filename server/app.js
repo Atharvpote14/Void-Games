@@ -13,10 +13,19 @@ import { errorHandler } from './middleware/errorHandler.js'
 const app = express()
 
 app.use(helmet())
+const PRODUCTION_ORIGINS = [
+  'https://www.voidgames.dedyn.io',
+  'https://voidgames.dedyn.io',
+]
+
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || env.CLIENT_ORIGINS.includes(origin)) {
+      const allowedOrigions = [
+        ...env.CLIENT_ORIGINS,
+        ...PRODUCTION_ORIGINS,
+      ]
+      if (!origin || allowedOrigions.includes(origin)) {
         callback(null, true)
       } else {
         callback(null, false)

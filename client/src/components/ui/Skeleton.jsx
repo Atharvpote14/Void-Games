@@ -1,14 +1,14 @@
 import { cn } from '../../lib/utils'
 
 function Skeleton({ className, variant = 'text', width, height, ...props }) {
-  const baseStyles = 'animate-shimmer rounded-card overflow-hidden'
-  const bgStyles = 'bg-gradient-to-r from-white/[0.03] via-gold/10 to-white/[0.03] bg-[length:200%_100%]'
+  const baseStyles = 'animate-shimmer rounded-md overflow-hidden'
+  const bgStyles = 'bg-gradient-to-r from-surface via-surface-raised to-surface bg-[length:200%_100%]'
 
   const variants = {
     text: 'h-4 w-full',
     circular: 'rounded-full',
-    rectangular: 'rounded-card',
-    card: 'rounded-card',
+    rectangular: 'rounded-md',
+    card: 'rounded-md',
   }
 
   return (
@@ -38,7 +38,7 @@ export function SkeletonText({ lines = 3, ...props }) {
 export function SkeletonCard({ ...props }) {
   return (
     <div className='space-y-4' {...props}>
-      <Skeleton variant='rectangular' width='full' height='48' className='rounded-card' />
+      <Skeleton variant='rectangular' width='full' height='48' className='rounded-md' />
       <SkeletonText lines={3} />
     </div>
   )

@@ -36,7 +36,7 @@ function Tooltip({ content, children, position = 'top', className }) {
           id={id}
           role="tooltip"
           className={cn(
-            'pointer-events-none absolute z-50 w-max max-w-xs rounded-lg border border-border-default bg-void-card px-3 py-1.5 text-xs font-medium text-text-secondary shadow-card',
+            'pointer-events-none absolute z-50 w-max max-w-xs rounded-md border border-border bg-surface-raised px-3 py-1.5 text-body-sm font-medium text-on-surface shadow-card',
             positionClasses[position],
             className
           )}

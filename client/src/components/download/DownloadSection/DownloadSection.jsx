@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Download, ExternalLink, KeyRound, HardDrive, Flag, Copy, Check } from 'lucide-react'
+import { Download, ExternalLink, KeyRound, HardDrive, Copy, Check } from 'lucide-react'
 import Button from '@/components/buttons/Button/Button'
-import Badge from '@/components/common/Badge/Badge'
+import { Badge } from '@/components/ui/Badge'
 import { Spinner } from '@/components/common/Spinner/Spinner'
 import Modal from '@/components/modal/Modal/Modal'
 import { getDownloadRedirectUrl, startDownload } from '@/services/downloads'
@@ -47,10 +47,10 @@ function DownloadMirrorCard({ mirror, loading, onDownload, gameSize, index }) {
         onClick={handleClick}
         disabled={loading}
         className={cn(
-          'group flex w-full cursor-pointer items-center justify-between gap-4 rounded-card border p-4 text-left transition-all duration-300',
+          'group flex w-full cursor-pointer items-center justify-between gap-4 rounded-card border p-4 text-left transition-all duration-200',
           'hover:-translate-y-0.5 hover:shadow-card-hover',
           'disabled:pointer-events-none disabled:opacity-60',
-          'border-border-subtle bg-premium-card'
+          'border-border bg-surface'
         )}
         style={{
           borderLeft: `3px solid ${color}`,
@@ -59,8 +59,8 @@ function DownloadMirrorCard({ mirror, loading, onDownload, gameSize, index }) {
         <div className="flex items-center gap-4">
           <div
             className={cn(
-              'grid size-11 shrink-0 place-items-center rounded-xl border transition-transform duration-300 group-hover:scale-110',
-              'bg-white/5'
+              'grid size-11 shrink-0 place-items-center rounded-xl border transition-transform duration-200 group-hover:scale-110',
+              'bg-surface-raised'
             )}
             style={{ borderColor: `${color}40` }}
           >
@@ -71,11 +71,11 @@ function DownloadMirrorCard({ mirror, loading, onDownload, gameSize, index }) {
             )}
           </div>
           <div className="flex flex-col gap-1 min-w-0">
-            <span className="font-semibold text-text-primary truncate">
+            <span className="font-semibold text-on-surface truncate">
               {mirror.mirror_name || mirror.provider}
             </span>
-            <span className="flex flex-wrap items-center gap-2 text-xs text-text-muted">
-              <Badge tone="primary" style={{ background: `${color}20`, color, borderColor: `${color}40` }}>
+            <span className="flex flex-wrap items-center gap-2 text-body-xs text-on-surface-muted">
+              <Badge variant="primary" className="gap-1.5" style={{ background: `${color}20`, borderColor: `${color}40` }}>
                 {mirror.provider}
               </Badge>
               {(gameSize || mirror.file_size) && (
@@ -85,20 +85,20 @@ function DownloadMirrorCard({ mirror, loading, onDownload, gameSize, index }) {
                 </span>
               )}
               {mirror.password && (
-                <span className="inline-flex items-center gap-1 text-gold">
+                <span className="inline-flex items-center gap-1 text-amber-300">
                   <KeyRound className="size-3" />
                   Password required
                 </span>
               )}
               {index === 0 && (
-                <Badge tone="success" className="ml-1">
+                <Badge variant="success" className="gap-1.5">
                   Recommended
                 </Badge>
               )}
             </span>
           </div>
         </div>
-        <ExternalLink className="size-4.5 shrink-0 text-text-disabled transition-colors group-hover:text-primary" />
+        <ExternalLink className="size-4.5 shrink-0 text-on-surface-muted transition-colors group-hover:text-primary" />
       </button>
 
       <Modal
@@ -109,10 +109,10 @@ function DownloadMirrorCard({ mirror, loading, onDownload, gameSize, index }) {
         size="sm"
       >
         <div className="flex flex-col gap-4">
-          <div className="flex items-center justify-between rounded-input border border-border-subtle bg-void-bg-secondary px-4 py-3">
-            <span className="text-sm text-text-muted">Password</span>
+          <div className="flex items-center justify-between rounded-input border border-border bg-surface px-4 py-3">
+            <span className="text-body-sm text-on-surface-muted">Password</span>
             <div className="flex items-center gap-3">
-              <code className={cn('rounded-lg px-3 py-1 font-mono text-sm', 'bg-primary/10 text-primary')}>
+              <code className={cn('rounded-md px-3 py-1 font-mono text-body-sm', 'bg-primary/10 text-primary')}>
                 {copied ? 'COPIED!' : 'PASS 👉'}
               </code>
               <Button
@@ -130,7 +130,7 @@ function DownloadMirrorCard({ mirror, loading, onDownload, gameSize, index }) {
               </Button>
             </div>
           </div>
-          <p className="text-xs text-text-muted">
+          <p className="text-body-xs text-on-surface-muted">
             Click to copy the password. The password is usually case-sensitive.
           </p>
           <Button onClick={() => onDownload(mirror)} className="w-full gap-2">
@@ -149,7 +149,7 @@ function DownloadSection({ gameId, game, mirrors = [] }) {
 
   if (mirrors.length === 0) {
     return (
-      <div className="rounded-card border border-dashed border-border-subtle bg-premium-card/50 p-8 text-center text-sm text-text-muted">
+      <div className="rounded-card border border-dashed border-border bg-surface/50 p-8 text-center text-body-sm text-on-surface-muted">
         Download mirrors are not available for this game yet.
       </div>
     )
@@ -173,8 +173,8 @@ function DownloadSection({ gameId, game, mirrors = [] }) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="heading-5">Download Mirrors</h2>
-        <Badge tone="primary">
+        <h2 className="text-headline-sm font-semibold text-on-surface">Download Mirrors</h2>
+        <Badge variant="primary">
           {mirrors.length} mirror{mirrors.length > 1 ? 's' : ''}
         </Badge>
       </div>
@@ -188,7 +188,7 @@ function DownloadSection({ gameId, game, mirrors = [] }) {
           index={index}
         />
       ))}
-      <p className="text-xs text-text-muted">
+      <p className="text-body-xs text-on-surface-muted">
         Downloads are tracked for analytics. If a mirror is broken, use the
         report button on this page and we will fix it.
       </p>

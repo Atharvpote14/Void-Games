@@ -12,6 +12,7 @@ import Checkbox from '@/components/inputs/Checkbox/Checkbox'
 import Card from '@/components/common/Card/Card'
 import ErrorState from '@/components/common/ErrorState/ErrorState'
 import PageLoader from '@/components/loading/PageLoader/PageLoader'
+import SystemRequirementsInput from '@/components/inputs/SystemRequirementsInput/SystemRequirementsInput'
 import { slugify } from '@/utils/formatters'
 import useFetch from '@/hooks/useFetch'
 import usePageMeta from '@/hooks/usePageMeta'
@@ -43,29 +44,8 @@ function gbToBytes(gb) {
   return Number.isFinite(value) && value > 0 ? Math.round(value * 1024 ** 3) : 0
 }
 
-function jsonToRequirements(json) {
-  if (!json?.trim()) return {}
-  try {
-    const parsed = JSON.parse(json)
-    return parsed && typeof parsed === 'object' ? parsed : {}
-  } catch {
-    return null
-  }
-}
-
 function initForm(game) {
-  // Ensure system_requirements is properly converted to JSON strings
-  // to prevent "Objects are not valid as a React child" error
-  const safeRequirementsToJson = (section) => {
-    if (!section || typeof section !== 'object') return ''
-    try {
-      const entries = Object.entries(section)
-      return entries.length ? JSON.stringify(Object.fromEntries(entries), null, 2) : ''
-    } catch {
-      return ''
-    }
-  }
-
+  const sysReq = game?.system_requirements || {}
   return {
     title: game?.title || '',
     slug: game?.slug || '',
@@ -85,8 +65,8 @@ function initForm(game) {
     featuresText: (game?.features || []).join(', '),
     tagsText: (game?.tags || []).join(', '),
     installation_instructions: game?.installation_instructions || '',
-    minRequirementsJson: safeRequirementsToJson(game?.system_requirements?.minimum),
-    recRequirementsJson: safeRequirementsToJson(game?.system_requirements?.recommended),
+    minRequirements: sysReq.minimum || {},
+    recRequirements: sysReq.recommended || {},
     is_featured: Boolean(game?.is_featured),
     is_trending: Boolean(game?.is_trending),
     is_active: game?.is_active !== false,
@@ -255,11 +235,8 @@ function GameFormFields({ initialGame, isEditing, gameId }) {
   }
 
   const buildPayload = () => {
-    const minimum = jsonToRequirements(form.minRequirementsJson)
-    const recommended = jsonToRequirements(form.recRequirementsJson)
-    if (minimum === null || recommended === null) {
-      throw new Error('System requirements must be valid JSON objects')
-    }
+    const minimum = form.minRequirements || {}
+    const recommended = form.recRequirements || {}
 
     return {
       title: form.title.trim(),
@@ -621,21 +598,15 @@ function GameFormFields({ initialGame, isEditing, gameId }) {
           />
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <TextArea
-            label="Minimum Requirements (JSON)"
-            rows={8}
-            value={form.minRequirementsJson}
-            onChange={(event) => setField('minRequirementsJson', event.target.value)}
-            placeholder={'{\n  "os": "Windows 10 64-bit",\n  "processor": "Intel Core i5-6600K"\n}'}
-            inputClassName="font-mono text-xs"
+          <SystemRequirementsInput
+            label="Minimum Requirements"
+            value={form.minRequirements}
+            onChange={(val) => setField('minRequirements', val)}
           />
-          <TextArea
-            label="Recommended Requirements (JSON)"
-            rows={8}
-            value={form.recRequirementsJson}
-            onChange={(event) => setField('recRequirementsJson', event.target.value)}
-            placeholder={'{\n  "os": "Windows 11 64-bit",\n  "processor": "Intel Core i7-9700K"\n}'}
-            inputClassName="font-mono text-xs"
+          <SystemRequirementsInput
+            label="Recommended Requirements"
+            value={form.recRequirements}
+            onChange={(val) => setField('recRequirements', val)}
           />
         </div>
         <TextArea

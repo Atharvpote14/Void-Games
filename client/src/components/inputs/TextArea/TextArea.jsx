@@ -11,7 +11,7 @@ const TextArea = forwardRef(function TextArea(
   return (
     <div className={cn('flex flex-col gap-1.5', className)}>
       {label && (
-        <label htmlFor={inputId} className="text-sm font-medium text-text-secondary">
+        <label htmlFor={inputId} className="text-body-sm font-medium text-on-surface">
           {label}
         </label>
       )}
@@ -20,17 +20,18 @@ const TextArea = forwardRef(function TextArea(
         id={inputId}
         rows={rows}
         className={cn(
-          'w-full resize-y rounded-input border border-border-default bg-void-card px-3.5 py-2.5 text-sm text-text-primary outline-none transition-all duration-200 placeholder:text-text-disabled focus:border-primary focus:shadow-[0_0_0_3px_rgba(46,168,255,0.12)]',
-          error && 'border-danger/60 focus:border-danger',
+          'w-full resize-y rounded-input border bg-surface px-4 py-3 text-body-md outline-none transition-colors duration-150 placeholder:text-text-muted',
+          'border-border focus:border-primary focus:shadow-[0_0_0_3px_rgba(42,169,224,0.15)]',
+          error && 'border-error focus:border-error focus:shadow-[0_0_0_3px_rgba(239,68,68,0.2)]',
           inputClassName
         )}
         aria-invalid={error ? true : undefined}
         {...props}
       />
       {error ? (
-        <p className="text-xs text-danger">{error}</p>
+        <p className="text-body-sm text-error">{error}</p>
       ) : hint ? (
-        <p className="text-xs text-text-muted">{hint}</p>
+        <p className="text-body-sm text-on-surface-muted">{hint}</p>
       ) : null}
     </div>
   )

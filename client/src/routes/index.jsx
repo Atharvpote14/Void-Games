@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, ScrollRestoration } from 'react-router-dom'
 import NotFound from '@/pages/NotFound/NotFound'
 import ServerError from '@/pages/NotFound/ServerError'
 import LazyPage from '@/components/loading/LazyPage/LazyPage'
@@ -24,6 +24,7 @@ import DownloadHistory from '@/pages/DownloadHistory/DownloadHistory'
 import Settings from '@/pages/Settings/Settings'
 import SuggestGame from '@/pages/SuggestGame/SuggestGame'
 import SteamFreeGames from '@/pages/SteamFreeGames/SteamFreeGames'
+import Donate from '@/pages/Donate/Donate'
 import AdminDashboard from '@/pages/Admin/AdminDashboard/AdminDashboard'
 import AdminGames from '@/pages/Admin/AdminGames/AdminGames'
 import GameForm from '@/pages/Admin/AdminGames/GameForm'
@@ -47,123 +48,124 @@ const router = createBrowserRouter([
       {
         element: <MainLayout />,
         children: [
-      {
-        index: true,
-        element: (
-          <Home />
-        ),
+          {
+            index: true,
+            element: (
+              <Home />
+            ),
+          },
+          {
+            path: 'games',
+            element: (
+              <BrowseGames />
+            ),
+          },
+          {
+            path: 'game/:slug',
+            element: (
+              <GameDetails />
+            ),
+          },
+          {
+            path: 'guide/:slug',
+            element: (
+              <GuideDetails />
+            ),
+          },
+          {
+            path: 'fixes',
+            element: (
+              <FixCenter />
+            ),
+          },
+          {
+            path: 'fix/:slug',
+            element: (
+              <FixDetails />
+            ),
+          },
+          {
+            path: 'search',
+            element: (
+              <SearchPage />
+            ),
+          },
+          {
+            path: 'login',
+            element: (
+              <Login />
+            ),
+          },
+          {
+            path: 'auth/callback',
+            element: (
+              <AuthCallback />
+            ),
+          },
+          {
+            path: 'profile',
+            element: (
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: 'favorites',
+            element: (
+              <ProtectedRoute>
+                <Favorites />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: 'downloads',
+            element: (
+              <ProtectedRoute>
+                <DownloadHistory />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: 'settings',
+            element: (
+              <ProtectedRoute>
+                <Settings />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: 'suggest',
+            element: (
+              <SuggestGame />
+            ),
+          },
+          {
+            path: 'steam-free-games',
+            element: (
+              <SteamFreeGames />
+            ),
+          },
+          {
+            path: 'donate',
+            element: (
+              <Donate />
+            ),
+          },
+          {
+            path: '*',
+            element: <NotFound />,
+          },
+        ],
       },
       {
-        path: 'games',
+        path: 'admin',
         element: (
-          <BrowseGames />
-        ),
-      },
-      {
-        path: 'game/:slug',
-        element: (
-          <GameDetails />
-        ),
-      },
-      {
-        path: 'guide/:slug',
-        element: (
-          <GuideDetails />
-        ),
-      },
-      {
-        path: 'fixes',
-        element: (
-          <FixCenter />
-        ),
-      },
-      {
-        path: 'fix/:slug',
-        element: (
-          <FixDetails />
-        ),
-      },
-      {
-        path: 'search',
-        element: (
-          <SearchPage />
-        ),
-      },
-      {
-        path: 'login',
-        element: (
-          <Login />
-        ),
-      },
-      {
-        path: 'auth/callback',
-        element: (
-          <AuthCallback />
-        ),
-      },
-      {
-        path: 'profile',
-        element: (
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: 'favorites',
-        element: (
-          <ProtectedRoute>
-            <Favorites />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: 'downloads',
-        element: (
-          <ProtectedRoute>
-            <DownloadHistory />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: 'settings',
-        element: (
-          <ProtectedRoute>
-            <Settings />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: 'suggest',
-        element: (
-          <SuggestGame />
-        ),
-      },
-      {
-        path: 'steam-free-games',
-        element: (
-          <SteamFreeGames />
-        ),
-      },
-      {
-        path: '*',
-        element: <NotFound />,
-      },
-    ],
-  },
-  {
-    path: 'admin',
-    element: (
-      <RootLayout>
-        <AdminRoute>
-          <AdminLayout />
-        </AdminRoute>
-      </RootLayout>
-    ),
-        element: (
-          <AdminRoute>
-            <AdminLayout />
-          </AdminRoute>
+          <RootLayout>
+            <AdminRoute>
+              <AdminLayout />
+            </AdminRoute>
+          </RootLayout>
         ),
         errorElement: <ServerError />,
         children: [
@@ -258,3 +260,7 @@ const router = createBrowserRouter([
 ])
 
 export default router
+
+export function ScrollRestorationWrapper() {
+  return <ScrollRestoration />
+}

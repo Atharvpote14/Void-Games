@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, ScrollRestoration } from 'react-router-dom'
 import AppErrorBoundary from '@/components/common/AppErrorBoundary/AppErrorBoundary'
 import { AuthProvider } from '@/context/AuthContext'
 import { FavoritesProvider } from '@/context/FavoritesContext'
@@ -9,15 +9,16 @@ export function RootLayout() {
     <AppErrorBoundary>
       <AuthProvider>
         <FavoritesProvider>
+          <ScrollRestoration />
           <Outlet />
           <Toaster
             position='bottom-right'
             toastOptions={{
               style: {
-                background: '#131B2E',
+                background: '#0B1220',
                 color: '#FFFFFF',
-                border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: '12px',
+                border: '1px solid #374151',
+                borderRadius: '8px',
               },
             }}
           />

@@ -15,14 +15,14 @@ const Checkbox = forwardRef(function Checkbox(
           ref={ref}
           id={inputId}
           type="checkbox"
-          className="peer size-4.5 cursor-pointer appearance-none rounded-md border border-border-default bg-void-card transition-colors duration-200 checked:border-primary checked:bg-primary focus-visible:outline-2 focus-visible:outline-primary"
+          className="peer size-4.5 cursor-pointer appearance-none rounded-md border border-border bg-surface transition-colors duration-200 checked:border-primary checked:bg-primary focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
           {...props}
         />
-        <span className="text-sm text-text-secondary peer-checked:text-text-primary transition-colors">
+        <span className="text-body-sm text-on-surface-muted peer-checked:text-on-surface transition-colors">
           {label}
         </span>
       </label>
-      {error && <p className="text-xs text-danger">{error}</p>}
+      {error && <p className="text-body-sm text-error">{error}</p>}
     </div>
   )
 })

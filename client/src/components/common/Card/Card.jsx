@@ -9,10 +9,10 @@ const Card = forwardRef(function Card(
     <div
       ref={ref}
       className={cn(
-        'rounded-card border border-border-default bg-void-card',
-        glass && 'glass bg-white/5',
+        'rounded-card border border-border bg-surface',
+        glass && 'glass-panel',
         hover &&
-          'transition-all duration-300 hover:-translate-y-1 hover:border-border-hover hover:shadow-card',
+          'transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-card-hover',
         className
       )}
       {...props}

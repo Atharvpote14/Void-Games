@@ -6,7 +6,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Rocket,
-  BookOpen,
+  Heart,
   Wrench,
   Search,
   ArrowRight,
@@ -29,22 +29,22 @@ const stagger = {
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
 }
 
 const slideLeft = {
-  hidden: { opacity: 0, x: -36 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } },
+  hidden: { opacity: 0, x: -24 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
 }
 
 const fade = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+  show: { opacity: 1, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
 }
 
 const pop = {
-  hidden: { opacity: 0, scale: 0.9 },
-  show: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: [0.34, 1.56, 0.64, 1] } },
+  hidden: { opacity: 0, scale: 0.95 },
+  show: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: [0.34, 1.56, 0.64, 1] } },
 }
 
 const QUICK_LINKS = [
@@ -53,40 +53,36 @@ const QUICK_LINKS = [
     icon: Rocket,
     label: 'Steam Free Games',
     description: 'Get Steam games free',
-    // vibrant blue with spreading circular glow
-    text: 'text-sky-300',
-    iconTile: 'border-sky-400/40 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.45),rgba(37,99,235,0.15)_60%,transparent_100%)] text-sky-300 shadow-[0_0_22px_rgba(56,189,248,0.35)]',
-    card: 'from-sky-500/15 via-blue-600/10 to-void-card-elevated border-sky-400/25 hover:border-sky-400/60 hover:shadow-[0_12px_40px_rgba(56,189,248,0.28)]',
+    text: 'text-primary',
+    iconTile: 'border-primary/40 bg-[radial-gradient(circle_at_center,rgba(42,169,224,0.45),rgba(30,142,194,0.15)_60%,transparent_100%)] text-primary shadow-[0_0_22px_rgba(42,169,224,0.35)]',
+    card: 'from-primary/15 via-primary-strong/10 to-surface border-primary/25 hover:border-primary/60 hover:shadow-[0_12px_40px_rgba(42,169,224,0.28)]',
   },
   {
-    to: '/guides',
-    icon: BookOpen,
-    label: 'Game Guides',
-    description: 'Tips, tricks & walkthroughs',
-    // light orange
-    text: 'text-orange-300',
-    iconTile: 'border-orange-400/40 bg-[radial-gradient(circle_at_center,rgba(251,146,60,0.5),rgba(234,88,12,0.16)_60%,transparent_100%)] text-orange-300 shadow-[0_0_22px_rgba(251,146,60,0.35)]',
-    card: 'from-orange-500/15 via-orange-600/10 to-void-card-elevated border-orange-400/25 hover:border-orange-400/60 hover:shadow-[0_12px_40px_rgba(251,146,60,0.28)]',
+    to: '/donate',
+    icon: Heart,
+    label: 'Support Us',
+    description: 'Help keep the platform running',
+    text: 'text-pink-300',
+    iconTile: 'border-pink-400/40 bg-[radial-gradient(circle_at_center,rgba(244,114,182,0.5),rgba(219,39,119,0.16)_60%,transparent_100%)] text-pink-300 shadow-[0_0_22px_rgba(244,114,182,0.35)]',
+    card: 'from-pink-500/15 via-pink-600/10 to-surface border-pink-400/25 hover:border-pink-400/60 hover:shadow-[0_12px_40px_rgba(244,114,182,0.28)]',
   },
   {
     to: '/fixes',
     icon: Wrench,
     label: 'Fix Center',
     description: 'Solutions for issues',
-    // vibrant green
     text: 'text-emerald-300',
     iconTile: 'border-emerald-400/40 bg-[radial-gradient(circle_at_center,rgba(52,211,153,0.5),rgba(16,185,129,0.16)_60%,transparent_100%)] text-emerald-300 shadow-[0_0_22px_rgba(52,211,153,0.35)]',
-    card: 'from-emerald-500/15 via-green-600/10 to-void-card-elevated border-emerald-400/25 hover:border-emerald-400/60 hover:shadow-[0_12px_40px_rgba(52,211,153,0.28)]',
+    card: 'from-emerald-500/15 via-green-600/10 to-surface border-emerald-400/25 hover:border-emerald-400/60 hover:shadow-[0_12px_40px_rgba(52,211,153,0.28)]',
   },
   {
     to: '/search',
     icon: Search,
     label: 'Search',
     description: 'Find any game instantly',
-    // light blue / cyan
     text: 'text-cyan-200',
     iconTile: 'border-cyan-300/40 bg-[radial-gradient(circle_at_center,rgba(103,232,249,0.5),rgba(34,211,238,0.16)_60%,transparent_100%)] text-cyan-200 shadow-[0_0_22px_rgba(103,232,249,0.35)]',
-    card: 'from-cyan-400/15 via-sky-600/10 to-void-card-elevated border-cyan-300/25 hover:border-cyan-300/60 hover:shadow-[0_12px_40px_rgba(103,232,249,0.28)]',
+    card: 'from-cyan-400/15 via-sky-600/10 to-surface border-cyan-300/25 hover:border-cyan-300/60 hover:shadow-[0_12px_40px_rgba(103,232,249,0.28)]',
   },
 ]
 
@@ -115,10 +111,10 @@ function QuickLinks() {
             <Icon className="size-5" />
           </span>
           <span className="flex min-w-0 flex-col gap-0.5">
-            <span className={cn('truncate text-xs font-display font-bold tracking-tight text-text-primary sm:text-sm lg:text-base', text)}>
+            <span className={cn('truncate text-xs font-display font-bold tracking-tight text-on-surface sm:text-sm lg:text-base', text)}>
               {label}
             </span>
-            <span className="hidden truncate text-[11px] font-medium tracking-wide text-text-muted sm:block">
+            <span className="hidden truncate text-[11px] font-medium tracking-wide text-on-surface-muted sm:block">
               {description}
             </span>
           </span>
@@ -175,30 +171,30 @@ function HeroSlide({ game }) {
           className="absolute inset-0 size-full object-cover object-center scale-[1.12] translate-x-[3%]"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-void-deep/95 via-void-deep/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-void-deep via-void-deep/50 to-void-deep/30" />
-        <div className="absolute left-0 top-0 bottom-0 w-[15%] bg-void-deep/70" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_20%,rgba(212,175,100,0.08),transparent_70%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_30%_at_80%_80%,rgba(212,175,100,0.05),transparent_60%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral/95 via-neutral/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral via-neutral/50 to-neutral/30" />
+        <div className="absolute left-0 top-0 bottom-0 w-[15%] bg-neutral/70" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_20%,rgba(42,169,224,0.08),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_30%_at_80%_80%,rgba(42,169,224,0.05),transparent_60%)]" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
         <div className="absolute inset-0 border-t border-b border-white/5 opacity-30" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(7,11,20,0.75)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(2,6,23,0.75)_100%)]" />
       </div>
 
-      <Container className="relative z-10 flex h-full items-center">
+      <Container className="relative z-10 flex h-full items-end sm:items-center">
         <motion.div
           key={`content-${game.id}`}
           variants={stagger}
           initial="hidden"
           animate="show"
-          className="flex w-full flex-col items-start gap-3 pb-14 sm:gap-4 sm:pb-20 md:gap-5 max-w-5xl"
+          className="flex w-full flex-col items-start gap-3 pb-20 sm:pb-28 md:pb-32 lg:pb-36 max-w-5xl"
         >
           {logo ? (
             <motion.img
               variants={fadeUp}
               src={logo}
               alt={`${game.title} logo`}
-              className="max-h-[56px] w-auto max-w-[150px] object-contain object-left drop-shadow-[0_12px_40px_rgba(0,0,0,0.7)] filter grayscale-10 opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-500 sm:max-h-[96px] sm:max-w-[280px] lg:max-h-[120px] lg:max-w-[340px]"
+              className="max-h-[72px] w-auto max-w-[180px] object-contain object-left drop-shadow-[0_12px_40px_rgba(0,0,0,0.7)] filter grayscale-10 opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-500 sm:max-h-[96px] sm:max-w-[280px] lg:max-h-[120px] lg:max-w-[340px]"
             />
           ) : (
             <motion.h1
@@ -251,7 +247,7 @@ function HeroSlide({ game }) {
               to={`/game/${game.slug}#downloads`}
               size="lg"
               variant="primary"
-              className="gap-2 shadow-[0_0_20px_rgba(212,175,100,0.35)]"
+              className="gap-2 shadow-[0_0_20px_rgba(42,169,224,0.35)]"
             >
               <Download className="size-4.5" />
               Download Now
@@ -333,14 +329,14 @@ function HeroSlider({ games }) {
   if (count === 0) return null
 
   return (
-    <section aria-label="Featured games" className="bg-hero-gradient relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.08),transparent_70%)]" aria-hidden="true" />
+    <section aria-label="Featured games" className="bg-gradient-to-b from-neutral via-surface to-neutral relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(42,169,224,0.08),transparent_70%)]" aria-hidden="true" />
       <Container className="py-3 sm:py-5">
         <div
           ref={heroRef}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          className="relative h-[520px] overflow-hidden sm:h-[580px] lg:h-[518px] rounded-2xl shadow-2xl shadow-black/40"
+          className="relative h-[520px] overflow-hidden sm:h-[580px] lg:h-[518px] rounded-xl shadow-[0_32px_100px_rgba(0,0,0,0.5)]"
         >
           <AnimatePresence mode="wait">
             <motion.div
@@ -359,10 +355,10 @@ function HeroSlider({ games }) {
             <Container className="flex items-center justify-between gap-4 sm:gap-5">
               <div
                 aria-hidden="true"
-                className="h-1.5 min-w-0 flex-1 max-w-[180px] overflow-hidden rounded-full bg-white/10 sm:max-w-[260px] lg:max-w-[320px]"
+                className="h-1.5 min-w-0 flex-1 max-w-[180px] overflow-hidden rounded-full bg-surface sm:max-w-[260px] lg:max-w-[320px]"
               >
                 <div
-                  className="h-full rounded-full bg-btn-primary shadow-[0_0_16px_rgba(108,99,255,0.8)] transition-[width] duration-75 ease-linear"
+                  className="h-full rounded-full bg-primary shadow-[0_0_16px_rgba(42,169,224,0.8)] transition-[width] duration-75 ease-linear"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -372,8 +368,8 @@ function HeroSlider({ games }) {
                   aria-label="Previous game"
                   onClick={handlePrev}
                   className={cn(
-                    'grid size-9 cursor-pointer place-items-center rounded-full border border-white/10 bg-white/5 text-text-primary glass transition-all duration-300 md:size-11',
-                    'hover:scale-105 hover:border-primary/50 hover:bg-primary/10 hover:text-primary hover:shadow-btn-primary active:scale-95'
+                    'grid size-9 cursor-pointer place-items-center rounded-full border border-border bg-surface-raised text-on-surface transition-all duration-300 md:size-11',
+                    'hover:scale-105 hover:border-primary/50 hover:bg-primary/10 hover:text-primary hover:shadow-[0_0_16px_rgba(42,169,224,0.3)] active:scale-95'
                   )}
                 >
                   <ChevronLeft className="size-4 md:size-5" />
@@ -383,8 +379,8 @@ function HeroSlider({ games }) {
                   aria-label="Next game"
                   onClick={handleNext}
                   className={cn(
-                    'grid size-9 cursor-pointer place-items-center rounded-full border border-white/10 bg-white/5 text-text-primary glass transition-all duration-300 md:size-11',
-                    'hover:scale-105 hover:border-primary/50 hover:bg-primary/10 hover:text-primary hover:shadow-btn-primary active:scale-95'
+                    'grid size-9 cursor-pointer place-items-center rounded-full border border-border bg-surface-raised text-on-surface transition-all duration-300 md:size-11',
+                    'hover:scale-105 hover:border-primary/50 hover:bg-primary/10 hover:text-primary hover:shadow-[0_0_16px_rgba(42,169,224,0.3)] active:scale-95'
                   )}
                 >
                   <ChevronRight className="size-4 md:size-5" />

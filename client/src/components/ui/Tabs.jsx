@@ -9,8 +9,8 @@ const TabsList = React.forwardRef(({ className, ...props }, ref) => (
     ref={ref}
     aria-orientation='horizontal'
     className={cn(
-      'inline-flex h-10 items-center justify-center rounded-btn bg-[rgba(255,255,255,0.03)] p-1',
-      'backdrop-blur-sm border border-border-subtle',
+      'inline-flex h-10 items-center justify-center rounded-md bg-surface p-1',
+      'border border-border',
       className
     )}
     {...props}
@@ -22,13 +22,13 @@ const TabsTrigger = React.forwardRef(({ className, ...props }, ref) => (
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      'inline-flex items-center justify-center whitespace-nowrap rounded-btn px-4 py-2 text-sm font-medium',
-      'transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
-      'focus-visible:ring-offset-2 focus-visible:ring-offset-void-bg',
+      'inline-flex items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-label-md',
+      'transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+      'focus-visible:ring-offset-2 focus-visible:ring-offset-neutral',
       'disabled:pointer-events-none disabled:opacity-50',
-      'data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-btn-primary',
-      'data-[state=inactive]:text-text-secondary data-[state=inactive]:hover:text-text-primary',
-      'data-[state=inactive]:hover:bg-white/5',
+      'data-[state=active]:bg-primary data-[state=active]:text-on-surface data-[state=active]:shadow-[0_0_16px_rgba(42,169,224,0.15)]',
+      'data-[state=inactive]:text-on-surface-muted data-[state=inactive]:hover:text-on-surface',
+      'data-[state=inactive]:hover:bg-surface-raised',
       className
     )}
     {...props}
@@ -40,8 +40,8 @@ const TabsContent = React.forwardRef(({ className, ...props }, ref) => (
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
-      'mt-4 ring-offset-void-bg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
-      'animate-fade-in data-[orientation=horizontal]:animate-slide-up',
+      'mt-4 ring-offset-neutral focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+      'animate-fade-in',
       className
     )}
     {...props}

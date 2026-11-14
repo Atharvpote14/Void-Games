@@ -14,9 +14,9 @@ const Toggle = forwardRef(function Toggle(
       className={cn('flex cursor-pointer items-center justify-between gap-4', className)}
     >
       <span className="flex flex-col">
-        <span className="text-sm font-medium text-text-primary">{label}</span>
+        <span className="text-body-sm font-medium text-on-surface">{label}</span>
         {description && (
-          <span className="text-xs text-text-muted">{description}</span>
+          <span className="text-body-xs text-on-surface-muted">{description}</span>
         )}
       </span>
       <input
@@ -30,14 +30,14 @@ const Toggle = forwardRef(function Toggle(
       <span
         aria-hidden="true"
         className={cn(
-          'relative h-6 w-11 shrink-0 rounded-full border border-border-default bg-void-card transition-colors duration-300',
+          'relative h-6 w-11 shrink-0 rounded-full border border-border bg-surface transition-colors duration-200',
           'peer-checked:border-primary peer-checked:bg-primary',
-          'peer-focus-visible:outline-2 peer-focus-visible:outline-primary'
+          'peer-focus-visible:outline-2 peer-focus-visible:outline-primary peer-focus-visible:outline-offset-2'
         )}
       >
         <span className={cn(
-          'absolute top-0.5 left-0.5 size-4.5 rounded-full bg-text-secondary transition-transform duration-300',
-          'peer-checked:translate-x-6 peer-checked:bg-white'
+          'absolute top-0.5 left-0.5 size-5 rounded-full bg-on-surface-muted transition-transform duration-200 ease-out',
+          'peer-checked:translate-x-6 peer-checked:bg-on-surface'
         )} />
       </span>
     </label>

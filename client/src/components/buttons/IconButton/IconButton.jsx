@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import { Link } from 'react-router-dom'
+import { Slot } from '@radix-ui/react-slot'
 import { cn } from '@/utils/cn'
-import { BUTTON_VARIANTS } from '@/constants/buttonStyles'
 
 const IconButton = forwardRef(function IconButton(
   {
@@ -9,6 +9,7 @@ const IconButton = forwardRef(function IconButton(
     label,
     to,
     href,
+    asChild = false,
     className,
     children,
     type = 'button',
@@ -16,48 +17,33 @@ const IconButton = forwardRef(function IconButton(
   },
   ref
 ) {
-  const classes = cn(
-    'inline-flex size-10 cursor-pointer items-center justify-center rounded-btn transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 disabled:pointer-events-none disabled:opacity-50',
-    BUTTON_VARIANTS[variant],
-    className
-  )
+  const Comp = asChild ? Slot : (to ? Link : (href ? 'a' : 'button'))
 
-  if (to) {
-    return (
-      <Link to={to} ref={ref} aria-label={label} title={label} className={classes} {...props}>
-        {children}
-      </Link>
-    )
+  const variants = {
+    secondary: 'inline-flex size-10 cursor-pointer items-center justify-center rounded-md bg-surface-raised text-on-surface border border-border transition-colors duration-150 hover:bg-surface hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-neutral disabled:opacity-50 disabled:cursor-not-allowed',
+    ghost: 'inline-flex size-10 cursor-pointer items-center justify-center rounded-md bg-transparent text-on-surface-muted transition-colors duration-150 hover:text-on-surface hover:bg-surface-raised focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-neutral disabled:opacity-50 disabled:cursor-not-allowed',
+    primary: 'inline-flex size-10 cursor-pointer items-center justify-center rounded-md bg-primary text-on-surface transition-colors duration-150 hover:bg-primary-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-neutral disabled:opacity-50 disabled:cursor-not-allowed',
   }
 
-  if (href) {
-    return (
-      <a
-        ref={ref}
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={label}
-        title={label}
-        className={classes}
-        {...props}
-      >
-        {children}
-      </a>
-    )
+  const classes = cn(variants[variant], className)
+
+  const propsWithAria = {
+    ...props,
+    'aria-label': label,
+    title: label,
+    ...(href ? { href, target: '_blank', rel: 'noopener noreferrer' } : {}),
   }
 
   return (
-    <button
+    <Comp
       ref={ref}
+      to={to}
       type={type}
-      aria-label={label}
-      title={label}
       className={classes}
-      {...props}
+      {...propsWithAria}
     >
       {children}
-    </button>
+    </Comp>
   )
 })
 

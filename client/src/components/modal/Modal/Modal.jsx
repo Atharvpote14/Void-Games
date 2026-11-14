@@ -52,28 +52,28 @@ function Modal({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-neutral/70 backdrop-blur-sm"
           />
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 12 }}
+            initial={{ opacity: 0, scale: 0.97, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 12 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
+            exit={{ opacity: 0, scale: 0.97, y: 8 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
             className={cn(
-              'relative w-full overflow-hidden rounded-hero border border-border-default bg-void-card shadow-hero',
+              'relative w-full overflow-hidden rounded-card border border-border bg-surface-raised shadow-card-hover',
               sizeClasses[size],
               className
             )}
           >
-            <div className="flex items-start justify-between gap-4 border-b border-border-default px-6 py-4">
+            <div className="flex items-start justify-between gap-4 border-b border-border px-4 py-3">
               <div>
                 {title && (
-                  <h2 className="font-display text-lg font-bold text-text-primary">
+                  <h2 className="text-headline-sm font-semibold text-on-surface">
                     {title}
                   </h2>
                 )}
                 {description && (
-                  <p className="mt-0.5 text-sm text-text-muted">{description}</p>
+                  <p className="mt-0.5 text-body-sm text-on-surface-muted">{description}</p>
                 )}
               </div>
               {!hideClose && (
@@ -81,13 +81,13 @@ function Modal({
                   type="button"
                   onClick={onClose}
                   aria-label="Close dialog"
-                  className="grid size-9 cursor-pointer place-items-center rounded-xl border border-border-default text-text-muted transition-colors hover:border-border-hover hover:text-text-primary"
+                  className="grid size-9 cursor-pointer place-items-center rounded-md border border-border text-on-surface-muted transition-colors hover:border-primary hover:text-on-surface"
                 >
                   <X className="size-4.5" />
                 </button>
               )}
             </div>
-            <div className="max-h-[70vh] overflow-y-auto px-6 py-5">{children}</div>
+            <div className="max-h-[70vh] overflow-y-auto px-4 py-4">{children}</div>
           </motion.div>
         </div>
       )}

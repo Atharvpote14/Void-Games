@@ -16,15 +16,15 @@ const SearchInput = forwardRef(function SearchInput(
   }
 
   const sizeClasses = {
-    sm: 'h-9 px-3 py-2 text-sm',
-    md: 'h-11 px-4 py-2.5 text-sm',
-    lg: 'h-13 px-5 py-3 text-base',
+    sm: 'h-9 pl-10 pr-4 text-body-sm',
+    md: 'h-11 pl-10 pr-4 text-body-md',
+    lg: 'h-13 pl-12 pr-5 text-body-lg',
   }
 
   return (
     <form onSubmit={handleSubmit} role="search" className={cn('relative w-full', className)}>
       <Search
-        className="pointer-events-none absolute left-4 top-1/2 size-4.5 -translate-y-1/2 text-text-muted transition-colors group-has-[input:focus]:text-secondary"
+        className="pointer-events-none absolute left-3 top-1/2 size-4.5 -translate-y-1/2 text-on-surface-muted transition-colors group-has-[input:focus]:text-primary"
         aria-hidden="true"
       />
       <input
@@ -34,8 +34,9 @@ const SearchInput = forwardRef(function SearchInput(
         placeholder={placeholder || 'Search games, guides, fixes...'}
         aria-label="Search"
         className={cn(
-          'input w-full pl-12 pr-4 transition-all duration-200',
-          'focus:border-primary focus:shadow-[0_0_0_3px_rgba(108,99,255,0.2)]',
+          'w-full rounded-input bg-surface text-on-surface border border-border placeholder:text-text-muted',
+          'transition-colors duration-150',
+          'hover:border-secondary focus:border-primary focus:shadow-[0_0_0_3px_rgba(42,169,224,0.15)] focus:outline-none',
           sizeClasses[size],
           inputClassName
         )}

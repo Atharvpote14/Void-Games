@@ -1,5 +1,6 @@
 import { forwardRef } from 'react'
 import { Link } from 'react-router-dom'
+import { Slot } from '@radix-ui/react-slot'
 import { cn } from '@/utils/cn'
 import { Spinner } from '@/components/common/Spinner/Spinner'
 import { BUTTON_VARIANTS, BUTTON_SIZES } from '@/constants/buttonStyles'
@@ -11,6 +12,7 @@ const Button = forwardRef(function Button(
     loading = false,
     disabled = false,
     to,
+    asChild = false,
     className,
     children,
     type = 'button',
@@ -18,8 +20,9 @@ const Button = forwardRef(function Button(
   },
   ref
 ) {
+  const Comp = asChild ? Slot : (to ? Link : 'button')
+
   const classes = cn(
-    'inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-btn font-semibold transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 disabled:pointer-events-none disabled:opacity-50',
     BUTTON_VARIANTS[variant],
     BUTTON_SIZES[size],
     className
@@ -31,24 +34,17 @@ const Button = forwardRef(function Button(
     children
   )
 
-  if (to) {
-    return (
-      <Link to={to} ref={ref} className={classes} {...props}>
-        {content}
-      </Link>
-    )
-  }
-
   return (
-    <button
+    <Comp
       ref={ref}
+      to={to}
       type={type}
       disabled={disabled || loading}
       className={classes}
       {...props}
     >
       {content}
-    </button>
+    </Comp>
   )
 })
 
