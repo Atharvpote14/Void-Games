@@ -14,18 +14,18 @@ function EmptyState({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
       className={cn(
-        'flex flex-col items-center gap-3 rounded-card border border-dashed border-border-default bg-void-card/50 px-6 py-16 text-center',
+        'flex w-full flex-col items-center gap-3 rounded-card border border-dashed border-border bg-surface/50 px-6 py-12 text-center',
         className
       )}
     >
       {Icon && (
-        <div className="grid size-14 place-items-center rounded-2xl border border-border-default bg-white/5">
-          <Icon className="size-6 text-text-muted" />
+        <div className="grid size-14 place-items-center rounded-xl border border-border bg-surface-raised">
+          <Icon className="size-6 text-on-surface-muted" />
         </div>
       )}
-      <h3 className="font-display text-lg font-bold text-text-primary">{title}</h3>
+      <h3 className="text-headline-sm font-semibold text-on-surface">{title}</h3>
       {description && (
-        <p className="max-w-sm text-sm text-text-muted">{description}</p>
+        <p className="text-body-md text-on-surface-muted leading-relaxed">{description}</p>
       )}
       {action}
     </motion.div>

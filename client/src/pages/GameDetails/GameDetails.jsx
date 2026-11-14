@@ -580,7 +580,7 @@ function GameDetails() {
                 </Button>
               }
             />
-            <Grid cols={4}>
+            <Grid cols={5}>
               {relatedGames.map((related) => (
                 <GameCard key={related.id} game={related} />
               ))}

@@ -25,6 +25,8 @@ import Settings from '@/pages/Settings/Settings'
 import SuggestGame from '@/pages/SuggestGame/SuggestGame'
 import SteamFreeGames from '@/pages/SteamFreeGames/SteamFreeGames'
 import Donate from '@/pages/Donate/Donate'
+import Categories from '@/pages/Categories/Categories'
+import Collections from '@/pages/Collections/Collections'
 import AdminDashboard from '@/pages/Admin/AdminDashboard/AdminDashboard'
 import AdminGames from '@/pages/Admin/AdminGames/AdminGames'
 import GameForm from '@/pages/Admin/AdminGames/GameForm'
@@ -82,6 +84,24 @@ const router = createBrowserRouter([
             path: 'fix/:slug',
             element: (
               <FixDetails />
+            ),
+          },
+          {
+            path: 'guides',
+            element: (
+              <Guides />
+            ),
+          },
+          {
+            path: 'categories',
+            element: (
+              <Categories />
+            ),
+          },
+          {
+            path: 'collections',
+            element: (
+              <Collections />
             ),
           },
           {

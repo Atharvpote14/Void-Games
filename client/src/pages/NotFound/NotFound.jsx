@@ -18,18 +18,18 @@ function NotFound() {
 
   return (
     <section className="flex min-h-[70vh] items-center justify-center px-4 py-20">
-      <div className="flex w-full max-w-md flex-col items-center gap-5 text-center">
-        <div className="grid size-20 place-items-center rounded-hero border border-border-default bg-void-card shadow-card">
+      <div className="flex w-full max-w-lg flex-col items-center gap-6 text-center">
+        <div className="grid size-20 place-items-center rounded-xl border border-border bg-surface shadow-card">
           <Ghost className="size-9 text-primary" />
         </div>
-        <div className="flex flex-col gap-2">
-          <span className="font-display text-7xl font-extrabold text-gradient">
+        <div className="flex flex-col gap-3">
+          <span className="font-display text-7xl font-extrabold bg-gradient-to-r from-primary via-primary-strong to-primary bg-clip-text text-transparent">
             404
           </span>
-          <h1 className="text-xl font-bold text-text-primary">
+          <h1 className="text-headline-lg font-bold text-on-surface">
             This page drifted into the void
           </h1>
-          <p className="text-sm text-text-muted">
+          <p className="text-body-md text-on-surface-muted max-w-md leading-relaxed">
             The page you are looking for does not exist or has been moved.
           </p>
         </div>
@@ -37,7 +37,7 @@ function NotFound() {
           value={value}
           onChange={(event) => setValue(event.target.value)}
           onSearch={handleSearch}
-          className="w-full"
+          className="w-full max-w-md"
         />
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Button to="/">Back to Home</Button>
@@ -47,7 +47,7 @@ function NotFound() {
         </div>
         <Link
           to="/"
-          className="text-sm text-text-muted transition-colors hover:text-primary"
+          className="text-body-sm text-on-surface-muted transition-colors hover:text-primary"
         >
           Or explore popular games →
         </Link>
